@@ -59,6 +59,8 @@
 			
 				<li><a href="/">主页</a></li>
 	        
+				<li><a href="/tags/随笔/">随笔</a></li>
+	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -113,6 +115,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -131,7 +135,9 @@
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 100%"><a href="/">主页</a></li>
+					<li style="width: 50%"><a href="/">主页</a></li>
+		        
+					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -147,6 +153,87 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-百钱百鸡小算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/14/百钱百鸡小算法/">百钱百鸡————Java小算法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/14/百钱百鸡小算法/" class="archive-article-date">
+  	<time datetime="2017-03-14T06:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：</p>
+<pre><code>鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
+</code></pre><p>大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？</p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>百钱买白鸡问题中，有三个变量：公鸡数量、母鸡数量、小鸡数量，分别设为x、y、z，这三者应该满足如下关系：</p>
+<pre><code>x+y+z=100；
+5x+3y+z/3=100；
+</code></pre><p>三个变量，两个方程，因此这是一个不定方程组，这导致求解的结果不唯一。</p>
+<h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><p>编写一段代码，用于计算<code>m</code>钱<code>n</code>鸡的问题,当<code>m=100</code>且<code>n=100</code>时,正好是百钱百鸡问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package com.example;</div><div class="line"></div><div class="line">public class Code &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        System.out.println(&quot;百钱百鸡问题的解为:&quot;);</div><div class="line">        buyChicken(100,100);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void buyChicken(int m,int n)&#123;</div><div class="line">        for (int x = 0;x &lt;= n;x++)  //公鸡数量</div><div class="line">           for (int y = 0;y &lt;= n;y++) &#123; //母鸡数量</div><div class="line">               if (x + y &lt;= n) &#123;    //公鸡和母鸡只和不能超过 n</div><div class="line">                   int z = n - x -y;    //小鸡数量, 用到第一个方程 x + y + z = n</div><div class="line">                   if (z%3 == 0 &amp;&amp; x*5 + y*3 + z/3 == m) &#123;</div><div class="line">                       //小鸡数量必须为3的倍数, 且当第二个方程成立时, 得到正确结果</div><div class="line">                       System.out.println(&quot;公鸡:&quot; + x +  &quot; 母鸡:&quot; + y + &quot; 小鸡:&quot; + z);</div><div class="line">                   &#125;else</div><div class="line">                       continue;    //当结果不满足条件时, 继续下一次循环</div><div class="line">               &#125;else</div><div class="line">                   break; //当公鸡和母鸡数超过 n 时, 退出当前循环</div><div class="line">           &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样，我们运行程序可以得到解：</p>
+<pre><code>百钱百鸡问题的解为:
+公鸡:0 母鸡:25 小鸡:75
+公鸡:4 母鸡:18 小鸡:78
+公鸡:8 母鸡:11 小鸡:81
+公鸡:12 母鸡:4 小鸡:84
+</code></pre><p>这里我采用了穷举的方法，将所有的值进行穷举，寻找方程组的解。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">小小算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/14/百钱百鸡小算法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
   
     <article id="post-我的第一个小项目——GEEK网工作室主页" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -355,6 +442,14 @@
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">小小算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">项目取经</a>
