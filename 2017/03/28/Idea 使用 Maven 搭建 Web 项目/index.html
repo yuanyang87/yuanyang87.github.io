@@ -6,30 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>我的第一个小项目——GEEK网工作室主页 | 袁咩咩的博客</title>
+  <title>Idea 使用 Maven 搭建 Web 项目 | 袁咩咩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="很快,就到了大二的寒假，大学的生活就这样过去了接近一半，之前听说大二寒假会有项目什么的,已经准好了心理准备。
-
-但第一次着手项目，还是有点小紧张
-
-在这之前我已经看了一些框架，也需要把框架应用起来。光是纸上谈兵是没有用的，在实际操作中，必有变数。">
+  <meta name="description" content="Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
+使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
+还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一个小项目——GEEK网工作室主页">
-<meta property="og:url" content="http://yoursite.com/2017/03/13/我的第一个小项目——GEEK网工作室主页/index.html">
+<meta property="og:title" content="Idea 使用 Maven 搭建 Web 项目">
+<meta property="og:url" content="http://yoursite.com/2017/03/28/Idea 使用 Maven 搭建 Web 项目/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="很快,就到了大二的寒假，大学的生活就这样过去了接近一半，之前听说大二寒假会有项目什么的,已经准好了心理准备。
-
-但第一次着手项目，还是有点小紧张
-
-在这之前我已经看了一些框架，也需要把框架应用起来。光是纸上谈兵是没有用的，在实际操作中，必有变数。">
-<meta property="og:updated_time" content="2017-03-13T11:28:39.249Z">
+<meta property="og:description" content="Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
+使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
+还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step1.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step2.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step3.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step4.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step5.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step6.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step7.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step8.png">
+<meta property="og:updated_time" content="2017-03-28T06:41:59.140Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的第一个小项目——GEEK网工作室主页">
-<meta name="twitter:description" content="很快,就到了大二的寒假，大学的生活就这样过去了接近一半，之前听说大二寒假会有项目什么的,已经准好了心理准备。
-
-但第一次着手项目，还是有点小紧张
-
-在这之前我已经看了一些框架，也需要把框架应用起来。光是纸上谈兵是没有用的，在实际操作中，必有变数。">
+<meta name="twitter:title" content="Idea 使用 Maven 搭建 Web 项目">
+<meta name="twitter:description" content="Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
+使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
+还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/step1.png">
   
     <link rel="alternative" href="/atom.xml" title="袁咩咩的博客" type="application/atom+xml">
   
@@ -165,40 +168,58 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-我的第一个小项目——GEEK网工作室主页" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Idea 使用 Maven 搭建 Web 项目" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      我的第一个小项目——GEEK网工作室主页
+      Idea 使用 Maven 搭建 Web 项目
     </h1>
   
 
         
-        <a href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/" class="archive-article-date">
-  	<time datetime="2017-03-13T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
+        <a href="/2017/03/28/Idea 使用 Maven 搭建 Web 项目/" class="archive-article-date">
+  	<time datetime="2017-03-28T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code>很快,就到了大二的寒假，大学的生活就这样过去了接近一半，之前听说大二寒假会有项目什么的,已经准好了心理准备。
-
-但第一次着手项目，还是有点小紧张
-
-在这之前我已经看了一些框架，也需要把框架应用起来。光是纸上谈兵是没有用的，在实际操作中，必有变数。
+        <p>Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。</p>
+<pre><code>使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
+还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）
 </code></pre><a id="more"></a>
-<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>我们组是5个前端，一个后台。并我担任组长。看了之前学长学姐们做的主页，我们也慢慢开始琢磨我们自己网站的构造。</p>
-<p>可是没有UI、没有产品，这对于我来说是一次历练，因为我之前没有经验，不知道整个项目流程是什么，但这也是这次项目的目的，让我们<strong>熟悉项目流程</strong>。</p>
-<p>我们在放假后进行了两次讨论，确定我们用什么技术、做成什么样等等；我画出了所有页面的原型图，整理了网站运行流程然后分配任务。</p>
-<h4 id="制作网站"><a href="#制作网站" class="headerlink" title="制作网站"></a>制作网站</h4><p>当着手代码的时候，我发现网站的逻辑其实非常简单，因为是一个介绍性的网站，虽然有些内容需要连接数据库，但整个运行逻辑很清晰。</p>
-<p>由于只有我一个后台，所以我必须早日完成，并把接口给他们，我用了4-5天完成整个代码的书写并完成自测。</p>
-<p>我和长街（花名）一起完成后台了管理页面，而其他四个前端写的主页面。我估计他们用了一周左右吧，因为大家都是第一次，对交互需要摸索。</p>
-<h4 id="发现不足"><a href="#发现不足" class="headerlink" title="发现不足"></a>发现不足</h4><p>本来我为我们的项目搭建了一个github项目，方便代码共享，但只有我一个后台，我并没有太在意去用这个。而他们5个前端也没使用github，我觉得这是一个不足的地方，每次他们更新了代码都要发给我，在我这里测试，即使我为他们搭建了环境之后，当我的代码改动之后，他们的又需要更新。我作为组长，应该组织他们使用起来，不然交互的时候会非常麻烦，以后希望我们都能改进。</p>
-<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><p>总的来说，我觉得还行吧。虽然我设计的后台的管理页面有点丑，毕竟我对这方面没有灵感。这次对我们6个人来说都是一次成长，虽然项目很小，并且只有我们知道，但是麻雀虽小五脏俱全。我们得到锻炼就行了，这就是目的。希望以后的项目我们要避免我们这次项目里面发现的问题，提高合作效率，做得更好！</p>
+<p>搭建Web工程步骤：</p>
+<ol>
+<li>File-&gt;new-&gt;Project 选择 Maven 创建一个简单的 Web 工程</li>
+</ol>
+<p><img src="http://omuut7fta.bkt.clouddn.com/step1.png" alt="第一步"></p>
+<ol>
+<li>输入  GroupId 与 ArtifactId 用来唯一标识你的项目</li>
+</ol>
+<p><img src="http://omuut7fta.bkt.clouddn.com/step2.png" alt="image"></p>
+<ol>
+<li>添加一个变量 </li>
+</ol>
+<p><img src="http://omuut7fta.bkt.clouddn.com/step3.png" alt="image"></p>
+<ol>
+<li>输入项目名称完成创建，并得到如下的目录</li>
+</ol>
+<p><img src="http://omuut7fta.bkt.clouddn.com/step4.png" alt="image"></p>
+<p>此时还并没有创建完毕，还需要做一些简单的修饰</p>
+<ol>
+<li>Ctrl+Alt+Shift+s 打开 Project Structure ，添加文件夹，并设置相应的功能模块</li>
+</ol>
+<p><img src="http://omuut7fta.bkt.clouddn.com/step5.png" alt="image"></p>
+<ol>
+<li>添加 Tomcat 服务器</li>
+</ol>
+<p><img src="http://omuut7fta.bkt.clouddn.com/step6.png" alt="image"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/step7.png" alt="image"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/step8.png" alt="image"></p>
 
       
 
@@ -238,7 +259,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">项目取经</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">小技巧</a>
         		</li>
       		
 		</ul>
@@ -294,7 +315,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/03/13/我的第一个小项目——GEEK网工作室主页/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/03/28/Idea 使用 Maven 搭建 Web 项目/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -308,18 +329,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/03/14/百钱百鸡小算法/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          百钱百鸡————Java小算法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/07/test/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Test</div>
+    <a href="/2017/03/15/汉诺塔(Hanoi)——小小算法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hanoi(汉诺塔)————Java小算法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -333,7 +345,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="我的第一个小项目——GEEK网工作室主页" data-title="我的第一个小项目——GEEK网工作室主页" data-url="http://yoursite.com/2017/03/13/我的第一个小项目——GEEK网工作室主页/"></div>
+	<div class="ds-thread" data-thread-key="Idea 使用 Maven 搭建 Web 项目" data-title="Idea 使用 Maven 搭建 Web 项目" data-url="http://yoursite.com/2017/03/28/Idea 使用 Maven 搭建 Web 项目/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
