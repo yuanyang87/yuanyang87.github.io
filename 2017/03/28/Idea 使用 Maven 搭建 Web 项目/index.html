@@ -18,21 +18,21 @@
 <meta property="og:description" content="Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
 使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
 还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step1.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step2.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step3.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step4.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step5.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step6.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step8.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/step7.png">
-<meta property="og:updated_time" content="2017-03-28T06:46:47.099Z">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/create_1.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/create_2.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/addProperty.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/end.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/directory.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_1.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_2.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_3.png">
+<meta property="og:updated_time" content="2017-03-29T02:47:18.899Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Idea 使用 Maven 搭建 Web 项目">
 <meta name="twitter:description" content="Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
 使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
 还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）">
-<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/step1.png">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/create_1.png">
   
     <link rel="alternative" href="/atom.xml" title="袁咩咩的博客" type="application/atom+xml">
   
@@ -194,33 +194,46 @@
 </code></pre><a id="more"></a>
 <p>搭建Web工程步骤：</p>
 <ol>
-<li>File-&gt;new-&gt;Project 选择 Maven 创建一个简单的 Web 工程</li>
+<li><code>File-&gt;new-&gt;Project</code> 选择 <code>Maven</code> 创建一个简单的 <code>Web</code>工程</li>
 </ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/step1.png" alt="第一步"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/create_1.png" alt="第一步"></p>
 <ol>
-<li>输入  GroupId 与 ArtifactId 用来唯一标识你的项目</li>
+<li>输入  <code>GroupId</code> 与 <code>ArtifactId</code> 用来唯一标识你的项目</li>
 </ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/step2.png" alt="image"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/create_2.png" alt="image"></p>
 <ol>
-<li>添加一个变量 </li>
+<li>添加一个变量,目的是为了让 <code>Idea</code> 创建 <code>Maven</code> 项目更快</li>
 </ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/step3.png" alt="image"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/addProperty.png" alt="image"></p>
 <ol>
 <li>输入项目名称完成创建，并得到如下的目录</li>
 </ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/step4.png" alt="image"></p>
-<p>此时还并没有创建完毕，还需要做一些简单的修饰</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/end.png" alt="image"></p>
+<p>此时还并不算创建完毕，虽然添加服务器后可以运行，但还需要做一些简单的修饰</p>
 <ol>
-<li>Ctrl+Alt+Shift+s 打开 Project Structure ，添加文件夹，并设置相应的功能模块</li>
+<li><p><code>Ctrl+Alt+Shift+s</code> 打开 <code>Project Structure</code> ，添加文件夹，并设置相应的功能模块</p>
+<ul>
+<li>main目录下添加一个 <code>java</code> 文件夹，设置为 <code>Sources</code></li>
+<li>src 目录下添加一个 <code>test</code> 文件夹,用于存放测试相关文件</li>
+<li>test 目录下添加一个 <code>java</code> 文件夹，设置为 <code>Tests</code></li>
+<li>test 目录下添加一个 <code>resources</code> 文件夹，设置为 <code>Test Resources</code></li>
+</ul>
+</li>
 </ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/step5.png" alt="image"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/directory.png" alt="image"></p>
 <ol>
-<li>添加 Tomcat 服务器</li>
+<li><p>添加 <code>Tomcat</code>服务器</p>
+<ul>
+<li>点击上面的按钮，<code>Edit Configurations...</code></li>
+<li>点击 <code>+</code> 添加本地服务器</li>
+<li>发布当前的项目</li>
+</ul>
+</li>
 </ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/step6.png" alt="image"></p>
-<p><img src="http://omuut7fta.bkt.clouddn.com/step8.png" alt="image"></p>
-<p><img src="http://omuut7fta.bkt.clouddn.com/step7.png" alt="image"></p>
-<p>此时就可以启动服务器!</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_1.png" alt="image"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_2.png" alt="image"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_3.png" alt="image"></p>
+<p>至此，<code>Web</code> 项目搭建完毕，就可以疯狂撸代码了，请开始你的表演~</p>
 
       
 
@@ -454,11 +467,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目取经</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目取经</a>
+                <a href="javascript:void(0)" class="js-tag color4">小技巧</a>
               </li>
              
               <li class="article-tag-list-item">

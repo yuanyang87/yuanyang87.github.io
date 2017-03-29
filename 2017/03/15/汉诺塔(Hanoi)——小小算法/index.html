@@ -26,11 +26,11 @@
 去，且一个比一个小。勃拉玛要求众僧将该金刚石棒中的金片逐个地移动到另一根棒
 上，规定：
     一次只能移动一个金片，且金片在放到棒上时，只能大的放在小的下面，但是可以利用中间">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/start.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CtoB.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/BtoC.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/end.png">
-<meta property="og:updated_time" content="2017-03-15T14:26:47.145Z">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/Hanoi/start.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/Hanoi/CtoB.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/Hanoi/BtoC.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/Hanoi/end.png">
+<meta property="og:updated_time" content="2017-03-29T02:28:56.874Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hanoi(汉诺塔)————Java小算法">
 <meta name="twitter:description" content="汉诺(Hanoi)塔源于古印度,是非常著名的智力趣题,大意如下：
@@ -40,7 +40,7 @@
 去，且一个比一个小。勃拉玛要求众僧将该金刚石棒中的金片逐个地移动到另一根棒
 上，规定：
     一次只能移动一个金片，且金片在放到棒上时，只能大的放在小的下面，但是可以利用中间">
-<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/start.png">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/Hanoi/start.png">
   
     <link rel="alternative" href="/atom.xml" title="袁咩咩的博客" type="application/atom+xml">
   
@@ -243,7 +243,7 @@
 <li>将B棒上的圆盘借助A棒移动到C棒上</li>
 </ol>
 <p>当然，当只有一个盘子时只需A ——&gt; C;两个盘子的时候，也不需要中介。</p>
-<p>初态:<br><img src="http://omuut7fta.bkt.clouddn.com/start.png" alt="image"><br>移动n-1个圆盘:<br><img src="http://omuut7fta.bkt.clouddn.com/CtoB.png" alt="image"><br>移动剩下的一个盘:<br><img src="http://omuut7fta.bkt.clouddn.com/BtoC.png" alt="image"><br>移动B棒上的盘:<br><img src="http://omuut7fta.bkt.clouddn.com/end.png" alt="image"></p>
+<p>初态:<br><img src="http://omuut7fta.bkt.clouddn.com/Hanoi/start.png" alt="image"><br>移动n-1个圆盘:<br><img src="http://omuut7fta.bkt.clouddn.com/Hanoi/CtoB.png" alt="image"><br>移动剩下的一个盘:<br><img src="http://omuut7fta.bkt.clouddn.com/Hanoi/BtoC.png" alt="image"><br>移动B棒上的盘:<br><img src="http://omuut7fta.bkt.clouddn.com/Hanoi/end.png" alt="image"></p>
 <h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">package com.yuanyang.example;</div><div class="line"></div><div class="line">import java.util.Scanner;</div><div class="line"></div><div class="line">public class Hanoi &#123;</div><div class="line"></div><div class="line">    static long count;  //移动的次数</div><div class="line"></div><div class="line">    /**</div><div class="line">     * @param n 盘子总数</div><div class="line">     * @param a A棒</div><div class="line">     * @param b B棒</div><div class="line">     * @param c C棒</div><div class="line">     * @param disk 用来输出移动的第k个盘子</div><div class="line">     */</div><div class="line">    static void move(int n,char a,char b,char c,int disk)&#123;//A棒借助B棒移动到C棒</div><div class="line">        disk --;</div><div class="line">        if (n==1) &#123;//当只有一个盘子的时候,直接从A棒移动至C棒</div><div class="line">            System.out.printf(&quot;第%d次移动:\t第%d个盘子,圆盘从%c移动到%c棒\n&quot;,++count,disk,a,c);</div><div class="line">        &#125;else &#123;//当盘子大于一的时候。</div><div class="line">            move(n-1,a,c,b,disk);//将A棒上的n-1个盘子借助C棒移动到B棒</div><div class="line">            System.out.printf(&quot;第%d次移动:\t第%d个盘子,圆盘从%c移动到%c棒\n&quot;,++count,disk,a,c);//将最后一张盘子从A棒移到C棒</div><div class="line">            move(n-1,b,a,c,disk);//将B棒上剩下的n-1个盘子借助A棒移动到C棒</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Scanner input = new Scanner(System.in);</div><div class="line">        System.out.println(&quot;请输入圆盘数:&quot;);</div><div class="line">        int n = input.nextInt();</div><div class="line">        move(n,&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,n + 1);</div><div class="line">        System.out.printf(&quot;一共进行了%d次移动\n&quot;,count);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这样，我们就可以得到结果了。但是，可以发现，移动的次数n和盘子数x存在 x = 2^n-1 的关系，所以，当盘子达到64个的时候，次数达到了18446744073709551615次，这就很尴尬了，这群僧人估计搬完是没戏了。</p>
 
@@ -492,11 +492,11 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color5">项目取经</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">项目取经</a>
+                <a href="javascript:void(0)" class="js-tag color4">小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
