@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="袁咩咩的博客">
 <meta property="og:description" content="使用这个插件可以快速生成一些代码,包含 实体类/Mapper接口/*Mapper.xml文件
 首先,我们需要搭建一个Maven的项目。">
-<meta property="og:updated_time" content="2017-04-19T14:39:04.417Z">
+<meta property="og:updated_time" content="2017-04-19T14:42:01.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Idea-使用Mybatis-generator插件快速生成Mybatis相关代码">
 <meta name="twitter:description" content="使用这个插件可以快速生成一些代码,包含 实体类/Mapper接口/*Mapper.xml文件
@@ -183,6 +183,9 @@
 <p>注意,<code>plugins</code>标签是<code>build</code>标签的子标签</p>
 <p>添加好之后,我们就需要配置<code>mybatis-generator-config.xml</code>配置文件中的代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</div><div class="line">&lt;!DOCTYPE generatorConfiguration PUBLIC</div><div class="line">        &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</div><div class="line">        &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot; &gt;</div><div class="line">&lt;generatorConfiguration&gt;</div><div class="line"></div><div class="line">    &lt;!-- 本地数据库驱动程序jar包的全路径 --&gt;</div><div class="line">    &lt;classPathEntry location=&quot;&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;context id=&quot;context&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</div><div class="line">        &lt;commentGenerator&gt;</div><div class="line">            &lt;property name=&quot;suppressAllComments&quot; value=&quot;false&quot;/&gt;</div><div class="line">            &lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;/&gt;</div><div class="line">        &lt;/commentGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- 数据库的相关配置 --&gt;</div><div class="line">        &lt;jdbcConnection driverClass=&quot;&quot; connectionURL=&quot;&quot; userId=&quot;&quot; password=&quot;&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;javaTypeResolver&gt;</div><div class="line">            &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;</div><div class="line">        &lt;/javaTypeResolver&gt;</div><div class="line"></div><div class="line">        &lt;!-- 实体类生成的位置 --&gt;</div><div class="line">        &lt;javaModelGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot;&gt;</div><div class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;</div><div class="line">            &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;/&gt;</div><div class="line">        &lt;/javaModelGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- *Mapper.xml 文件的位置 --&gt;</div><div class="line">        &lt;sqlMapGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot;&gt;</div><div class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;</div><div class="line">        &lt;/sqlMapGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- Mapper 接口文件的位置 --&gt;</div><div class="line">        &lt;javaClientGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot; type=&quot;XMLMAPPER&quot;&gt;</div><div class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;</div><div class="line">        &lt;/javaClientGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- 相关表的配置 --&gt;</div><div class="line">        &lt;table tableName=&quot;表名&quot; enableCountByExample=&quot;false&quot; enableDeleteByExample=&quot;false&quot; enableSelectByExample=&quot;false&quot;</div><div class="line">               enableUpdateByExample=&quot;false&quot;/&gt;</div><div class="line">    &lt;/context&gt;</div><div class="line">&lt;/generatorConfiguration&gt;</div></pre></td></tr></table></figure>
+<p>随后,在<code>idea</code>的右侧栏点击Maven,选中添加的Mybatis-generator插件并运行,就可以得到相应的代码啦~</p>
+<p>是不是很简单啊?</p>
+<p>那就快动手试试吧!</p>
 
       
 
@@ -428,6 +431,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
@@ -441,14 +452,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
