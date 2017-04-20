@@ -6,21 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Idea-使用Mybatis-generator插件快速生成Mybatis相关代码 | 袁咩咩的博客</title>
+  <title>Spring的声明式事务-Transactional | 袁咩咩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用这个插件可以快速生成一些代码,包含 实体类/Mapper接口/*Mapper.xml文件
-首先,我们需要搭建一个Maven的项目。">
+  <meta name="description" content="一、Spring的声明式事务
+需要在xml文件中配置
+12345678910111213141516171819202122232425&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTrans">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Idea-使用Mybatis-generator插件快速生成Mybatis相关代码">
-<meta property="og:url" content="http://yoursite.com/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/index.html">
+<meta property="og:title" content="Spring的声明式事务-Transactional">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/Transactional-Spring的声明式事务/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="使用这个插件可以快速生成一些代码,包含 实体类/Mapper接口/*Mapper.xml文件
-首先,我们需要搭建一个Maven的项目。">
-<meta property="og:updated_time" content="2017-04-19T14:42:01.796Z">
+<meta property="og:description" content="一、Spring的声明式事务
+需要在xml文件中配置
+12345678910111213141516171819202122232425&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTrans">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
+<meta property="og:updated_time" content="2017-04-20T08:56:19.566Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Idea-使用Mybatis-generator插件快速生成Mybatis相关代码">
-<meta name="twitter:description" content="使用这个插件可以快速生成一些代码,包含 实体类/Mapper接口/*Mapper.xml文件
-首先,我们需要搭建一个Maven的项目。">
+<meta name="twitter:title" content="Spring的声明式事务-Transactional">
+<meta name="twitter:description" content="一、Spring的声明式事务
+需要在xml文件中配置
+12345678910111213141516171819202122232425&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTrans">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
   
     <link rel="alternative" href="/atom.xml" title="袁咩咩的博客" type="application/atom+xml">
   
@@ -156,36 +161,65 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-idea-使用Mybatis-generator插件快速生成Mybatis代码" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Transactional-Spring的声明式事务" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Idea-使用Mybatis-generator插件快速生成Mybatis相关代码
+      Spring的声明式事务-Transactional
     </h1>
   
 
         
-        <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/" class="archive-article-date">
-  	<time datetime="2017-04-19T14:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-19</time>
+        <a href="/2017/04/20/Transactional-Spring的声明式事务/" class="archive-article-date">
+  	<time datetime="2017-04-20T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>使用这个插件可以快速生成一些代码,包含 实体类/Mapper接口/*Mapper.xml文件</p>
-<p>首先,我们需要搭建一个<code>Maven</code>的项目。</p>
-<a id="more"></a>
-<p>在<code>pom.xml</code>中添加代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;plugins&gt;</div><div class="line">      &lt;plugin&gt;</div><div class="line">        &lt;!--Mybatis-generator插件,用于自动生成Mapper和POJO--&gt;</div><div class="line">        &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</div><div class="line">        &lt;version&gt;1.3.2&lt;/version&gt;</div><div class="line">        &lt;configuration&gt;</div><div class="line">          &lt;!--配置文件的位置--&gt;</div><div class="line">          &lt;configurationFile&gt;yourLocation/mybatis-generator-config.xml&lt;/configurationFile&gt;</div><div class="line">          &lt;verbose&gt;true&lt;/verbose&gt;</div><div class="line">          &lt;overwrite&gt;true&lt;/overwrite&gt;</div><div class="line">        &lt;/configuration&gt;</div><div class="line">        &lt;executions&gt;</div><div class="line">          &lt;execution&gt;</div><div class="line">            &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</div><div class="line">            &lt;goals&gt;</div><div class="line">              &lt;goal&gt;generate&lt;/goal&gt;</div><div class="line">            &lt;/goals&gt;</div><div class="line">          &lt;/execution&gt;</div><div class="line">        &lt;/executions&gt;</div><div class="line">        &lt;dependencies&gt;</div><div class="line">          &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;mybatis-generator-core&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;1.3.2&lt;/version&gt;</div><div class="line">          &lt;/dependency&gt;</div><div class="line">        &lt;/dependencies&gt;</div><div class="line">      &lt;/plugin&gt;</div><div class="line">    &lt;/plugins&gt;</div></pre></td></tr></table></figure></p>
-<p>注意,<code>plugins</code>标签是<code>build</code>标签的子标签</p>
-<p>添加好之后,我们就需要配置<code>mybatis-generator-config.xml</code>配置文件中的代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</div><div class="line">&lt;!DOCTYPE generatorConfiguration PUBLIC</div><div class="line">        &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</div><div class="line">        &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot; &gt;</div><div class="line">&lt;generatorConfiguration&gt;</div><div class="line"></div><div class="line">    &lt;!-- 本地数据库驱动程序jar包的全路径 --&gt;</div><div class="line">    &lt;classPathEntry location=&quot;&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;context id=&quot;context&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</div><div class="line">        &lt;commentGenerator&gt;</div><div class="line">            &lt;property name=&quot;suppressAllComments&quot; value=&quot;false&quot;/&gt;</div><div class="line">            &lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;/&gt;</div><div class="line">        &lt;/commentGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- 数据库的相关配置 --&gt;</div><div class="line">        &lt;jdbcConnection driverClass=&quot;&quot; connectionURL=&quot;&quot; userId=&quot;&quot; password=&quot;&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;javaTypeResolver&gt;</div><div class="line">            &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;</div><div class="line">        &lt;/javaTypeResolver&gt;</div><div class="line"></div><div class="line">        &lt;!-- 实体类生成的位置 --&gt;</div><div class="line">        &lt;javaModelGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot;&gt;</div><div class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;</div><div class="line">            &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;/&gt;</div><div class="line">        &lt;/javaModelGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- *Mapper.xml 文件的位置 --&gt;</div><div class="line">        &lt;sqlMapGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot;&gt;</div><div class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;</div><div class="line">        &lt;/sqlMapGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- Mapper 接口文件的位置 --&gt;</div><div class="line">        &lt;javaClientGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot; type=&quot;XMLMAPPER&quot;&gt;</div><div class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;</div><div class="line">        &lt;/javaClientGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- 相关表的配置 --&gt;</div><div class="line">        &lt;table tableName=&quot;表名&quot; enableCountByExample=&quot;false&quot; enableDeleteByExample=&quot;false&quot; enableSelectByExample=&quot;false&quot;</div><div class="line">               enableUpdateByExample=&quot;false&quot;/&gt;</div><div class="line">    &lt;/context&gt;</div><div class="line">&lt;/generatorConfiguration&gt;</div></pre></td></tr></table></figure>
-<p>随后,在<code>idea</code>的右侧栏点击Maven,选中添加的Mybatis-generator插件并运行,就可以得到相应的代码啦~</p>
-<p>是不是很简单啊?</p>
-<p>那就快动手试试吧!</p>
+        <p>一、Spring的声明式事务</p>
+<p>需要在<code>xml</code>文件中配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!-- mroe --&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;tx:advice.../&gt;</code>节点详情如下图<br><img src="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png" alt="tx:advice"></p>
+<blockquote>
+<p>name:指定方法的名称可以使用通配符</p>
+<p>propagation:指定事务的传播行为,默认为为<code>PROPAGATION_REQUIRED</code></p>
+<blockquote>
+<p><code>PROPAGATION_REQUIRED</code>:要求在事务环境中执行该方法,如果当前执行线程已经处于事务环境中,则直接调用;如果当前线程不处于事务环境中,则启动新的事务后执行该方法.</p>
+<p><code>PROPAGATION_MANDATORY</code>:要求调用该方法的线程必须处于事务中,否则抛出异常</p>
+<p><code>PROPAGATION_NESTED</code>:即使执行该方法的线程已经处于事务中们也依然启动新的事务,方法在嵌套的事务里执行;即使执行该方法的线程未处于事务环境中,也启动新的事务,然后执行该方法,此时与默认情况一致.</p>
+<p><code>PROPAGATION_NEVER</code>:不允许调用该方法的线程处于事务环境中,如果调用该方法的线程处于事务环境中,则抛出异常</p>
+<p><code>PROPAGATION_NOT_SUPPORTED</code>:如果调用该方法的线程处于事务中,则先暂停当前事务,然后执行该方法</p>
+<p><code>PROPAGATION_REQUIRED_NEW</code>:该方法要求在新的事务环境中执行,如果当前执行线程已处于事务环境中,则先暂停当前事务,启动新的事务后执行该方法,如果当前线程不处于事务环境中,则启动新的事务后执行方法.</p>
+<p><code>PROPAGATION_SUPPORTS</code>:如果当前线程处于事务环境中,则使用当前事务,否则不使用事务</p>
+</blockquote>
+<p>isolation:指定事务的隔离级别</p>
+<p>timeout:指定事务的超时时间</p>
+<p>read-only:指定事务是否只读</p>
+<p>rollback-for:指定触发事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
+<p>no-rollback-for:指定不处罚事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
+</blockquote>
+<p>二、使用<code>@Transactional</code>注解进行事务管理</p>
+<p>需要在<code>xml</code>文件里配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">          class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">        &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line">&lt;!--启动@Transactional注解--&gt;</div><div class="line">&lt;tx:annotation-driven transaction-manager = &quot;transactionManager&quot;/&gt;</div></pre></td></tr></table></figure>
+<p><code>@Transactional</code>注解即可以用于修饰<code>Spring Bean</code>类,也可以用于修饰<code>Bean</code>类中的某个方法</p>
+<p>如果使用该注解修饰<code>Bean</code>类,表明这些事务设置对整个<code>Bean</code>起作用;如果使用该注解修饰<code>Bean</code>类的方法,则表明这些事务设置只对该方法有效。</p>
+<p><code>@Transactional</code>注解的属性:</p>
+<blockquote>
+<p>isolation:用于指定事物的隔离级别.默认为底层事务的隔离级别</p>
+<p>noRollbackFor:用于指定遇到某个特定异常时强制不回滚事务</p>
+<p>noRollbackForClassName:指定遇到特定的多个异常时强制不回滚事务,可以指定多个异常类名</p>
+<p>propagation:指定事务的传播行为</p>
+<p>readOnly:指定是否只读</p>
+<p>rollbackFor:指定遇到特定异常时强制回滚事务</p>
+<p>rollbackForClassName:指定遇到特定的多个异常时强制回滚事务.可以设置多个异常类名</p>
+<p>timeout:指定事务的超时时长</p>
+</blockquote>
+<p><code>@Transactional</code>注解中所指定的属性与<code>&lt;tx:advice.../&gt;</code>元素中所指定的事务属性基本上是对应的。</p>
 
       
 
@@ -225,15 +259,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">小技巧</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mybatis</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
@@ -289,7 +319,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/20/Transactional-Spring的声明式事务/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -303,18 +333,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/20/Transactional-Spring的声明式事务/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Spring的声明式事务-Transactional
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/28/Idea 使用 Maven 搭建 Web 项目/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Idea 使用 Maven 搭建 Web 项目</div>
+    <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Idea-使用Mybatis-generator插件快速生成Mybatis相关代码</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -328,7 +349,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="idea-使用Mybatis-generator插件快速生成Mybatis代码" data-title="Idea-使用Mybatis-generator插件快速生成Mybatis相关代码" data-url="http://yoursite.com/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/"></div>
+	<div class="ds-thread" data-thread-key="Transactional-Spring的声明式事务" data-title="Spring的声明式事务-Transactional" data-url="http://yoursite.com/2017/04/20/Transactional-Spring的声明式事务/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
