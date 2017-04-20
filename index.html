@@ -175,8 +175,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>一、Spring的声明式事务</p>
+<!-- mroe -->
 <p>需要在<code>xml</code>文件中配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!-- mroe --&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
 <p><code>&lt;tx:advice.../&gt;</code>节点详情如下图<br><img src="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png" alt="tx:advice"></p>
 <blockquote>
 <p>name:指定方法的名称可以使用通配符</p>
@@ -800,6 +801,10 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
               </li>
              
@@ -813,10 +818,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">小小算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
             
             <div class="clearfix"></div>
