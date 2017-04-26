@@ -6,17 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 小小算法 | 袁咩咩的博客</title>
+  <title>高性能Mysql学习笔记之事务 | 袁咩咩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Be The One You Wanna Be!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="袁咩咩的博客">
-<meta property="og:url" content="http://yoursite.com/tags/小小算法/index.html">
+  <meta name="description" content="什么是事务?事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，要么全部执行成功，要么全部执行失败。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高性能Mysql学习笔记之事务">
+<meta property="og:url" content="http://yoursite.com/2017/04/26/高性能Mysql学习笔记之事务/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="Be The One You Wanna Be!">
+<meta property="og:description" content="什么是事务?事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，要么全部执行成功，要么全部执行失败。">
+<meta property="og:updated_time" content="2017-04-26T16:22:30.322Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="袁咩咩的博客">
-<meta name="twitter:description" content="Be The One You Wanna Be!">
+<meta name="twitter:title" content="高性能Mysql学习笔记之事务">
+<meta name="twitter:description" content="什么是事务?事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，要么全部执行成功，要么全部执行失败。">
   
     <link rel="alternative" href="/atom.xml" title="袁咩咩的博客" type="application/atom+xml">
   
@@ -152,106 +153,263 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-高性能Mysql学习笔记之事务" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/15/汉诺塔(Hanoi)——小小算法/" class="archive-article-date">
-  	<time datetime="2017-03-15T06:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/15/汉诺塔(Hanoi)——小小算法/">Hanoi(汉诺塔)————Java小算法</a>
+    <h1 class="article-title" itemprop="name">
+      高性能Mysql学习笔记之事务
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/04/26/高性能Mysql学习笔记之事务/" class="archive-article-date">
+  	<time datetime="2017-04-26T15:48:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务?"></a>什么是事务?</h3><p>事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，<strong>要么全部执行成功，要么全部执行失败</strong>。</p>
+<a id="more"></a>
+<h3 id="事务的ACID特性"><a href="#事务的ACID特性" class="headerlink" title="事务的ACID特性"></a>事务的ACID特性</h3><p>ACID表示事务的原子性(atomicity)、一致性(consistency)、隔离性(isolation)、持久性(durability)。一个运行良好的事务处理系统，必须具备这些标准特性。</p>
+<blockquote>
+<p>原子性(atomicity)</p>
+</blockquote>
+<p>一个事务必须被视为一个不可分割的最小工作单元,整个事务中的所有操作要么全部提交成功,要么全部失败回滚,对于一个事务来说,不可能只执行其中的一部分操作。</p>
+<blockquote>
+<p>一致性(consistency)</p>
+</blockquote>
+<p>数据库总是从一个一致性的状态换到另一个一致性的状态。</p>
+<blockquote>
+<p>隔离性(isolation)</p>
+</blockquote>
+<p><strong>通常来说</strong>：一个事务所做的修改在最终提交前,对其他事务是不可见的。</p>
+<blockquote>
+<p>持久性(durability)</p>
+</blockquote>
+<p>一旦事务提交,则其所做的修改就会永久保存到数据库中。此时即使系统崩溃,修改的数据也不会丢失。</p>
+<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><blockquote>
+<p>READ UNCOMMITTED(读未提交)</p>
+</blockquote>
+<p>也叫==脏读==,在这个级别中,事务中的修改,即使没有提交,对其他事务也是可见的.一般都不采用.</p>
+<blockquote>
+<p>READ COMMITTED(读已提交)</p>
+</blockquote>
+<p>也叫==不可重复读==,因为两次相同的查询可能得到不同的结果.大多数数据库都默认使用这种隔离级别,一个事务从开始直到提交之前,所做的任何修改对其他事务都是不可见的.</p>
+<blockquote>
+<p>REPEATABLE READ(可重复读)</p>
+</blockquote>
+<p>==Mysql默认隔离级别==解决了==脏读==的问题,该级别保证了在同一个事务中多次读取同样的记录结果是一样的.但无法解决==幻读==的问题。幻读(Phantom Read),指当某个事务在读取某个范围内的记录时,另外一个事务又在该范围插入了新的记录,当之前的事务再次读取该范围的记录时,会产生换行(Phantom Row)。InnoDB和XtraDB存储引擎通过多版本并发控制解决了幻读问题。</p>
+<blockquote>
+<p>SERIALIZABLE(可串行化)</p>
+</blockquote>
+<p>这是最高的个理解别,它会通过强制事务串行执行,避免了前面说的幻读问题.简单地说SERIALIZABLE会在读取的每一行数据上都加上锁,所以可能导致大量的超时和争锁时间的问题.实际应用中也很少使用,只有在急需要保持数据一致且接受没有并发的情况下,才考虑使用.</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读可能性</th>
+<th>不可重复读可能性</th>
+<th>幻读可能性</th>
+<th>加锁读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>READ UNCOMMITTED</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>READ COMMITTED</td>
+<td>NO</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>REPEATABLE</td>
+<td>NO</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>死锁是指两个或多个事务在同一个资源上相互占用,并请求锁定对方占用的资源,从而导致恶性循环的现象.当多个事务试图以不同的顺序锁定资源时,就可能会产生死锁,多个事务同时锁定同一个资源时,也会产生死锁</p>
+<p>例如:</p>
+<blockquote>
+<p>事务1:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start transaction;</div><div class="line">update stock_price set close = 45.50 where stock_id = 4 and date = &apos;2017-4-26&apos;;</div><div class="line">update stock_price set close = 19.80 where stock_id = 3 and date = &apos;2017-4-27&apos;;</div><div class="line">commit;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>事务2:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start transaction;</div><div class="line">update stock_price set high = 20.10 where stock_id = 3 and date = &apos;2017-4-27&apos;;</div><div class="line">update stock_price set high = 47.20 where stock_id = 4 and date = &apos;2017-4-26&apos;;</div><div class="line">commit;</div></pre></td></tr></table></figure>
+<p>如果凑巧,两个事务均执行了第一条<code>update</code>语句,同时锁定了该资源,当尝试执行第二条<code>update</code>语句的时候,去发现资源已经被锁定,两个事务都等待对方释放锁,则陷入死循环,形成死锁</p>
+<p>为了解决这种问题,数据库系统实现了各种死锁检测和死锁超时机制.比如InnoDB存储引擎目前的处理方法是将持有最少级排他锁的事务进行回滚.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝奶茶<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Mysql</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">小小算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/26/高性能Mysql学习笔记之事务/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/14/百钱百鸡小算法/" class="archive-article-date">
-  	<time datetime="2017-03-14T06:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-14</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/14/百钱百鸡小算法/">百钱百鸡————Java小算法</a>
-    </h1>
+  
+    <a href="/2017/04/20/Transactional-Spring的声明式事务/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring的声明式事务-Transactional</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="高性能Mysql学习笔记之事务" data-title="高性能Mysql学习笔记之事务" data-url="http://yoursite.com/2017/04/26/高性能Mysql学习笔记之事务/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"yuanyang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">小小算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -274,9 +432,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
