@@ -6,26 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Spring的声明式事务-Transactional | 袁咩咩的博客</title>
+  <title>Spring MVC 搭建 - Hello world | 袁咩咩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一、Spring的声明式事务
-需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransacti">
+  <meta name="description" content="现在的Web框架基本都采用了MVC(model-view-Controller)设计模式,其中,Servlet和Filter都可以充当控制器.Spring MVC采用一个Servlet作为控制器,而Struts2则采用的Filter作为控制器.
+对于他们的区别我在这里不多赘述,可以参见这篇文章SpringMVC与Struts2区别与比较总结
+Spring MVC的搭建可以通过Java代码的方式(在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring的声明式事务-Transactional">
-<meta property="og:url" content="http://yoursite.com/2017/04/20/Transactional-Spring的声明式事务/index.html">
+<meta property="og:title" content="Spring MVC 搭建 - Hello world">
+<meta property="og:url" content="http://yoursite.com/2017/04/27/Spring MVC 搭建/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="一、Spring的声明式事务
-需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransacti">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
-<meta property="og:updated_time" content="2017-04-20T09:05:31.906Z">
+<meta property="og:description" content="现在的Web框架基本都采用了MVC(model-view-Controller)设计模式,其中,Servlet和Filter都可以充当控制器.Spring MVC采用一个Servlet作为控制器,而Struts2则采用的Filter作为控制器.
+对于他们的区别我在这里不多赘述,可以参见这篇文章SpringMVC与Struts2区别与比较总结
+Spring MVC的搭建可以通过Java代码的方式(在">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/spring/springmvc-demo.PNG">
+<meta property="og:updated_time" content="2017-04-27T06:36:56.950Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring的声明式事务-Transactional">
-<meta name="twitter:description" content="一、Spring的声明式事务
-需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransacti">
-<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
+<meta name="twitter:title" content="Spring MVC 搭建 - Hello world">
+<meta name="twitter:description" content="现在的Web框架基本都采用了MVC(model-view-Controller)设计模式,其中,Servlet和Filter都可以充当控制器.Spring MVC采用一个Servlet作为控制器,而Struts2则采用的Filter作为控制器.
+对于他们的区别我在这里不多赘述,可以参见这篇文章SpringMVC与Struts2区别与比较总结
+Spring MVC的搭建可以通过Java代码的方式(在">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/spring/springmvc-demo.PNG">
   
     <link rel="alternative" href="/atom.xml" title="袁咩咩的博客" type="application/atom+xml">
   
@@ -161,66 +161,80 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Transactional-Spring的声明式事务" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Spring MVC 搭建" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Spring的声明式事务-Transactional
+      Spring MVC 搭建 - Hello world
     </h1>
   
 
         
-        <a href="/2017/04/20/Transactional-Spring的声明式事务/" class="archive-article-date">
-  	<time datetime="2017-04-20T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-20</time>
+        <a href="/2017/04/27/Spring MVC 搭建/" class="archive-article-date">
+  	<time datetime="2017-04-27T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>一、Spring的声明式事务</p>
-<p>需要在<code>xml</code>文件中配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
+        <p>现在的<code>Web</code>框架基本都采用了<code>MVC(model-view-Controller)</code>设计模式,其中,<code>Servlet</code>和<code>Filter</code>都可以充当控制器.<code>Spring MVC</code>采用一个<code>Servlet</code>作为控制器,而<code>Struts2</code>则采用的<code>Filter</code>作为控制器.</p>
+<p>对于他们的区别我在这里不多赘述,可以参见这篇文章<a href="http://blog.csdn.net/chenleixing/article/details/44570681" target="_blank" rel="external">SpringMVC与Struts2区别与比较总结</a></p>
+<p>Spring MVC的搭建可以通过Java代码的方式(在《Spring 实战》一书中有详细讲解),也可以通过配置文件的方式,这里讲到的是<strong>运用配置文件</strong>的方式进行搭建.</p>
 <a id="more"></a>
-<p><code>&lt;tx:advice.../&gt;</code>节点详情如下图<br><img src="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png" alt="tx:advice"></p>
+<p>这是一个毫无技术含量的最简单例子</p>
+<h5 id="使用工具"><a href="#使用工具" class="headerlink" title="使用工具:"></a>使用工具:</h5><ul>
+<li>idea</li>
+<li>maven</li>
+</ul>
+<hr>
+<p>当然啦~如果你不想使用<code>Maven</code>可以直接跳过前两步</p>
+<h5 id="Demo结构"><a href="#Demo结构" class="headerlink" title="Demo结构:"></a>Demo结构:</h5><p><img src="http://omuut7fta.bkt.clouddn.com/spring/springmvc-demo.PNG" alt="Structure"></p>
+<hr>
 <blockquote>
-<p>name:指定方法的名称可以使用通配符</p>
-<p>propagation:指定事务的传播行为,默认为为<code>PROPAGATION_REQUIRED</code></p>
+<p>首先需要搭建一个Web项目</p>
+</blockquote>
+<p>可以参见<a href="http://www.cnblogs.com/yuanmiemie/p/6638685.html" target="_blank" rel="external">Idea 使用 Maven 搭建 Web 项目</a></p>
 <blockquote>
-<p><code>PROPAGATION_REQUIRED</code>:要求在事务环境中执行该方法,如果当前执行线程已经处于事务环境中,则直接调用;如果当前线程不处于事务环境中,则启动新的事务后执行该方法.</p>
-<p><code>PROPAGATION_MANDATORY</code>:要求调用该方法的线程必须处于事务中,否则抛出异常</p>
-<p><code>PROPAGATION_NESTED</code>:即使执行该方法的线程已经处于事务中们也依然启动新的事务,方法在嵌套的事务里执行;即使执行该方法的线程未处于事务环境中,也启动新的事务,然后执行该方法,此时与默认情况一致.</p>
-<p><code>PROPAGATION_NEVER</code>:不允许调用该方法的线程处于事务环境中,如果调用该方法的线程处于事务环境中,则抛出异常</p>
-<p><code>PROPAGATION_NOT_SUPPORTED</code>:如果调用该方法的线程处于事务中,则先暂停当前事务,然后执行该方法</p>
-<p><code>PROPAGATION_REQUIRED_NEW</code>:该方法要求在新的事务环境中执行,如果当前执行线程已处于事务环境中,则先暂停当前事务,启动新的事务后执行该方法,如果当前线程不处于事务环境中,则启动新的事务后执行方法.</p>
-<p><code>PROPAGATION_SUPPORTS</code>:如果当前线程处于事务环境中,则使用当前事务,否则不使用事务</p>
+<p>添加依赖</p>
 </blockquote>
-<p>isolation:指定事务的隔离级别</p>
-<p>timeout:指定事务的超时时间</p>
-<p>read-only:指定事务是否只读</p>
-<p>rollback-for:指定触发事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
-<p>no-rollback-for:指定不处罚事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
-</blockquote>
-<p>二、使用<code>@Transactional</code>注解进行事务管理</p>
-<p>需要在<code>xml</code>文件里配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">          class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">        &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line">&lt;!--启动@Transactional注解--&gt;</div><div class="line">&lt;tx:annotation-driven transaction-manager = &quot;transactionManager&quot;/&gt;</div></pre></td></tr></table></figure>
-<p><code>@Transactional</code>注解即可以用于修饰<code>Spring Bean</code>类,也可以用于修饰<code>Bean</code>类中的某个方法</p>
-<p>如果使用该注解修饰<code>Bean</code>类,表明这些事务设置对整个<code>Bean</code>起作用;如果使用该注解修饰<code>Bean</code>类的方法,则表明这些事务设置只对该方法有效。</p>
-<p><code>@Transactional</code>注解的属性:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-core&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-expression&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-web&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;junit&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;junit&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;4.12&lt;/version&gt;</div><div class="line">  &lt;scope&gt;test&lt;/scope&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>isolation:用于指定事物的隔离级别.默认为底层事务的隔离级别</p>
-<p>noRollbackFor:用于指定遇到某个特定异常时强制不回滚事务</p>
-<p>noRollbackForClassName:指定遇到特定的多个异常时强制不回滚事务,可以指定多个异常类名</p>
-<p>propagation:指定事务的传播行为</p>
-<p>readOnly:指定是否只读</p>
-<p>rollbackFor:指定遇到特定异常时强制回滚事务</p>
-<p>rollbackForClassName:指定遇到特定的多个异常时强制回滚事务.可以设置多个异常类名</p>
-<p>timeout:指定事务的超时时长</p>
+<p>配置classpath</p>
 </blockquote>
-<p><code>@Transactional</code>注解中所指定的属性与<code>&lt;tx:advice.../&gt;</code>元素中所指定的事务属性基本上是对应的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;build&gt;</div><div class="line">    &lt;finalName&gt;demo&lt;/finalName&gt;</div><div class="line">    &lt;!--配置Classpath--&gt;</div><div class="line">    &lt;resources&gt;</div><div class="line">      &lt;resource&gt;</div><div class="line">        &lt;directory&gt;src/main/java&lt;/directory&gt;</div><div class="line">      &lt;/resource&gt;</div><div class="line">      &lt;resource&gt;</div><div class="line">        &lt;directory&gt;src/main/resources&lt;/directory&gt;</div><div class="line">        &lt;includes&gt;</div><div class="line">          &lt;include&gt;**/*xml&lt;/include&gt;</div><div class="line">          &lt;include&gt;**/*.properties&lt;/include&gt;</div><div class="line">        &lt;/includes&gt;</div><div class="line">      &lt;/resource&gt;</div><div class="line">    &lt;/resources&gt;</div><div class="line">  &lt;/build&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>配置web.xml</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE web-app PUBLIC</div><div class="line"> &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</div><div class="line"> &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;&gt;</div><div class="line">&lt;web-app&gt;</div><div class="line"></div><div class="line">  &lt;!--spring的配置文件--&gt;</div><div class="line">  &lt;context-param&gt;</div><div class="line">    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</div><div class="line">    &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;</div><div class="line">  &lt;/context-param&gt;</div><div class="line"></div><div class="line">  &lt;!--Spring MVC必须的servlet,他会帮你把Spring的配置文件到application域中--&gt;</div><div class="line">  &lt;servlet&gt;</div><div class="line">    &lt;servlet-name&gt;dispatcher-servlet&lt;/servlet-name&gt;</div><div class="line">    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;</div><div class="line">    &lt;!--Spring MVC的配置文件--&gt;</div><div class="line">    &lt;init-param&gt;</div><div class="line">      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</div><div class="line">      &lt;param-value&gt;classpath:dispatcher-servlet.xml&lt;/param-value&gt;</div><div class="line">    &lt;/init-param&gt;</div><div class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</div><div class="line">  &lt;/servlet&gt;</div><div class="line">  &lt;servlet-mapping&gt;</div><div class="line">    &lt;servlet-name&gt;dispatcher-servlet&lt;/servlet-name&gt;</div><div class="line">    &lt;url-pattern&gt;/&lt;/url-pattern&gt;</div><div class="line">  &lt;/servlet-mapping&gt;</div><div class="line">&lt;/web-app&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>配置applicationContext.xml</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;context:component-scan base-package=&quot;com.geek&quot;/&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>配置dispatcher-servlet.xml</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;!--启动Spring MVC的注解--&gt;</div><div class="line">&lt;mvc:annotation-driven/&gt;</div><div class="line">&lt;!--自动扫描包--&gt;</div><div class="line">&lt;context:component-scan base-package=&quot;com.geek&quot;/&gt;</div><div class="line"></div><div class="line">&lt;!--视图解析器--&gt;</div><div class="line">&lt;bean id=&quot;viewResolver&quot;</div><div class="line">      class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</div><div class="line">    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;mvc:annotation-driven/&gt;</code>这句话非常关键!如果不写会导致@Controller注解不能使用</p>
+<blockquote>
+<p>TestController.java</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Controller</div><div class="line">public class TestController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private TestService service;</div><div class="line"></div><div class="line">    @RequestMapping(&quot;/test&quot;)</div><div class="line">    public String Test(String s, HttpServletRequest request)&#123;</div><div class="line">        service.show();</div><div class="line">        request.setAttribute(&quot;s&quot;,s);</div><div class="line">        return &quot;index&quot;;//由于前面配置了视图解析器,此处会跳转到index.jsp页面</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里使用了<code>@Controller</code>注解,逻辑上标志着这个类是一个控制器,让编程过程中更容易理解<br>其中的<code>@RequestMapping(&quot;/test&quot;)</code>指将这个url(localhost:8080/test)映射到此方法上,在Spring MVC中以一个方法为上下文进行拦截.</p>
+<blockquote>
+<p>TestService.java</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Service</div><div class="line">public class TestService &#123;</div><div class="line"></div><div class="line">    public void show()&#123;</div><div class="line">        System.out.println(&quot;success&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>index.jsp</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;%@page pageEncoding=&quot;UTF-8&quot; contentType=&quot;text/html&quot;%&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;%</div><div class="line">    String s = (String) request.getAttribute(&quot;s&quot;);</div><div class="line">    out.print(s!=null?s:&quot;hello&quot;);</div><div class="line">%&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>启动服务器输入  <code>http://localhost:8080/test?s=123456</code></p>
+<p>可以看到控制台打印<code>success</code>,index.jsp页面的显示由<code>hello</code>变为<code>123456</code></p>
+<p>这样,<code>Spring MVC</code> 的一个小Demo就算完成了,当然,这里面使用了<code>Spring</code>的自动装配,整体上非常的简单例子,动手试试吧~</p>
 
       
 
@@ -259,6 +273,10 @@
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
+        		</li>
+      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
         		</li>
@@ -320,7 +338,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/20/Transactional-Spring的声明式事务/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/27/Spring MVC 搭建/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -334,18 +352,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/26/高性能Mysql学习笔记之事务/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          高性能Mysql学习笔记之事务
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Idea-使用Mybatis-generator插件快速生成Mybatis相关代码</div>
+    <a href="/2017/04/26/高性能Mysql学习笔记之事务/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">高性能Mysql学习笔记之事务</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -359,7 +368,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Transactional-Spring的声明式事务" data-title="Spring的声明式事务-Transactional" data-url="http://yoursite.com/2017/04/20/Transactional-Spring的声明式事务/"></div>
+	<div class="ds-thread" data-thread-key="Spring MVC 搭建" data-title="Spring MVC 搭建 - Hello world" data-url="http://yoursite.com/2017/04/27/Spring MVC 搭建/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
