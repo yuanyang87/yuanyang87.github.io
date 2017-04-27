@@ -6,17 +6,35 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Mysql | 袁咩咩的博客</title>
+  <title>《Spring 实战》-- Spring Web Flow 学习笔记 | 袁咩咩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Be The One You Wanna Be!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="袁咩咩的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Mysql/index.html">
+  <meta name="description" content="Spring Web Flow是Spring MVC的扩展,它支持开发基于流程的应用程序.它将流程的定义与实现流程行为的类和视图分离开来.
+
+在Spring中配置Web Flow
+
+Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程请求都需要首先经过DispatcherServlet.我们需要在Spring应用上下文中配置一些Bean来处理流程并执行请求.
+首">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Spring 实战》-- Spring Web Flow 学习笔记">
+<meta property="og:url" content="http://yoursite.com/2017/04/27/Spring Web Flow 学习笔记--披萨流程/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="Be The One You Wanna Be!">
+<meta property="og:description" content="Spring Web Flow是Spring MVC的扩展,它支持开发基于流程的应用程序.它将流程的定义与实现流程行为的类和视图分离开来.
+
+在Spring中配置Web Flow
+
+Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程请求都需要首先经过DispatcherServlet.我们需要在Spring应用上下文中配置一些Bean来处理流程并执行请求.
+首">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/springwebflowjar.PNG">
+<meta property="og:updated_time" content="2017-04-27T14:45:57.815Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="袁咩咩的博客">
-<meta name="twitter:description" content="Be The One You Wanna Be!">
+<meta name="twitter:title" content="《Spring 实战》-- Spring Web Flow 学习笔记">
+<meta name="twitter:description" content="Spring Web Flow是Spring MVC的扩展,它支持开发基于流程的应用程序.它将流程的定义与实现流程行为的类和视图分离开来.
+
+在Spring中配置Web Flow
+
+Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程请求都需要首先经过DispatcherServlet.我们需要在Spring应用上下文中配置一些Bean来处理流程并执行请求.
+首">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/springwebflowjar.PNG">
   
     <link rel="alternative" href="/atom.xml" title="袁咩咩的博客" type="application/atom+xml">
   
@@ -152,64 +170,332 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Spring Web Flow 学习笔记--披萨流程" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/26/高性能Mysql学习笔记之事务/" class="archive-article-date">
-  	<time datetime="2017-04-26T15:48:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/26/高性能Mysql学习笔记之事务/">高性能Mysql学习笔记之事务</a>
+    <h1 class="article-title" itemprop="name">
+      《Spring 实战》-- Spring Web Flow 学习笔记
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/" class="archive-article-date">
+  	<time datetime="2017-04-27T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>Spring Web Flow</code>是<code>Spring MVC</code>的扩展,它支持开发基于流程的应用程序.它将流程的定义与实现流程行为的类和视图分离开来.</p>
+<blockquote>
+<p>在<code>Spring</code>中配置<code>Web Flow</code></p>
+</blockquote>
+<p><code>Spring Web Flow</code>是构建于<code>Spring MVC</code>的基础上的,这意味着所有的流程请求都需要首先经过<code>DispatcherServlet</code>.我们需要在<code>Spring</code>应用上下文中配置一些<code>Bean</code>来处理流程并执行请求.</p>
+<p>首先,我们在<code>Spring</code>的基础上会多使用到4个<code>jar</code>包,并且会使用到<code>flow</code>命名空间</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/springwebflowjar.PNG" alt="jar包"></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><blockquote>
+<p>做好了准备工作,让我们一起来学习一下配置:</p>
+</blockquote>
+<ul>
+<li>装配流程执行器</li>
+</ul>
+<p>在<code>Spring</code>配置文件中使用<code>&lt;flow:flow-executor&gt;</code>元素创建一个流程执行器.</p>
+<p>正如其名,流程执行器驱动流程的执行,用户进入一个流程时,<strong>流程执行器会为用户创建并启动一个流程执行实例</strong>,当流程暂停的时候(如为用户展示视图时),<strong>流程执行器会在用户执行操作后恢复流程</strong>.流程执行器只负责创建和执行流程,但它并不负责加载流程定义.这个任务由流程注册表完成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;flow:flow-executor id=&quot;flowExecutor&quot;/&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>配置流程注册表</li>
+</ul>
+<p>在<code>Spring</code>配置文件中使用<code>&lt;flow:flow-register&gt;</code>配置流程注册表,流程注册表的工作是加载定义并让流程执行器能够使用它们.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;flow:flow-registry id=&quot;flowRegistry&quot; base-path=&quot;/WEB-INF/flows&quot;&gt;</div><div class="line">     &lt;flow:flow-location-pattern value=&quot;/**/*-flow.xml&quot; /&gt;</div><div class="line">&lt;/flow:flow-registry&gt;</div></pre></td></tr></table></figure>
+<p>如果不使用通配符,这里也可以使用<code>&lt;flow:flow-location id=&quot;pizza&quot; path=&quot;/WEN-INF/flows/springpizza.xml&quot;/&gt;</code>来指定流程配置文件的详细位置,当不显示指定<code>id</code>时,以<strong>文件名</strong>作为<code>id</code>的值</p>
+<ul>
+<li>处理流程请求</li>
+</ul>
+<p>在<code>Spring MVC</code>的基础上,还需要一个<code>FlowHandlerMapping</code>来帮助<code>DispatcherServlet</code>发送流程请求给<code>spring web flow</code>,在<code>Spring</code>的上下文中添加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;bean class=&quot;org.springframework.webflow.mvc.servlet.FlowHandlerMapping&quot;&gt;</div><div class="line">    &lt;property name=&quot;flowRegistry&quot; ref=&quot;flowRegistry&quot; /&gt;</div><div class="line">  &lt;/bean&gt;</div></pre></td></tr></table></figure>
+<p>可以看到,它装配了流程注册表的引用,这样它就能知道如何<strong>将请求的URL匹配到流程上</strong></p>
+<p><code>FlowHandlerMapping</code>仅是对流程请求的处理,响应请求由<code>FlowHandlerAdapter</code>处理,它会把响应发送的流程请求进行处理,在<code>Spring</code>的上下文中添加如下配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;bean class=&quot;org.springframework.webflow.mvc.servlet.FlowHandlerAdapter&quot;&gt;</div><div class="line">    &lt;property name=&quot;flowExecutor&quot; ref=&quot;flowExecutor&quot; /&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
+<h2 id="这样-所有的准备工作都已经做完了"><a href="#这样-所有的准备工作都已经做完了" class="headerlink" title="这样,所有的准备工作都已经做完了!"></a>这样,所有的准备工作都已经做完了!</h2><p>但这还不够,在定义流程前,我们先来看一下流程组件</p>
+<p>在<code>Spring Web Flow</code>中,流程是由三个主要元素定义的:<strong>状态、转移和流程数据</strong>.</p>
+<blockquote>
+<p>状态(state)</p>
+</blockquote>
+<p>即流程中事件的发生地点,如果将流程比喻成公路旅行,那么状态就是路途上的城镇或风景点,一共有<strong>五种</strong>不同的状态</p>
+<table>
+<thead>
+<tr>
+<th>状态类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行为(action)</td>
+<td>行为状态是流程逻辑发生的地方</td>
+</tr>
+<tr>
+<td>决策(decision)</td>
+<td>决策状态将流程分成两个方向,它会基于流程数据的评估结果确定流程方向</td>
+</tr>
+<tr>
+<td>结果(end)</td>
+<td>结束状态是流程的最后一站,一旦进入End状态,流程就会终止</td>
+</tr>
+<tr>
+<td>子流程(subflow)</td>
+<td>子流程状态会在当前正在运行的流程上下文中启动一个心的流程</td>
+</tr>
+<tr>
+<td>视图(view)</td>
+<td>视图状态会暂停流程并邀请用户参与流程</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>视图状态</li>
+</ul>
+<p>视图状态用于为用户展现信息并使用户在流程中发挥作用,可以是任意<code>Spring</code>支持的视图类型.在下面的示例中,<code>id</code>在流程内标识这个状态,当不使用<code>view</code>显示指定另一个视图名称时,它也代表视图的名称,<code>model</code>指明表单所绑定的对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;view-state id=&quot;welcome&quot; view=&quot;greeting&quot; model=&quot;flowScope.paymentDetails&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>行为状态</li>
+</ul>
+<p>行为状态是<strong>应用程序自身在执行任务</strong>,行为状态一般会触发<code>Spring</code>所管理的<code>Bean</code>的一些方法并根据方法调用的执行结果<strong>转移</strong>到另一个状态.如下例,其中的<code>evaluate</code>子节点代表行为状态要做的事,在此处它会找到<code>id</code>为<code>pizzaFlowActions</code>的<code>bean</code>并执行<code>saveOrder()</code>方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;action-state id=&quot;saveOrder&quot;&gt;</div><div class="line">    &lt;evaluate expression=&quot;pizzaFlowActions.saveOrder(order)&quot; /&gt;</div><div class="line">    &lt;transition to=&quot;thankYou&quot; /&gt;</div><div class="line">&lt;/action-state&gt;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>决策状态</li>
+</ul>
+<p>决策状态能够在流程执行时产生两个分支.决策状态将评估一个<code>Boolean</code>类型的表达式,然后在两个状态中选择转移一个.可以看到,<code>if</code>子节点是这个状体的核心,<code>test</code>中的表达式值为<code>true</code>则转移到<code>then</code>指定状态,否则转移到<code>else</code>指定状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;decision-state id=&quot;checkDeliveryArea&quot;&gt;</div><div class="line">  &lt;if test=&quot;pizzaFlowActions.checkDeliveryArea(order.customer.zipCode)&quot; </div><div class="line">      then=&quot;addCustomer&quot; </div><div class="line">      else=&quot;deliveryWarning&quot;/&gt;</div><div class="line">&lt;/decision-state&gt;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>子流程状态</li>
+</ul>
+<p>就像把代码逻辑分写到多个类/方法中一样,流程也将其分成一些子流程.如下例中子流程结束的<code>&lt;endstate&gt;</code>的<code>id</code>为<code>orderCreated</code>,则流程将会进入到名为<code>payment</code>的状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;subflow-state id=&quot;customer&quot; subflow=&quot;pizza/customer&quot;&gt;</div><div class="line">    &lt;input name=&quot;order&quot; value=&quot;order&quot;/&gt;</div><div class="line">    &lt;transition on=&quot;customerReady&quot; to=&quot;order&quot; /&gt;</div><div class="line">&lt;/subflow-state&gt;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>结束状态</li>
+</ul>
+<p>所有的流程均会结束,这就是结束状态要做的事情.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;end-state id=&quot;customerReady&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>在流程结束后,接下来会发生什么取决于以下因素:</p>
+<ol>
+<li>如果结束流程是一个子流程,那么调用它的流程将会从<code>&lt;subflow-state&gt;</code>处继续执行,<code>&lt;end-state&gt;</code>的<code>id</code>将会用作<strong>事件触发</strong>从<code>&lt;subflow-state&gt;</code>开始的转移</li>
+<li>如果<code>&lt;end-state&gt;</code>设置了<code>view</code>属性,指定的视图将会被渲染.视图可以是相对于流程路径的视图模版,如果添加<code>externalRedirect:</code>前缀话,将会重定向到流程外部的页面,如果添加<code>flowRedirect:</code>将会重定向到另一个流程中</li>
+<li>如果结束的流程不是子流程,也没有指定<code>view</code>属性,那这个流程<strong>只是会结束而已</strong>,浏览器最后将会加载流程的基本URl地址,当前已没有活动的流程,所以会开始一个新的流程实例</li>
+</ol>
+<p>==流程可能会有不止一个结束状态,子流程的结束状态<code>id</code>确定了激活的事件,所以可以通过多钟结束状态来结束子流程,从而能够在流程中触发不同的事件,即使不是在子流程中,在结束流程后也可以根据流程的执行情况进行多个页面的选择==</p>
+<blockquote>
+<p>转移</p>
+</blockquote>
+<p>流程中<strong>除结束</strong>状态之外的每个状态都<strong>至少需要一个转移</strong>,使用<code>&lt;transition&gt;</code>子节点来定义,在前面可能你已经看到了他的身影.它是<code>action-state/view-state/subflow-state</code>的子节点,其中<code>id</code>可以是用户触发的事件,在子流程中,事件取决于子流程结束的<code>id</code>,任何事件都可以使用<code>no</code>来触发转移事件,当抛出异常时,可以使用<code>on-exception</code>来指定异常的转移状态.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;transition to=&quot;lookupCustomer&quot; id=&quot;phoneEntered&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>全局转移:在多个状态中都需要用到的转移,可以定义成全局转移<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;global-transitions&gt;</div><div class="line">  &lt;transition on=&quot;cancel&quot; to=&quot;endState&quot; /&gt;</div><div class="line">&lt;/global-transitions&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>流程数据</p>
+<ul>
+<li>定义变量</li>
+</ul>
+</blockquote>
+<p>流程数据保存在变量中,而变量可以在流程的各个地方进行引用,它能够以多钟方式创建,在流程中创建变量的最简单形式就是使用<code>&lt;var&gt;</code>元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;var name=&quot;order&quot; class=&quot;com.springinaction.pizza.domain.Order&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>当然,也可以使用<code>&lt;evaluate&gt;</code>元素计算并创建一个变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;evaluate result=&quot;viewScope.toppingsList&quot; </div><div class="line">        expression=&quot;T(com.springinaction.pizza.domain.Topping).asList()&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>也可以使用<code>&lt;set&gt;</code>元素设置变量的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;set name=&quot;flowScope.pizza&quot; </div><div class="line">        value=&quot;new com.springinaction.pizza.domain.Pizza()&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>后面两个特别类似,都是通过计算生成结果</p>
+<ul>
+<li>流程数据的作用域</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>范围</th>
+<th>作用域与可见性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conversation</td>
+<td>最高层级的流程开始创建,在最高层级的流程结束时销毁,被最高层级的流程与子流程共享</td>
+</tr>
+<tr>
+<td>Flow</td>
+<td>当流程开始时创建,在流程结束时被销毁,只有在创建它的流程中是可见的</td>
+</tr>
+<tr>
+<td>Request</td>
+<td>当一个请求进入流程的时候创建,在流程返回时被销毁</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>当流程开始的时候创建,在流程结束的时候销毁,在视图状态渲染后,它也会被清除</td>
+</tr>
+<tr>
+<td>View</td>
+<td>当进入视图状态时创建,当这个状态退出的时候销毁,只在视图状态内可见</td>
+</tr>
+</tbody>
+</table>
+<p>当使用<code>&lt;var&gt;</code>元素声明时,变量始终是流程作用域的,当使用<code>&lt;set&gt;</code>或<code>&lt;evaluate&gt;</code>的时候,作用域通过<code>name</code>或<code>result</code>属性的前缀指定</p>
+<hr>
+<p>以上就是Spring Web Flow 的基础知识,至于Demo可以在《Spring 实战》的<a href="https://www.manning.com/books/spring-in-action-fourth-edition" target="_blank" rel="external">指定网站</a>上下载源码,当然啦,也可以<a href="http://www.baidu.com/" target="_blank" rel="external">百度一下</a>,为了方便起见,可以直接去我建的仓库克隆一下,<a href="https://github.com/yuanyang87/spring-web-flow" target="_blank" rel="external">传送门</a>,这是<code>Spring Web Flo</code>w的<code>Demo</code> ,不是全部的源码.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝奶茶<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/04/27/Spring Web Flow 学习笔记--披萨流程/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/04/27/Spring MVC 搭建/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Spring MVC 搭建 - Hello world
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2017/04/26/高性能Mysql学习笔记之事务/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">高性能Mysql学习笔记之事务</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Spring Web Flow 学习笔记--披萨流程" data-title="《Spring 实战》-- Spring Web Flow 学习笔记" data-url="http://yoursite.com/2017/04/27/Spring Web Flow 学习笔记--披萨流程/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"yuanyang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-    
+
 
 
           </div>
@@ -232,9 +518,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
