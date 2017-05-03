@@ -154,31 +154,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Spring MVC 搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-CentOS7-MySQL安装与远程访问" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/27/Spring MVC 搭建/">Spring MVC 搭建 - Hello world</a>
+      <a class="article-title" href="/2017/05/03/CentOS7-MySQL安装与远程访问/">CentOS7-MySQL安装与远程访问</a>
     </h1>
   
 
         
-        <a href="/2017/04/27/Spring MVC 搭建/" class="archive-article-date">
-  	<time datetime="2017-04-27T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
+        <a href="/2017/05/03/CentOS7-MySQL安装与远程访问/" class="archive-article-date">
+  	<time datetime="2017-05-03T13:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>现在的<code>Web</code>框架基本都采用了<code>MVC(model-view-Controller)</code>设计模式,其中,<code>Servlet</code>和<code>Filter</code>都可以充当控制器.<code>Spring MVC</code>采用一个<code>Servlet</code>作为控制器,而<code>Struts2</code>则采用的<code>Filter</code>作为控制器.</p>
-<p>对于他们的区别我在这里不多赘述,可以参见这篇文章<a href="http://blog.csdn.net/chenleixing/article/details/44570681">SpringMVC与Struts2区别与比较总结</a></p>
-<p>Spring MVC的搭建可以通过Java代码的方式(在《Spring 实战》一书中有详细讲解),也可以通过配置文件的方式,这里讲到的是<strong>运用配置文件</strong>的方式进行搭建.</p>
+        <p>本人乃学生小白一枚,近期在学习<code>Linux</code>,所以就简单记录一下~</p>
+<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装<code>MySQL</code></h4><ul>
+<li>首先,需要检查一下是否已经安装了<code>MySQL</code> : <code># rpm -qa | grep mysql</code></li>
+</ul>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step1.PNG" alt="step1"></p>
+<p>这时候没有任何输出,则代表没有安装<code>MySQL</code><br>
         
-          <a class="article-more-a" href="/2017/04/27/Spring MVC 搭建/#more">more >></a>
+          <a class="article-more-a" href="/2017/05/03/CentOS7-MySQL安装与远程访问/#more">more >></a>
         
       
 
@@ -192,15 +195,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">CentOS</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -210,7 +213,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/27/Spring MVC 搭建/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/05/03/CentOS7-MySQL安装与远程访问/">展开全文 >></a>
         </p>
       
 
@@ -290,6 +293,80 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-Spring MVC 搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/27/Spring MVC 搭建/">Spring MVC 搭建 - Hello world</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/27/Spring MVC 搭建/" class="archive-article-date">
+  	<time datetime="2017-04-27T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>现在的<code>Web</code>框架基本都采用了<code>MVC(model-view-Controller)</code>设计模式,其中,<code>Servlet</code>和<code>Filter</code>都可以充当控制器.<code>Spring MVC</code>采用一个<code>Servlet</code>作为控制器,而<code>Struts2</code>则采用的<code>Filter</code>作为控制器.</p>
+<p>对于他们的区别我在这里不多赘述,可以参见这篇文章<a href="http://blog.csdn.net/chenleixing/article/details/44570681">SpringMVC与Struts2区别与比较总结</a></p>
+<p>Spring MVC的搭建可以通过Java代码的方式(在《Spring 实战》一书中有详细讲解),也可以通过配置文件的方式,这里讲到的是<strong>运用配置文件</strong>的方式进行搭建.</p>
+        
+          <a class="article-more-a" href="/2017/04/27/Spring MVC 搭建/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Spring MVC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/27/Spring MVC 搭建/">展开全文 >></a>
         </p>
       
 
@@ -809,75 +886,10 @@
 
 
   
-    <article id="post-我的第一个小项目——GEEK网工作室主页" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/">我的第一个小项目——GEEK网工作室主页</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/" class="archive-article-date">
-  	<time datetime="2017-03-13T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>很快,就到了大二的寒假，大学的生活就这样过去了接近一半，之前听说大二寒假会有项目什么的,已经准好了心理准备。
-
-但第一次着手项目，还是有点小紧张
-
-在这之前我已经看了一些框架，也需要把框架应用起来。光是纸上谈兵是没有用的，在实际操作中，必有变数。
-</code></pre>
-        
-          <a class="article-more-a" href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">项目取经</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -971,6 +983,18 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">CentOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Spring MVC</a>
               </li>
              
@@ -983,6 +1007,14 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Struts2</a>
               </li>
              
@@ -992,14 +1024,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">

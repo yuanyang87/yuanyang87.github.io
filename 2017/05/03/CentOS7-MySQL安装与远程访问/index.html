@@ -6,33 +6,39 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Idea 使用 Maven 搭建 Web 项目 | 袁咩咩的博客</title>
+  <title>CentOS7-MySQL安装与远程访问 | 袁咩咩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
-使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
-还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）">
+  <meta name="description" content="本人乃学生小白一枚,近期在学习Linux,所以就简单记录一下~
+安装MySQL
+首先,需要检查一下是否已经安装了MySQL : # rpm -qa | grep mysql
+
+
+这时候没有任何输出,则代表没有安装MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Idea 使用 Maven 搭建 Web 项目">
-<meta property="og:url" content="http://yoursite.com/2017/03/28/Idea 使用 Maven 搭建 Web 项目/index.html">
+<meta property="og:title" content="CentOS7-MySQL安装与远程访问">
+<meta property="og:url" content="http://yoursite.com/2017/05/03/CentOS7-MySQL安装与远程访问/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
-使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
-还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/create_1.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/create_2.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/addProperty.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/end.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/directory.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_1.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_2.png">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_3.png">
-<meta property="og:updated_time" content="2017-03-29T02:47:18.899Z">
+<meta property="og:description" content="本人乃学生小白一枚,近期在学习Linux,所以就简单记录一下~
+安装MySQL
+首先,需要检查一下是否已经安装了MySQL : # rpm -qa | grep mysql
+
+
+这时候没有任何输出,则代表没有安装MySQL">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step1.PNG">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step2.PNG">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step3.PNG">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step4.jpg">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/error.jpg">
+<meta property="og:updated_time" content="2017-05-03T14:01:35.328Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Idea 使用 Maven 搭建 Web 项目">
-<meta name="twitter:description" content="Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
-使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
-还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）">
-<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/web_domo/create_1.png">
+<meta name="twitter:title" content="CentOS7-MySQL安装与远程访问">
+<meta name="twitter:description" content="本人乃学生小白一枚,近期在学习Linux,所以就简单记录一下~
+安装MySQL
+首先,需要检查一下是否已经安装了MySQL : # rpm -qa | grep mysql
+
+
+这时候没有任何输出,则代表没有安装MySQL">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step1.PNG">
   
     <link rel="alternative" href="/atom.xml" title="袁咩咩的博客" type="application/atom+xml">
   
@@ -168,72 +174,77 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Idea 使用 Maven 搭建 Web 项目" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-CentOS7-MySQL安装与远程访问" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Idea 使用 Maven 搭建 Web 项目
+      CentOS7-MySQL安装与远程访问
     </h1>
   
 
         
-        <a href="/2017/03/28/Idea 使用 Maven 搭建 Web 项目/" class="archive-article-date">
-  	<time datetime="2017-03-28T07:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
+        <a href="/2017/05/03/CentOS7-MySQL安装与远程访问/" class="archive-article-date">
+  	<time datetime="2017-05-03T13:31:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。</p>
-<pre><code>使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，
-还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）
-</code></pre><a id="more"></a>
-<p>搭建Web工程步骤：</p>
-<ol>
-<li><code>File-&gt;new-&gt;Project</code> 选择 <code>Maven</code> 创建一个简单的 <code>Web</code>工程</li>
-</ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/create_1.png" alt="第一步"></p>
-<ol>
-<li>输入  <code>GroupId</code> 与 <code>ArtifactId</code> 用来唯一标识你的项目</li>
-</ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/create_2.png" alt="image"></p>
-<ol>
-<li>添加一个变量,目的是为了让 <code>Idea</code> 创建 <code>Maven</code> 项目更快</li>
-</ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/addProperty.png" alt="image"></p>
-<ol>
-<li>输入项目名称完成创建，并得到如下的目录</li>
-</ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/end.png" alt="image"></p>
-<p>此时还并不算创建完毕，虽然添加服务器后可以运行，但还需要做一些简单的修饰</p>
-<ol>
-<li><p><code>Ctrl+Alt+Shift+s</code> 打开 <code>Project Structure</code> ，添加文件夹，并设置相应的功能模块</p>
-<ul>
-<li>main目录下添加一个 <code>java</code> 文件夹，设置为 <code>Sources</code></li>
-<li>src 目录下添加一个 <code>test</code> 文件夹,用于存放测试相关文件</li>
-<li>test 目录下添加一个 <code>java</code> 文件夹，设置为 <code>Tests</code></li>
-<li>test 目录下添加一个 <code>resources</code> 文件夹，设置为 <code>Test Resources</code></li>
+        <p>本人乃学生小白一枚,近期在学习<code>Linux</code>,所以就简单记录一下~</p>
+<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装<code>MySQL</code></h4><ul>
+<li>首先,需要检查一下是否已经安装了<code>MySQL</code> : <code># rpm -qa | grep mysql</code></li>
 </ul>
-</li>
-</ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/directory.png" alt="image"></p>
-<ol>
-<li><p>添加 <code>Tomcat</code>服务器</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step1.PNG" alt="step1"></p>
+<p>这时候没有任何输出,则代表没有安装<code>MySQL</code><br><a id="more"></a></p>
 <ul>
-<li>点击上面的按钮，<code>Edit Configurations...</code></li>
-<li>点击 <code>+</code> 添加本地服务器</li>
-<li>发布当前的项目</li>
+<li>CentOS7的yum源中没有自带的<code>MySQL</code>安装程序,所以要手动下载</li>
 </ul>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step2.PNG" alt="step2"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p>安装刚才下载的<code>mysql-community-release-el7-5.noarch.rpm</code><br><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step3.PNG" alt="step3"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -ivh mysql-community-release-el7-5.noarch.rpm</div></pre></td></tr></table></figure>
 </li>
+<li><p>正式安装<code>MySQL</code> : <code># yum install mysql-server</code></p>
+</li>
+<li>等待安装完成后,重启<code>MySQL</code>服务: <code># service mysqld restart</code></li>
+<li>新安装的MySQL是没有密码的,下面进行密码设置</li>
+</ul>
+<p>输入<code># mysql -uroot</code>可以直接登录,设置密码的时候,一定记得用<code>password()</code>函数加密<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt; set password = password(&apos;yourPassword&apos;);</div><div class="line">or</div><div class="line">mysql&gt; update user set password = password(&apos;yourPassword&apos;) where user = &apos;root&apos;;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>修改完成后退出<code>MySQL</code>重启服务就可以了.(\q、quit、exit都可以退出)</li>
+</ul>
+<h4 id="远程访问"><a href="#远程访问" class="headerlink" title="远程访问"></a>远程访问</h4><p>本人使用的腾讯云服务器</p>
+<ul>
+<li>首先,远程访问需要设置一个允许远程访问的用户,<code>root</code>用户默认是不允许远程访问的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; grant all privileges on *.* to &apos;yy&apos;@&apos;%&apos;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>授予<code>yy</code>用户所有访问权限,<code>*.*</code>代表任意数据库的任意表,<code>%</code>代表任意<code>ip</code>地址(这里也可以直接授予<code>root</code>用户这种权限)</p>
+<p>授权完成后刷新一下 : <code>mysql&gt; flush privileges;</code></p>
+<ul>
+<li>其次,需要开放<code>3306</code>端口<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># firewall-cmd --zone=public --add-port=3306/tcp --permanent</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>出现success即开放成功,然后重启防火墙<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># systemctl restart firewalld.service</div></pre></td></tr></table></figure></p>
+<ul>
+<li>然后,需要设置一个安全组,在安全组的规则里面<strong>必须</strong>开放<code>3306</code>端口</li>
+</ul>
+<p>这些工作作完之后,就可以开始尝试连接了</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step4.jpg" alt="step4"></p>
+<p>我在连接的时候遇到了下面的问题,连接失败了</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/error.jpg" alt="error"></p>
+<p>我当时想到是</p>
+<ol>
+<li>网络问题,使用<code>ping</code>命令查看能否<code>ping</code>通</li>
+<li>端口问题,检查了端口是否开放</li>
+<li>服务器问题,查看<code>MySQL</code>服务是否开启</li>
+<li>安全组设置问题,检查一下安全组的设置</li>
 </ol>
-<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_1.png" alt="image"></p>
-<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_2.png" alt="image"></p>
-<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_3.png" alt="image"></p>
-<p>至此，<code>Web</code> 项目搭建完毕，就可以疯狂撸代码了，请开始你的表演~</p>
+<p>然而呢,都不是这些问题,我也搜索了很久,最后被我发现了,是我安全组设置完了之后,没有关联实例!没有关联实例!没有关联实例!重要的事情说三遍.</p>
+<p>以上就是我简单的学习记录.</p>
 
       
 
@@ -273,7 +284,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">小技巧</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">CentOS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -329,7 +348,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/03/28/Idea 使用 Maven 搭建 Web 项目/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/05/03/CentOS7-MySQL安装与远程访问/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -343,18 +362,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Idea-使用Mybatis-generator插件快速生成Mybatis相关代码
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/28/idea+SSH框架整合/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">idea + SSH框架整合</div>
+    <a href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">《Spring 实战》-- Spring Web Flow 学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -368,7 +378,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Idea 使用 Maven 搭建 Web 项目" data-title="Idea 使用 Maven 搭建 Web 项目" data-url="http://yoursite.com/2017/03/28/Idea 使用 Maven 搭建 Web 项目/"></div>
+	<div class="ds-thread" data-thread-key="CentOS7-MySQL安装与远程访问" data-title="CentOS7-MySQL安装与远程访问" data-url="http://yoursite.com/2017/05/03/CentOS7-MySQL安装与远程访问/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
