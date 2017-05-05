@@ -6,17 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Hibernate | 袁咩咩的博客</title>
+  <title>BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现 | 袁咩咩的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Be The One You Wanna Be!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="袁咩咩的博客">
-<meta property="og:url" content="http://yoursite.com/tags/Hibernate/index.html">
+  <meta name="description" content="可以加载XML两种方法使用 BeanFactory 加载 XML:1BeanFactory bf = new XmlBeanFactory(new ClassPathResource(&amp;quot;applicaitonContext.xml&amp;quot;));
+Ps:因为我是跟着《Spring源码深度解析》学习的,而这本书出版在13年9月,这一种方法在新的Spring版本中已经废弃掉了,取而代之的是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现">
+<meta property="og:url" content="http://yoursite.com/2017/05/05/BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="Be The One You Wanna Be!">
+<meta property="og:description" content="可以加载XML两种方法使用 BeanFactory 加载 XML:1BeanFactory bf = new XmlBeanFactory(new ClassPathResource(&amp;quot;applicaitonContext.xml&amp;quot;));
+Ps:因为我是跟着《Spring源码深度解析》学习的,而这本书出版在13年9月,这一种方法在新的Spring版本中已经废弃掉了,取而代之的是">
+<meta property="og:updated_time" content="2017-05-05T03:31:11.204Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="袁咩咩的博客">
-<meta name="twitter:description" content="Be The One You Wanna Be!">
+<meta name="twitter:title" content="BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现">
+<meta name="twitter:description" content="可以加载XML两种方法使用 BeanFactory 加载 XML:1BeanFactory bf = new XmlBeanFactory(new ClassPathResource(&amp;quot;applicaitonContext.xml&amp;quot;));
+Ps:因为我是跟着《Spring源码深度解析》学习的,而这本书出版在13年9月,这一种方法在新的Spring版本中已经废弃掉了,取而代之的是">
   
     <link rel="alternative" href="/atom.xml" title="袁咩咩的博客" type="application/atom+xml">
   
@@ -152,36 +156,87 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/03/28/idea+SSH框架整合/" class="archive-article-date">
-  	<time datetime="2017-03-28T06:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/03/28/idea+SSH框架整合/">idea + SSH框架整合</a>
+    <h1 class="article-title" itemprop="name">
+      BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/05/05/BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现/" class="archive-article-date">
+  	<time datetime="2017-05-05T03:30:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="可以加载XML两种方法"><a href="#可以加载XML两种方法" class="headerlink" title="可以加载XML两种方法"></a>可以加载XML两种方法</h5><p>使用 <code>BeanFactory</code> 加载 <code>XML</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BeanFactory bf = new XmlBeanFactory(new ClassPathResource(&quot;applicaitonContext.xml&quot;));</div></pre></td></tr></table></figure></p>
+<p>Ps:因为我是跟着《Spring源码深度解析》学习的,而这本书出版在13年9月,这一种方法在新的<code>Spring</code>版本中已经废弃掉了,取而代之的是下面的方法;但既然学了,那就还是记录一下,学习一下开发者的思想也是不错的.</p>
+<p>使用 <code>ApplicationContext</code> 加载 <code>XML</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<ul>
+<li>相同点: 上述两者都是通过加载<code>XMl</code>配置文件的方式加载<code>Bean</code>,而后者是前者的扩展,提供了更多的功能,即<code>ApplicationContext</code>拥有<code>BeanFactory</code>的全部功能,在绝大多数的”典型的”企业应用和系统,<code>ApplicationContext</code>都优先于<code>BeanFactory</code>.</li>
+<li>不同点: <code>BeanFactory</code>是延迟加载,如果一个<code>Bean</code>当中存在属性没有加载,会在第一次调用<code>getBean()</code>方法的时候报错,而<code>ApplicationContext</code>会在读取<code>Xml</code>文件后,如果配置文件没有错误,就会将所有的<code>Bean</code>加载到内存中,缺点就是在<code>Bean</code>较多的时候比较占内存,程序启动较慢.</li>
+</ul>
+<h5 id="首先-Spring容器加载中最重要的两个类"><a href="#首先-Spring容器加载中最重要的两个类" class="headerlink" title="首先,Spring容器加载中最重要的两个类:"></a>首先,<code>Spring</code>容器加载中最重要的两个类:</h5><ul>
+<li>DefaultListableBeanFactory</li>
+</ul>
+<p><code>XmlBeanFactory</code>继承自<code>DefaultListableBeanFactory</code>,而后者是整个<code>Bean</code>加载的核心部分,是<code>Spring</code>注册及加载<code>Bean</code>的默认实现,而<code>XmlBeanFactory</code>使用了自定义的<code>Xml</code>读取器<code>XmlBeanDefinitionReader</code>,实现了个性化的<code>BeanDefinitionReader</code>读取.</p>
+<ul>
+<li>XmlBeanDefinitionReader</li>
+</ul>
+<p>主要负责<code>Xml</code>文件的读取、解析和注册功能</p>
+<hr>
+<p>上面的两种方法的处理大致相同,让我们通过时序图看看两者在加载时的区别:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BeanFactory bf = new XmlBeanFactory(new ClassPathResource(&quot;applicaitonContext.xml&quot;));</div></pre></td></tr></table></figure>
+<p>时序图:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sequenceDiagram</div><div class="line">BeanFactory-&gt;&gt;ClassPathResource: new ClassPathResource(&quot;applicationContext.xml&quot;);</div><div class="line">ClassPathResource-&gt;&gt;BeanFactory:Resource</div><div class="line">BeanFactory-&gt;&gt;XmlBeanFactory:new XmlBeanFactory(resource);</div><div class="line">XmlBeanFactory-&gt;&gt;XmlBeanDefinitionReader:loadBeanDefinitions(resource);</div></pre></td></tr></table></figure></p>
+<p>首先,将<code>applicationContext.xml</code>用<code>ClassPathResource</code>进行封装得到<code>Resource</code>资源,<code>Resource</code>接口将所有的资源文件统一处理,当通过<code>Resource</code>相关类完成了对配置文件的封装之后,就由<code>XmlBeanDefinitionReader</code>进行读取和解析.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</div></pre></td></tr></table></figure>
+<p>时序图:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sequenceDiagram</div><div class="line">ApplicationContext-&gt;&gt;ClassPathXmlApplicationContext: 首先创建资源文件数组,再调用构造方法中的refresh()方法,解析的功能都在这个方法中实现</div><div class="line">ClassPathXmlApplicationContext-&gt;&gt;AbstractApplicationContext:调用refresh()方法中的obtainFreshBeanFactory()方法</div><div class="line">AbstractApplicationContext-&gt;&gt;obtainFreshBeanFactory():初始化BeanFactory,并对XMl文件读取</div><div class="line">obtainFreshBeanFactory()-&gt;&gt;refreshBeanFactory():读取的核心实现</div><div class="line">refreshBeanFactory()-&gt;&gt;loadBeanDefinitions(beanFactory):准备读取资源文件</div><div class="line">loadBeanDefinitions(beanFactory)-&gt;&gt;XmlBeanDefinitionReader:创建XmlBeanDefinitionReader对象,读取Xml文件并解析,调用loadBeanDefinitions(beanDefinitionReader)方法</div><div class="line">XmlBeanDefinitionReader-&gt;&gt;AbstractXmlApplicationContext:获得第一步创建的资源文件数组,并依次解析</div></pre></td></tr></table></figure>
+<p>附上<code>ClassPathXmlApplicatioContext</code>构造函数的源码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public ClassPathXmlApplicationContext(String[] paths, Class&lt;?&gt; clazz, ApplicationContext parent)</div><div class="line">			throws BeansException &#123;</div><div class="line"></div><div class="line">		super(parent);</div><div class="line">		Assert.notNull(paths, &quot;Path array must not be null&quot;);</div><div class="line">		Assert.notNull(clazz, &quot;Class argument must not be null&quot;);</div><div class="line">		this.configResources = new Resource[paths.length];  //创建资源数组  private Resource[] configResources;</div><div class="line">		for (int i = 0; i &lt; paths.length; i++) &#123;</div><div class="line">			this.configResources[i] = new ClassPathResource(paths[i], clazz);</div><div class="line">		&#125;</div><div class="line">		refresh();  //解析工作,ClassPathXmlApplicatioContext继承来自AbstractApplicationContext中的方法</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>首先,同样是封装配置文件,但封装完成之后并没有直接进行读取,而是调用了<code>refresh()</code>方法(这个方法里面进行了很多操作,扩展的功能几乎是在这里面实现的)在经过准备之后再进行读取,在读取之后还有一些功能的填充,最后才到<code>Resource</code>的读取</p>
+<p>二者在后面的<code>Xml</code>解析工作都几乎是一样的,都采用了<code>SAX</code>解析,区别就在于解析之前的准备和解析之后的完善工作.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我喝奶茶<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,33 +246,112 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Struts2</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hibernate</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/05/05/BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/05/03/CentOS7-MySQL安装与远程访问/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CentOS7-MySQL安装与远程访问</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现" data-title="BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现" data-url="http://yoursite.com/2017/05/05/BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"yuanyang"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
   
 
-    
+
 
 
           </div>
@@ -240,9 +374,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",
