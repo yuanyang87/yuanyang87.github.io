@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现]]></title>
+      <url>/2017/05/05/BeanFactory%E4%B8%8EApplicationContext%E7%9A%84%E5%8C%BA%E5%88%AB-Spring%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/</url>
+      <content type="html"><![CDATA[<h3 id="可以加载XML两种方法"><a href="#可以加载XML两种方法" class="headerlink" title="可以加载XML两种方法"></a>可以加载XML两种方法</h3><h4 id="使用-BeanFactory-加载-XML"><a href="#使用-BeanFactory-加载-XML" class="headerlink" title="使用 BeanFactory 加载 XML"></a>使用 <code>BeanFactory</code> 加载 <code>XML</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BeanFactory bf = new XmlBeanFactory(new ClassPathResource(&quot;applicaitonContext.xml&quot;));</div></pre></td></tr></table></figure>
+<p>Ps:因为我是跟着《Spring源码深度解析》学习的,而这本书出版在13年9月,这一种方法在新的<code>Spring</code>版本中已经废弃掉了,取而代之的是下面的方法;但既然学了,那就还是记录一下,学习一下开发者的思想也是不错的.</p>
+<h4 id="使用-ApplicationContext-加载-XML"><a href="#使用-ApplicationContext-加载-XML" class="headerlink" title="使用 ApplicationContext 加载 XML"></a>使用 <code>ApplicationContext</code> 加载 <code>XML</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h4><p>上述两者都是通过加载<code>XMl</code>配置文件的方式加载<code>Bean</code>,而后者是前者的扩展,提供了更多的功能,即<code>ApplicationContext</code>拥有<code>BeanFactory</code>的全部功能,在绝大多数的”典型的”企业应用和系统,<code>ApplicationContext</code>都优先于<code>BeanFactory</code>.</p>
+<h4 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h4><p><code>BeanFactory</code>是延迟加载,如果一个<code>Bean</code>当中存在属性没有加载,会在第一次调用<code>getBean()</code>方法的时候报错,而<code>ApplicationContext</code>会在读取<code>Xml</code>文件后,如果配置文件没有错误,就会将所有的<code>Bean</code>加载到内存中,缺点就是在<code>Bean</code>较多的时候比较占内存,程序启动较慢.</p>
+<h3 id="Spring容器加载中最重要的两个类"><a href="#Spring容器加载中最重要的两个类" class="headerlink" title="Spring容器加载中最重要的两个类"></a><code>Spring</code>容器加载中最重要的两个类</h3><h4 id="DefaultListableBeanFactory"><a href="#DefaultListableBeanFactory" class="headerlink" title="DefaultListableBeanFactory"></a>DefaultListableBeanFactory</h4><p><code>XmlBeanFactory</code>继承自<code>DefaultListableBeanFactory</code>,而后者是整个<code>Bean</code>加载的核心部分,是<code>Spring</code>注册及加载<code>Bean</code>的默认实现,而<code>XmlBeanFactory</code>使用了自定义的<code>Xml</code>读取器<code>XmlBeanDefinitionReader</code>,实现了个性化的<code>BeanDefinitionReader</code>读取.</p>
+<h4 id="XmlBeanDefinitionReader"><a href="#XmlBeanDefinitionReader" class="headerlink" title="XmlBeanDefinitionReader"></a>XmlBeanDefinitionReader</h4><p>主要负责<code>Xml</code>文件的读取、解析和注册功能</p>
+<hr>
+<h3 id="加载时的区别"><a href="#加载时的区别" class="headerlink" title="加载时的区别"></a>加载时的区别</h3><p>上面的两种方法的处理大致相同,让我们通过时序图看看两者在加载时的区别:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BeanFactory bf = new XmlBeanFactory(new ClassPathResource(&quot;applicaitonContext.xml&quot;));</div></pre></td></tr></table></figure>
+<p>粗略时序图:</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/spring/%E6%B5%81%E7%A8%8B1.PNG" alt="image"><br>首先,将<code>applicationContext.xml</code>用<code>ClassPathResource</code>进行封装得到<code>Resource</code>资源,<code>Resource</code>接口将所有的资源文件统一处理,当通过<code>Resource</code>相关类完成了对配置文件的封装之后,就由<code>XmlBeanDefinitionReader</code>进行读取和解析.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ApplicationContext context = new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);</div></pre></td></tr></table></figure>
+<p>粗略时序图:</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/spring/%E6%B5%81%E7%A8%8B2.PNG" alt="image"><br>附上<code>ClassPathXmlApplicatioContext</code>构造函数的源码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public ClassPathXmlApplicationContext(String[] paths, Class&lt;?&gt; clazz, ApplicationContext parent)</div><div class="line">			throws BeansException &#123;</div><div class="line"></div><div class="line">		super(parent);</div><div class="line">		Assert.notNull(paths, &quot;Path array must not be null&quot;);</div><div class="line">		Assert.notNull(clazz, &quot;Class argument must not be null&quot;);</div><div class="line">		this.configResources = new Resource[paths.length];  //创建资源数组  private Resource[] configResources;</div><div class="line">		for (int i = 0; i &lt; paths.length; i++) &#123;</div><div class="line">			this.configResources[i] = new ClassPathResource(paths[i], clazz);</div><div class="line">		&#125;</div><div class="line">		refresh();  //解析工作,ClassPathXmlApplicatioContext继承来自AbstractApplicationContext中的方法</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>首先,同样是封装配置文件,但封装完成之后并没有直接进行读取,而是调用了<code>refresh()</code>方法(这个方法里面进行了很多操作,扩展的功能几乎是在这里面实现的),<code>refresh()</code>方法中的<code>obtainFreshBeanFactory()</code>方法负责初始化<code>BeanFactory</code>,并对<code>XMl</code>文件读取,读取的核心实现是该方法中调用的<code>refreshBeanFactory()</code>方法,这个方法再调用图中的<code>loadBeanDefinitions(beanFactory)</code>方法(由于板面原因,没有画出),然后在其中创建<code>XmlBeanDefinitionReader</code>对象,再将最初封装的资源文件数组进行依次读取并解析.</p>
+<p>二者在后面的<code>Xml</code>解析工作都几乎是一样的,都采用了<code>SAX</code>解析,区别就在于解析之前的准备和解析之后的完善工作.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Spring </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> 学习笔记 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[CentOS7-MySQL安装与远程访问]]></title>
+      <url>/2017/05/03/CentOS7-MySQL%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/</url>
+      <content type="html"><![CDATA[<p>本人乃学生小白一枚,近期在学习<code>Linux</code>,所以就简单记录一下~</p>
+<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装<code>MySQL</code></h3><h4 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h4><p>首先,需要检查一下是否已经安装了<code>MySQL</code> : <code># rpm -qa | grep mysql</code></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step1.PNG" alt="step1"></p>
+<p>这时候没有任何输出,则代表没有安装<code>MySQL</code><br><a id="more"></a></p>
+<h4 id="下载源"><a href="#下载源" class="headerlink" title="下载源"></a>下载源</h4><p>CentOS7的yum源中没有自带的<code>MySQL</code>安装程序,所以要手动下载</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step2.PNG" alt="step2"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</div></pre></td></tr></table></figure></p>
+<h4 id="安装源"><a href="#安装源" class="headerlink" title="安装源"></a>安装源</h4><p>安装刚才下载的<code>mysql-community-release-el7-5.noarch.rpm</code></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step3.PNG" alt="step3"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -ivh mysql-community-release-el7-5.noarch.rpm</div></pre></td></tr></table></figure></p>
+<h4 id="正式安装MySQL"><a href="#正式安装MySQL" class="headerlink" title="正式安装MySQL"></a>正式安装<code>MySQL</code></h4><blockquote>
+<p>安装</p>
+</blockquote>
+<p><code># yum install mysql-server</code></p>
+<blockquote>
+<p>重启服务</p>
+</blockquote>
+<p>等待安装完成后,重启<code>MySQL</code>服务: <code># service mysqld restart</code></p>
+<blockquote>
+<p>设置密码</p>
+</blockquote>
+<p>新安装的MySQL是没有密码的,下面进行密码设置</p>
+<p>输入<code># mysql -uroot</code>可以直接登录,设置密码的时候,一定记得用<code>password()</code>函数加密<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt; set password = password(&apos;yourPassword&apos;);</div><div class="line">or</div><div class="line">mysql&gt; update user set password = password(&apos;yourPassword&apos;) where user = &apos;root&apos;;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>修改完成后退出<code>MySQL</code>重启服务就可以了.(\q、quit、exit都可以退出)</li>
+</ul>
+<h3 id="远程访问"><a href="#远程访问" class="headerlink" title="远程访问"></a>远程访问</h3><p>本人使用的腾讯云服务器</p>
+<h4 id="设置用户"><a href="#设置用户" class="headerlink" title="设置用户"></a>设置用户</h4><p>首先,远程访问需要设置一个允许远程访问的用户,<code>root</code>用户默认是不允许远程访问的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; grant all privileges on *.* to &apos;yy&apos;@&apos;%&apos;</div></pre></td></tr></table></figure></p>
+<p>授予<code>yy</code>用户所有访问权限,<code>*.*</code>代表任意数据库的任意表,<code>%</code>代表任意<code>ip</code>地址(这里也可以直接授予<code>root</code>用户这种权限)</p>
+<p>授权完成后刷新一下 : <code>mysql&gt; flush privileges;</code></p>
+<ul>
+<li>其次,需要开放<code>3306</code>端口<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># firewall-cmd --zone=public --add-port=3306/tcp --permanent</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>出现success即开放成功,然后重启防火墙<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># systemctl restart firewalld.service</div></pre></td></tr></table></figure></p>
+<h4 id="设置安全组"><a href="#设置安全组" class="headerlink" title="设置安全组"></a>设置安全组</h4><p>然后,需要设置一个安全组,在安全组的规则里面<strong>必须</strong>开放<code>3306</code>端口</p>
+<p>这些工作作完之后,就可以开始尝试连接了</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step4.jpg" alt="step4"></p>
+<p>我在连接的时候遇到了下面的问题,连接失败了</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/error.jpg" alt="error"></p>
+<p>我当时想到是</p>
+<ol>
+<li>网络问题,使用<code>ping</code>命令查看能否<code>ping</code>通</li>
+<li>端口问题,检查了端口是否开放</li>
+<li>服务器问题,查看<code>MySQL</code>服务是否开启</li>
+<li>安全组设置问题,检查一下安全组的设置</li>
+</ol>
+<p>然而呢,都不是这些问题,我也搜索了很久,最后被我发现了,是我安全组设置完了之后,没有关联实例!没有关联实例!没有关联实例!重要的事情说三遍.</p>
+<p>以上就是我简单的学习记录.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+            <category> CentOS </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> CentOS </tag>
+            
+            <tag> MySQL </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《Spring 实战》-- Spring Web Flow 学习笔记]]></title>
+      <url>/2017/04/27/Spring%20Web%20Flow%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0--%E6%8A%AB%E8%90%A8%E6%B5%81%E7%A8%8B/</url>
+      <content type="html"><![CDATA[<p><code>Spring Web Flow</code>是<code>Spring MVC</code>的扩展,它支持开发基于流程的应用程序.它将流程的定义与实现流程行为的类和视图分离开来.</p>
+<blockquote>
+<p>在<code>Spring</code>中配置<code>Web Flow</code></p>
+</blockquote>
+<p><code>Spring Web Flow</code>是构建于<code>Spring MVC</code>的基础上的,这意味着所有的流程请求都需要首先经过<code>DispatcherServlet</code>.我们需要在<code>Spring</code>应用上下文中配置一些<code>Bean</code>来处理流程并执行请求.</p>
+<p>首先,我们在<code>Spring</code>的基础上会多使用到4个<code>jar</code>包,并且会使用到<code>flow</code>命名空间</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/springwebflowjar.PNG" alt="jar包"></p>
+<a id="more"></a>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>做好了准备工作,让我们一起来看一下配置</p>
+<h4 id="装配流程执行器"><a href="#装配流程执行器" class="headerlink" title="装配流程执行器"></a>装配流程执行器</h4><p>在<code>Spring</code>配置文件中使用<code>&lt;flow:flow-executor&gt;</code>元素创建一个流程执行器.</p>
+<p>正如其名,流程执行器驱动流程的执行,用户进入一个流程时,<strong>流程执行器会为用户创建并启动一个流程执行实例</strong>,当流程暂停的时候(如为用户展示视图时),<strong>流程执行器会在用户执行操作后恢复流程</strong>.流程执行器只负责创建和执行流程,但它并不负责加载流程定义.这个任务由流程注册表完成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;flow:flow-executor id=&quot;flowExecutor&quot;/&gt;</div></pre></td></tr></table></figure>
+<h4 id="配置流程注册表"><a href="#配置流程注册表" class="headerlink" title="配置流程注册表"></a>配置流程注册表</h4><p>在<code>Spring</code>配置文件中使用<code>&lt;flow:flow-register&gt;</code>配置流程注册表,流程注册表的工作是加载定义并让流程执行器能够使用它们.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;flow:flow-registry id=&quot;flowRegistry&quot; base-path=&quot;/WEB-INF/flows&quot;&gt;</div><div class="line">     &lt;flow:flow-location-pattern value=&quot;/**/*-flow.xml&quot; /&gt;</div><div class="line">&lt;/flow:flow-registry&gt;</div></pre></td></tr></table></figure>
+<p>如果不使用通配符,这里也可以使用<code>&lt;flow:flow-location id=&quot;pizza&quot; path=&quot;/WEN-INF/flows/springpizza.xml&quot;/&gt;</code>来指定流程配置文件的详细位置,当不显示指定<code>id</code>时,以<strong>文件名</strong>作为<code>id</code>的值</p>
+<h4 id="处理流程请求"><a href="#处理流程请求" class="headerlink" title="处理流程请求"></a>处理流程请求</h4><p>在<code>Spring MVC</code>的基础上,还需要一个<code>FlowHandlerMapping</code>来帮助<code>DispatcherServlet</code>发送流程请求给<code>spring web flow</code>,在<code>Spring</code>的上下文中添加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;bean class=&quot;org.springframework.webflow.mvc.servlet.FlowHandlerMapping&quot;&gt;</div><div class="line">    &lt;property name=&quot;flowRegistry&quot; ref=&quot;flowRegistry&quot; /&gt;</div><div class="line">  &lt;/bean&gt;</div></pre></td></tr></table></figure>
+<p>可以看到,它装配了流程注册表的引用,这样它就能知道如何<strong>将请求的URL匹配到流程上</strong></p>
+<p><code>FlowHandlerMapping</code>仅是对流程请求的处理,响应请求由<code>FlowHandlerAdapter</code>处理,它会把响应发送的流程请求进行处理,在<code>Spring</code>的上下文中添加如下配置:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;bean class=&quot;org.springframework.webflow.mvc.servlet.FlowHandlerAdapter&quot;&gt;</div><div class="line">    &lt;property name=&quot;flowExecutor&quot; ref=&quot;flowExecutor&quot; /&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
+<hr>
+<p>这样,所有的准备工作都已经做完了!但这还不够,在定义流程前,我们先来看一下流程组件</p>
+<h3 id="流程组件"><a href="#流程组件" class="headerlink" title="流程组件"></a>流程组件</h3><p>在<code>Spring Web Flow</code>中,流程是由三个主要元素定义的:<strong>状态、转移和流程数据</strong>.</p>
+<h4 id="状态-state"><a href="#状态-state" class="headerlink" title="状态(state)"></a>状态(state)</h4><p>即流程中事件的发生地点,如果将流程比喻成公路旅行,那么状态就是路途上的城镇或风景点,一共有<strong>五种</strong>不同的状态</p>
+<table>
+<thead>
+<tr>
+<th>状态类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行为(action)</td>
+<td>行为状态是流程逻辑发生的地方</td>
+</tr>
+<tr>
+<td>决策(decision)</td>
+<td>决策状态将流程分成两个方向,它会基于流程数据的评估结果确定流程方向</td>
+</tr>
+<tr>
+<td>结果(end)</td>
+<td>结束状态是流程的最后一站,一旦进入End状态,流程就会终止</td>
+</tr>
+<tr>
+<td>子流程(subflow)</td>
+<td>子流程状态会在当前正在运行的流程上下文中启动一个心的流程</td>
+</tr>
+<tr>
+<td>视图(view)</td>
+<td>视图状态会暂停流程并邀请用户参与流程</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>视图状态</p>
+</blockquote>
+<p>视图状态用于为用户展现信息并使用户在流程中发挥作用,可以是任意<code>Spring</code>支持的视图类型.在下面的示例中,<code>id</code>在流程内标识这个状态,当不使用<code>view</code>显示指定另一个视图名称时,它也代表视图的名称,<code>model</code>指明表单所绑定的对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;view-state id=&quot;welcome&quot; view=&quot;greeting&quot; model=&quot;flowScope.paymentDetails&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>行为状态</p>
+</blockquote>
+<p>行为状态是<strong>应用程序自身在执行任务</strong>,行为状态一般会触发<code>Spring</code>所管理的<code>Bean</code>的一些方法并根据方法调用的执行结果<strong>转移</strong>到另一个状态.如下例,其中的<code>evaluate</code>子节点代表行为状态要做的事,在此处它会找到<code>id</code>为<code>pizzaFlowActions</code>的<code>bean</code>并执行<code>saveOrder()</code>方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;action-state id=&quot;saveOrder&quot;&gt;</div><div class="line">    &lt;evaluate expression=&quot;pizzaFlowActions.saveOrder(order)&quot; /&gt;</div><div class="line">    &lt;transition to=&quot;thankYou&quot; /&gt;</div><div class="line">&lt;/action-state&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>决策状态</p>
+</blockquote>
+<p>决策状态能够在流程执行时产生两个分支.决策状态将评估一个<code>Boolean</code>类型的表达式,然后在两个状态中选择转移一个.可以看到,<code>if</code>子节点是这个状体的核心,<code>test</code>中的表达式值为<code>true</code>则转移到<code>then</code>指定状态,否则转移到<code>else</code>指定状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;decision-state id=&quot;checkDeliveryArea&quot;&gt;</div><div class="line">  &lt;if test=&quot;pizzaFlowActions.checkDeliveryArea(order.customer.zipCode)&quot; </div><div class="line">      then=&quot;addCustomer&quot; </div><div class="line">      else=&quot;deliveryWarning&quot;/&gt;</div><div class="line">&lt;/decision-state&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>子流程状态</p>
+</blockquote>
+<p>就像把代码逻辑分写到多个类/方法中一样,流程也将其分成一些子流程.如下例中子流程结束的<code>&lt;endstate&gt;</code>的<code>id</code>为<code>orderCreated</code>,则流程将会进入到名为<code>payment</code>的状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;subflow-state id=&quot;customer&quot; subflow=&quot;pizza/customer&quot;&gt;</div><div class="line">    &lt;input name=&quot;order&quot; value=&quot;order&quot;/&gt;</div><div class="line">    &lt;transition on=&quot;customerReady&quot; to=&quot;order&quot; /&gt;</div><div class="line">&lt;/subflow-state&gt;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>结束状态</p>
+</blockquote>
+<p>所有的流程均会结束,这就是结束状态要做的事情.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;end-state id=&quot;customerReady&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>在流程结束后,接下来会发生什么取决于以下因素:</p>
+<ol>
+<li>如果结束流程是一个子流程,那么调用它的流程将会从<code>&lt;subflow-state&gt;</code>处继续执行,<code>&lt;end-state&gt;</code>的<code>id</code>将会用作<strong>事件触发</strong>从<code>&lt;subflow-state&gt;</code>开始的转移</li>
+<li>如果<code>&lt;end-state&gt;</code>设置了<code>view</code>属性,指定的视图将会被渲染.视图可以是相对于流程路径的视图模版,如果添加<code>externalRedirect:</code>前缀话,将会重定向到流程外部的页面,如果添加<code>flowRedirect:</code>将会重定向到另一个流程中</li>
+<li>如果结束的流程不是子流程,也没有指定<code>view</code>属性,那这个流程<strong>只是会结束而已</strong>,浏览器最后将会加载流程的基本URl地址,当前已没有活动的流程,所以会开始一个新的流程实例</li>
+</ol>
+<p>==流程可能会有不止一个结束状态,子流程的结束状态<code>id</code>确定了激活的事件,所以可以通过多钟结束状态来结束子流程,从而能够在流程中触发不同的事件,即使不是在子流程中,在结束流程后也可以根据流程的执行情况进行多个页面的选择==</p>
+<h4 id="转移"><a href="#转移" class="headerlink" title="转移"></a>转移</h4><p>流程中<strong>除结束</strong>状态之外的每个状态都<strong>至少需要一个转移</strong>,使用<code>&lt;transition&gt;</code>子节点来定义,在前面可能你已经看到了他的身影.它是<code>action-state/view-state/subflow-state</code>的子节点,其中<code>id</code>可以是用户触发的事件,在子流程中,事件取决于子流程结束的<code>id</code>,任何事件都可以使用<code>no</code>来触发转移事件,当抛出异常时,可以使用<code>on-exception</code>来指定异常的转移状态.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;transition to=&quot;lookupCustomer&quot; id=&quot;phoneEntered&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>全局转移:在多个状态中都需要用到的转移,可以定义成全局转移<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;global-transitions&gt;</div><div class="line">  &lt;transition on=&quot;cancel&quot; to=&quot;endState&quot; /&gt;</div><div class="line">&lt;/global-transitions&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="流程数据"><a href="#流程数据" class="headerlink" title="流程数据"></a>流程数据</h4><blockquote>
+<p>定义变量</p>
+</blockquote>
+<p>流程数据保存在变量中,而变量可以在流程的各个地方进行引用,它能够以多钟方式创建,在流程中创建变量的最简单形式就是使用<code>&lt;var&gt;</code>元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;var name=&quot;order&quot; class=&quot;com.springinaction.pizza.domain.Order&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>当然,也可以使用<code>&lt;evaluate&gt;</code>元素计算并创建一个变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;evaluate result=&quot;viewScope.toppingsList&quot; </div><div class="line">        expression=&quot;T(com.springinaction.pizza.domain.Topping).asList()&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>也可以使用<code>&lt;set&gt;</code>元素设置变量的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;set name=&quot;flowScope.pizza&quot; </div><div class="line">        value=&quot;new com.springinaction.pizza.domain.Pizza()&quot; /&gt;</div></pre></td></tr></table></figure></p>
+<p>后面两个特别类似,都是通过计算生成结果</p>
+<blockquote>
+<p>流程数据的作用域</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>范围</th>
+<th>作用域与可见性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conversation</td>
+<td>最高层级的流程开始创建,在最高层级的流程结束时销毁,被最高层级的流程与子流程共享</td>
+</tr>
+<tr>
+<td>Flow</td>
+<td>当流程开始时创建,在流程结束时被销毁,只有在创建它的流程中是可见的</td>
+</tr>
+<tr>
+<td>Request</td>
+<td>当一个请求进入流程的时候创建,在流程返回时被销毁</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>当流程开始的时候创建,在流程结束的时候销毁,在视图状态渲染后,它也会被清除</td>
+</tr>
+<tr>
+<td>View</td>
+<td>当进入视图状态时创建,当这个状态退出的时候销毁,只在视图状态内可见</td>
+</tr>
+</tbody>
+</table>
+<p>当使用<code>&lt;var&gt;</code>元素声明时,变量始终是流程作用域的,当使用<code>&lt;set&gt;</code>或<code>&lt;evaluate&gt;</code>的时候,作用域通过<code>name</code>或<code>result</code>属性的前缀指定</p>
+<hr>
+<p>以上就是Spring Web Flow 的基础知识,至于Demo可以在《Spring 实战》的<a href="https://www.manning.com/books/spring-in-action-fourth-edition" target="_blank" rel="external">指定网站</a>上下载源码,当然啦,也可以<a href="http://www.baidu.com/" target="_blank" rel="external">百度一下</a>,为了方便起见,可以直接去我建的仓库克隆一下,<a href="https://github.com/yuanyang87/spring-web-flow" target="_blank" rel="external">传送门</a>,这是<code>Spring Web Flo</code>w的<code>Demo</code> ,不是全部的源码.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Spring </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> 学习笔记 </tag>
+            
+            <tag> Spring MVC </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Spring MVC 搭建 - Hello world]]></title>
+      <url>/2017/04/27/Spring%20MVC%20%E6%90%AD%E5%BB%BA/</url>
+      <content type="html"><![CDATA[<p>现在的<code>Web</code>框架基本都采用了<code>MVC(model-view-Controller)</code>设计模式,其中,<code>Servlet</code>和<code>Filter</code>都可以充当控制器.<code>Spring MVC</code>采用一个<code>Servlet</code>作为控制器,而<code>Struts2</code>则采用的<code>Filter</code>作为控制器.</p>
+<p>对于他们的区别我在这里不多赘述,可以参见这篇文章<a href="http://blog.csdn.net/chenleixing/article/details/44570681" target="_blank" rel="external">SpringMVC与Struts2区别与比较总结</a></p>
+<p>Spring MVC的搭建可以通过Java代码的方式(在《Spring 实战》一书中有详细讲解),也可以通过配置文件的方式,这里讲到的是<strong>运用配置文件</strong>的方式进行搭建.</p>
+<a id="more"></a>
+<p>这是一个毫无技术含量的最简单例子</p>
+<h3 id="使用工具"><a href="#使用工具" class="headerlink" title="使用工具"></a>使用工具</h3><ul>
+<li>idea</li>
+<li>maven</li>
+</ul>
+<hr>
+<p>当然啦~如果你不想使用<code>Maven</code>可以直接跳过前两步</p>
+<h3 id="Demo结构"><a href="#Demo结构" class="headerlink" title="Demo结构"></a>Demo结构</h3><p><img src="http://omuut7fta.bkt.clouddn.com/spring/springmvc-demo.PNG" alt="Structure"></p>
+<hr>
+<h4 id="搭建一个Web项目"><a href="#搭建一个Web项目" class="headerlink" title="搭建一个Web项目"></a>搭建一个Web项目</h4><p>可以参见<a href="http://www.cnblogs.com/yuanmiemie/p/6638685.html" target="_blank" rel="external">Idea 使用 Maven 搭建 Web 项目</a></p>
+<h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-core&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-expression&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-web&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;junit&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;junit&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;4.12&lt;/version&gt;</div><div class="line">  &lt;scope&gt;test&lt;/scope&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h4 id="配置classpath"><a href="#配置classpath" class="headerlink" title="配置classpath"></a>配置classpath</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;build&gt;</div><div class="line">    &lt;finalName&gt;demo&lt;/finalName&gt;</div><div class="line">    &lt;!--配置Classpath--&gt;</div><div class="line">    &lt;resources&gt;</div><div class="line">      &lt;resource&gt;</div><div class="line">        &lt;directory&gt;src/main/java&lt;/directory&gt;</div><div class="line">      &lt;/resource&gt;</div><div class="line">      &lt;resource&gt;</div><div class="line">        &lt;directory&gt;src/main/resources&lt;/directory&gt;</div><div class="line">        &lt;includes&gt;</div><div class="line">          &lt;include&gt;**/*xml&lt;/include&gt;</div><div class="line">          &lt;include&gt;**/*.properties&lt;/include&gt;</div><div class="line">        &lt;/includes&gt;</div><div class="line">      &lt;/resource&gt;</div><div class="line">    &lt;/resources&gt;</div><div class="line">  &lt;/build&gt;</div></pre></td></tr></table></figure>
+<h4 id="配置web-xml"><a href="#配置web-xml" class="headerlink" title="配置web.xml"></a>配置web.xml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE web-app PUBLIC</div><div class="line"> &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</div><div class="line"> &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;&gt;</div><div class="line">&lt;web-app&gt;</div><div class="line"></div><div class="line">  &lt;!--spring的配置文件--&gt;</div><div class="line">  &lt;context-param&gt;</div><div class="line">    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</div><div class="line">    &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;</div><div class="line">  &lt;/context-param&gt;</div><div class="line"></div><div class="line">  &lt;!--Spring MVC必须的servlet,他会帮你把Spring的配置文件到application域中--&gt;</div><div class="line">  &lt;servlet&gt;</div><div class="line">    &lt;servlet-name&gt;dispatcher-servlet&lt;/servlet-name&gt;</div><div class="line">    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;</div><div class="line">    &lt;!--Spring MVC的配置文件--&gt;</div><div class="line">    &lt;init-param&gt;</div><div class="line">      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</div><div class="line">      &lt;param-value&gt;classpath:dispatcher-servlet.xml&lt;/param-value&gt;</div><div class="line">    &lt;/init-param&gt;</div><div class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</div><div class="line">  &lt;/servlet&gt;</div><div class="line">  &lt;servlet-mapping&gt;</div><div class="line">    &lt;servlet-name&gt;dispatcher-servlet&lt;/servlet-name&gt;</div><div class="line">    &lt;url-pattern&gt;/&lt;/url-pattern&gt;</div><div class="line">  &lt;/servlet-mapping&gt;</div><div class="line">&lt;/web-app&gt;</div></pre></td></tr></table></figure>
+<h4 id="配置applicationContext-xml"><a href="#配置applicationContext-xml" class="headerlink" title="配置applicationContext.xml"></a>配置applicationContext.xml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;context:component-scan base-package=&quot;com.geek&quot;/&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>配置dispatcher-servlet.xml</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;!--启动Spring MVC的注解--&gt;</div><div class="line">&lt;mvc:annotation-driven/&gt;</div><div class="line">&lt;!--自动扫描包--&gt;</div><div class="line">&lt;context:component-scan base-package=&quot;com.geek&quot;/&gt;</div><div class="line"></div><div class="line">&lt;!--视图解析器--&gt;</div><div class="line">&lt;bean id=&quot;viewResolver&quot;</div><div class="line">      class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</div><div class="line">    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;mvc:annotation-driven/&gt;</code>这句话非常关键!如果不写会导致@Controller注解不能使用</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h4 id="TestController-java"><a href="#TestController-java" class="headerlink" title="TestController.java"></a>TestController.java</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Controller</div><div class="line">public class TestController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private TestService service;</div><div class="line"></div><div class="line">    @RequestMapping(&quot;/test&quot;)</div><div class="line">    public String Test(String s, HttpServletRequest request)&#123;</div><div class="line">        service.show();</div><div class="line">        request.setAttribute(&quot;s&quot;,s);</div><div class="line">        return &quot;index&quot;;//由于前面配置了视图解析器,此处会跳转到index.jsp页面</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里使用了<code>@Controller</code>注解,逻辑上标志着这个类是一个控制器,让编程过程中更容易理解<br>其中的<code>@RequestMapping(&quot;/test&quot;)</code>指将这个url(localhost:8080/test)映射到此方法上,在Spring MVC中以一个方法为上下文进行拦截.</p>
+<h4 id="TestService-java"><a href="#TestService-java" class="headerlink" title="TestService.java"></a>TestService.java</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Service</div><div class="line">public class TestService &#123;</div><div class="line"></div><div class="line">    public void show()&#123;</div><div class="line">        System.out.println(&quot;success&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="index-jsp"><a href="#index-jsp" class="headerlink" title="index.jsp"></a>index.jsp</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;%@page pageEncoding=&quot;UTF-8&quot; contentType=&quot;text/html&quot;%&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;%</div><div class="line">    String s = (String) request.getAttribute(&quot;s&quot;);</div><div class="line">    out.print(s!=null?s:&quot;hello&quot;);</div><div class="line">%&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>启动服务器输入  <code>http://localhost:8080/test?s=123456</code></p>
+<p>可以看到控制台打印<code>success</code>,index.jsp页面的显示由<code>hello</code>变为<code>123456</code></p>
+<p>这样,<code>Spring MVC</code> 的一个小Demo就算完成了,当然,这里面使用了<code>Spring</code>的自动装配,整体上非常的简单例子,动手试试吧~</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Spring </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> 学习笔记 </tag>
+            
+            <tag> Spring MVC </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[高性能Mysql学习笔记之事务]]></title>
+      <url>/2017/04/26/%E9%AB%98%E6%80%A7%E8%83%BDMysql%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8B%E4%BA%8B%E5%8A%A1/</url>
+      <content type="html"><![CDATA[<h3 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务?"></a>什么是事务?</h3><p>事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，<strong>要么全部执行成功，要么全部执行失败</strong>。</p>
+<a id="more"></a>
+<h3 id="事务的ACID特性"><a href="#事务的ACID特性" class="headerlink" title="事务的ACID特性"></a>事务的ACID特性</h3><p>ACID表示事务的原子性(atomicity)、一致性(consistency)、隔离性(isolation)、持久性(durability)。一个运行良好的事务处理系统，必须具备这些标准特性。</p>
+<h4 id="原子性-atomicity"><a href="#原子性-atomicity" class="headerlink" title="原子性(atomicity)"></a>原子性(atomicity)</h4><p>一个事务必须被视为一个不可分割的最小工作单元,整个事务中的所有操作要么全部提交成功,要么全部失败回滚,对于一个事务来说,不可能只执行其中的一部分操作。</p>
+<h4 id="一致性-consistency"><a href="#一致性-consistency" class="headerlink" title="一致性(consistency)"></a>一致性(consistency)</h4><p>数据库总是从一个一致性的状态换到另一个一致性的状态。</p>
+<h4 id="隔离性-isolation"><a href="#隔离性-isolation" class="headerlink" title="隔离性(isolation)"></a>隔离性(isolation)</h4><p><strong>通常来说</strong>：一个事务所做的修改在最终提交前,对其他事务是不可见的。</p>
+<h4 id="持久性-durability"><a href="#持久性-durability" class="headerlink" title="持久性(durability)"></a>持久性(durability)</h4><p>一旦事务提交,则其所做的修改就会永久保存到数据库中。此时即使系统崩溃,修改的数据也不会丢失。</p>
+<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><h4 id="READ-UNCOMMITTED-读未提交"><a href="#READ-UNCOMMITTED-读未提交" class="headerlink" title="READ UNCOMMITTED(读未提交)"></a>READ UNCOMMITTED(读未提交)</h4><p>也叫==脏读==,在这个级别中,事务中的修改,即使没有提交,对其他事务也是可见的.一般都不采用.</p>
+<h4 id="READ-COMMITTED-读已提交"><a href="#READ-COMMITTED-读已提交" class="headerlink" title="READ COMMITTED(读已提交)"></a>READ COMMITTED(读已提交)</h4><p>也叫==不可重复读==,因为两次相同的查询可能得到不同的结果.大多数数据库都默认使用这种隔离级别,一个事务从开始直到提交之前,所做的任何修改对其他事务都是不可见的.</p>
+<h4 id="REPEATABLE-READ-可重复读"><a href="#REPEATABLE-READ-可重复读" class="headerlink" title="REPEATABLE READ(可重复读)"></a>REPEATABLE READ(可重复读)</h4><p>==Mysql默认隔离级别==解决了==脏读==的问题,该级别保证了在同一个事务中多次读取同样的记录结果是一样的.但无法解决==幻读==的问题。幻读(Phantom Read),指当某个事务在读取某个范围内的记录时,另外一个事务又在该范围插入了新的记录,当之前的事务再次读取该范围的记录时,会产生换行(Phantom Row)。InnoDB和XtraDB存储引擎通过多版本并发控制解决了幻读问题。</p>
+<h4 id="SERIALIZABLE-可串行化"><a href="#SERIALIZABLE-可串行化" class="headerlink" title="SERIALIZABLE(可串行化)"></a>SERIALIZABLE(可串行化)</h4><p>这是最高的隔离级别,它会通过强制事务串行执行,避免了前面说的幻读问题.简单地说SERIALIZABLE会在读取的每一行数据上都加上锁,所以可能导致大量的超时和争锁时间的问题.实际应用中也很少使用,只有在急需要保持数据一致且接受没有并发的情况下,才考虑使用.</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读可能性</th>
+<th>不可重复读可能性</th>
+<th>幻读可能性</th>
+<th>加锁读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>READ UNCOMMITTED</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>READ COMMITTED</td>
+<td>NO</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>REPEATABLE</td>
+<td>NO</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>死锁是指两个或多个事务在同一个资源上相互占用,并请求锁定对方占用的资源,从而导致恶性循环的现象.当多个事务试图以不同的顺序锁定资源时,就可能会产生死锁,多个事务同时锁定同一个资源时,也会产生死锁</p>
+<p>例如:</p>
+<blockquote>
+<p>事务1:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start transaction;</div><div class="line">update stock_price set close = 45.50 where stock_id = 4 and date = &apos;2017-4-26&apos;;</div><div class="line">update stock_price set close = 19.80 where stock_id = 3 and date = &apos;2017-4-27&apos;;</div><div class="line">commit;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>事务2:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start transaction;</div><div class="line">update stock_price set high = 20.10 where stock_id = 3 and date = &apos;2017-4-27&apos;;</div><div class="line">update stock_price set high = 47.20 where stock_id = 4 and date = &apos;2017-4-26&apos;;</div><div class="line">commit;</div></pre></td></tr></table></figure>
+<p>如果凑巧,两个事务均执行了第一条<code>update</code>语句,同时锁定了该资源,当尝试执行第二条<code>update</code>语句的时候,去发现资源已经被锁定,两个事务都等待对方释放锁,则陷入死循环,形成死锁</p>
+<p>为了解决这种问题,数据库系统实现了各种死锁检测和死锁超时机制.比如InnoDB存储引擎目前的处理方法是将持有最少级排他锁的事务进行回滚.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> MySQL </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 学习笔记 </tag>
+            
+            <tag> Mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Spring的声明式事务-Transactional]]></title>
+      <url>/2017/04/20/Transactional-Spring%E7%9A%84%E5%A3%B0%E6%98%8E%E5%BC%8F%E4%BA%8B%E5%8A%A1/</url>
+      <content type="html"><![CDATA[<h3 id="Spring的声明式事务"><a href="#Spring的声明式事务" class="headerlink" title="Spring的声明式事务"></a>Spring的声明式事务</h3><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件中配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="tx-advice节点"><a href="#tx-advice节点" class="headerlink" title="tx:advice节点"></a><code>tx:advice</code>节点</h4><p><code>&lt;tx:advice.../&gt;</code>节点详情如下图<br><img src="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png" alt="tx:advice"></p>
+<blockquote>
+<p>name:指定方法的名称可以使用通配符</p>
+<p>propagation:指定事务的传播行为,默认为为<code>PROPAGATION_REQUIRED</code></p>
+<blockquote>
+<p><code>PROPAGATION_REQUIRED</code>:要求在事务环境中执行该方法,如果当前执行线程已经处于事务环境中,则直接调用;如果当前线程不处于事务环境中,则启动新的事务后执行该方法.</p>
+<p><code>PROPAGATION_MANDATORY</code>:要求调用该方法的线程必须处于事务中,否则抛出异常</p>
+<p><code>PROPAGATION_NESTED</code>:即使执行该方法的线程已经处于事务中们也依然启动新的事务,方法在嵌套的事务里执行;即使执行该方法的线程未处于事务环境中,也启动新的事务,然后执行该方法,此时与默认情况一致.</p>
+<p><code>PROPAGATION_NEVER</code>:不允许调用该方法的线程处于事务环境中,如果调用该方法的线程处于事务环境中,则抛出异常</p>
+<p><code>PROPAGATION_NOT_SUPPORTED</code>:如果调用该方法的线程处于事务中,则先暂停当前事务,然后执行该方法</p>
+<p><code>PROPAGATION_REQUIRED_NEW</code>:该方法要求在新的事务环境中执行,如果当前执行线程已处于事务环境中,则先暂停当前事务,启动新的事务后执行该方法,如果当前线程不处于事务环境中,则启动新的事务后执行方法.</p>
+<p><code>PROPAGATION_SUPPORTS</code>:如果当前线程处于事务环境中,则使用当前事务,否则不使用事务</p>
+</blockquote>
+<p>isolation:指定事务的隔离级别</p>
+<p>timeout:指定事务的超时时间</p>
+<p>read-only:指定事务是否只读</p>
+<p>rollback-for:指定触发事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
+<p>no-rollback-for:指定不处罚事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
+</blockquote>
+<h3 id="Transactional注解"><a href="#Transactional注解" class="headerlink" title="@Transactional注解"></a><code>@Transactional</code>注解</h3><h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件里配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">          class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">        &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line">&lt;!--启动@Transactional注解--&gt;</div><div class="line">&lt;tx:annotation-driven transaction-manager = &quot;transactionManager&quot;/&gt;</div></pre></td></tr></table></figure>
+<p><code>@Transactional</code>注解即可以用于修饰<code>Spring Bean</code>类,也可以用于修饰<code>Bean</code>类中的某个方法</p>
+<p>如果使用该注解修饰<code>Bean</code>类,表明这些事务设置对整个<code>Bean</code>起作用;如果使用该注解修饰<code>Bean</code>类的方法,则表明这些事务设置只对该方法有效。</p>
+<h4 id="Transactional注解的属性"><a href="#Transactional注解的属性" class="headerlink" title="@Transactional注解的属性"></a><code>@Transactional</code>注解的属性</h4><blockquote>
+<p>isolation:用于指定事物的隔离级别.默认为底层事务的隔离级别</p>
+<p>noRollbackFor:用于指定遇到某个特定异常时强制不回滚事务</p>
+<p>noRollbackForClassName:指定遇到特定的多个异常时强制不回滚事务,可以指定多个异常类名</p>
+<p>propagation:指定事务的传播行为</p>
+<p>readOnly:指定是否只读</p>
+<p>rollbackFor:指定遇到特定异常时强制回滚事务</p>
+<p>rollbackForClassName:指定遇到特定的多个异常时强制回滚事务.可以设置多个异常类名</p>
+<p>timeout:指定事务的超时时长</p>
+</blockquote>
+<p><code>@Transactional</code>注解中所指定的属性与<code>&lt;tx:advice.../&gt;</code>元素中所指定的事务属性基本上是对应的。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Spring </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> 学习笔记 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Idea-使用Mybatis-generator插件快速生成Mybatis相关代码]]></title>
+      <url>/2017/04/19/idea-%E4%BD%BF%E7%94%A8Mybatis-generator%E6%8F%92%E4%BB%B6%E5%BF%AB%E9%80%9F%E7%94%9F%E6%88%90Mybatis%E4%BB%A3%E7%A0%81/</url>
+      <content type="html"><![CDATA[<p>使用这个插件可以快速生成一些代码,包含 实体类/Mapper接口/*Mapper.xml文件</p>
+<h4 id="项目要求"><a href="#项目要求" class="headerlink" title="项目要求"></a>项目要求</h4><p>首先,我们需要搭建一个<code>Maven</code>的项目,当然,这个项目必须要支持使用<code>Mybatis</code>。</p>
+<a id="more"></a>
+<h4 id="修改pom-xml"><a href="#修改pom-xml" class="headerlink" title="修改pom.xml"></a>修改<code>pom.xml</code></h4><p>在<code>pom.xml</code>中添加代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">&lt;plugins&gt;</div><div class="line">      &lt;plugin&gt;</div><div class="line">        &lt;!--Mybatis-generator插件,用于自动生成Mapper和POJO--&gt;</div><div class="line">        &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;mybatis-generator-maven-plugin&lt;/artifactId&gt;</div><div class="line">        &lt;version&gt;1.3.2&lt;/version&gt;</div><div class="line">        &lt;configuration&gt;</div><div class="line">          &lt;!--配置文件的位置--&gt;</div><div class="line">          &lt;configurationFile&gt;yourLocation/mybatis-generator-config.xml&lt;/configurationFile&gt;</div><div class="line">          &lt;verbose&gt;true&lt;/verbose&gt;</div><div class="line">          &lt;overwrite&gt;true&lt;/overwrite&gt;</div><div class="line">        &lt;/configuration&gt;</div><div class="line">        &lt;executions&gt;</div><div class="line">          &lt;execution&gt;</div><div class="line">            &lt;id&gt;Generate MyBatis Artifacts&lt;/id&gt;</div><div class="line">            &lt;goals&gt;</div><div class="line">              &lt;goal&gt;generate&lt;/goal&gt;</div><div class="line">            &lt;/goals&gt;</div><div class="line">          &lt;/execution&gt;</div><div class="line">        &lt;/executions&gt;</div><div class="line">        &lt;dependencies&gt;</div><div class="line">          &lt;dependency&gt;</div><div class="line">            &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;</div><div class="line">            &lt;artifactId&gt;mybatis-generator-core&lt;/artifactId&gt;</div><div class="line">            &lt;version&gt;1.3.2&lt;/version&gt;</div><div class="line">          &lt;/dependency&gt;</div><div class="line">        &lt;/dependencies&gt;</div><div class="line">      &lt;/plugin&gt;</div><div class="line">    &lt;/plugins&gt;</div></pre></td></tr></table></figure></p>
+<p>注意,<code>plugins</code>标签是<code>build</code>标签的子标签</p>
+<h4 id="配置mybatis-generator-config-xml"><a href="#配置mybatis-generator-config-xml" class="headerlink" title="配置mybatis-generator-config.xml"></a>配置<code>mybatis-generator-config.xml</code></h4><p>添加好之后,我们就需要配置<code>mybatis-generator-config.xml</code>配置文件中的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</div><div class="line">&lt;!DOCTYPE generatorConfiguration PUBLIC</div><div class="line">        &quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</div><div class="line">        &quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot; &gt;</div><div class="line">&lt;generatorConfiguration&gt;</div><div class="line"></div><div class="line">    &lt;!-- 本地数据库驱动程序jar包的全路径 --&gt;</div><div class="line">    &lt;classPathEntry location=&quot;&quot;/&gt;</div><div class="line"></div><div class="line">    &lt;context id=&quot;context&quot; targetRuntime=&quot;MyBatis3&quot;&gt;</div><div class="line">        &lt;commentGenerator&gt;</div><div class="line">            &lt;property name=&quot;suppressAllComments&quot; value=&quot;false&quot;/&gt;</div><div class="line">            &lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;/&gt;</div><div class="line">        &lt;/commentGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- 数据库的相关配置 --&gt;</div><div class="line">        &lt;jdbcConnection driverClass=&quot;&quot; connectionURL=&quot;&quot; userId=&quot;&quot; password=&quot;&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;javaTypeResolver&gt;</div><div class="line">            &lt;property name=&quot;forceBigDecimals&quot; value=&quot;false&quot;/&gt;</div><div class="line">        &lt;/javaTypeResolver&gt;</div><div class="line"></div><div class="line">        &lt;!-- 实体类生成的位置 --&gt;</div><div class="line">        &lt;javaModelGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot;&gt;</div><div class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;</div><div class="line">            &lt;property name=&quot;trimStrings&quot; value=&quot;true&quot;/&gt;</div><div class="line">        &lt;/javaModelGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- *Mapper.xml 文件的位置 --&gt;</div><div class="line">        &lt;sqlMapGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot;&gt;</div><div class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;</div><div class="line">        &lt;/sqlMapGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- Mapper 接口文件的位置 --&gt;</div><div class="line">        &lt;javaClientGenerator targetPackage=&quot;目标包&quot; targetProject=&quot;目标项目classpath&quot; type=&quot;XMLMAPPER&quot;&gt;</div><div class="line">            &lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;</div><div class="line">        &lt;/javaClientGenerator&gt;</div><div class="line"></div><div class="line">        &lt;!-- 相关表的配置 --&gt;</div><div class="line">        &lt;table tableName=&quot;表名&quot; enableCountByExample=&quot;false&quot; enableDeleteByExample=&quot;false&quot; enableSelectByExample=&quot;false&quot;</div><div class="line">               enableUpdateByExample=&quot;false&quot;/&gt;</div><div class="line">    &lt;/context&gt;</div><div class="line">&lt;/generatorConfiguration&gt;</div></pre></td></tr></table></figure>
+<p>随后,在<code>idea</code>的右侧栏点击Maven,选中添加的Mybatis-generator插件并运行,就可以得到相应的代码啦~</p>
+<p>是不是很简单啊?</p>
+<p>那就快动手试试吧!</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Mybatis </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 小技巧 </tag>
+            
+            <tag> Mybatis </tag>
+            
+            <tag> 随笔 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Idea 使用 Maven 搭建 Web 项目]]></title>
+      <url>/2017/03/28/Idea%20%E4%BD%BF%E7%94%A8%20Maven%20%E6%90%AD%E5%BB%BA%20Web%20%E9%A1%B9%E7%9B%AE/</url>
+      <content type="html"><![CDATA[<p>Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。</p>
+<p>使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）</p>
+<a id="more"></a>
+<h3 id="搭建Web工程步骤"><a href="#搭建Web工程步骤" class="headerlink" title="搭建Web工程步骤"></a>搭建Web工程步骤</h3><h4 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h4><p><code>File-&gt;new-&gt;Project</code> 选择 <code>Maven</code> 创建一个简单的 <code>Web</code>工程</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/create_1.png" alt="第一步"></p>
+<h4 id="输入唯一标识"><a href="#输入唯一标识" class="headerlink" title="输入唯一标识"></a>输入唯一标识</h4><p>输入  <code>GroupId</code> 与 <code>ArtifactId</code> 用来唯一标识你的项目</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/create_2.png" alt="image"></p>
+<h4 id="添加变量"><a href="#添加变量" class="headerlink" title="添加变量"></a>添加变量</h4><p>添加一个变量,目的是为了让 <code>Idea</code> 创建 <code>Maven</code> 项目更快</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/addProperty.png" alt="image"></p>
+<h4 id="输入项目名"><a href="#输入项目名" class="headerlink" title="输入项目名"></a>输入项目名</h4><p>输入项目名称完成创建，并得到如下的目录</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/end.png" alt="image"></p>
+<p>此时还并不算创建完毕，虽然添加服务器后可以运行，但还需要做一些简单的修饰</p>
+<h4 id="添加文件夹"><a href="#添加文件夹" class="headerlink" title="添加文件夹"></a>添加文件夹</h4><p><code>Ctrl+Alt+Shift+s</code> 打开 <code>Project Structure</code> ，添加文件夹，并设置相应的功能模块</p>
+<pre><code>* main目录下添加一个 `java` 文件夹，设置为 `Sources`
+* src 目录下添加一个 `test` 文件夹,用于存放测试相关文件
+* test 目录下添加一个 `java` 文件夹，设置为 `Tests`
+* test 目录下添加一个 `resources` 文件夹，设置为 `Test Resources`
+</code></pre><p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/directory.png" alt="image"></p>
+<h4 id="配置Tomcat"><a href="#配置Tomcat" class="headerlink" title="配置Tomcat"></a>配置<code>Tomcat</code></h4><pre><code>* 点击上面的按钮，`Edit Configurations...`
+* 点击 `+` 添加本地服务器
+* 发布当前的项目
+</code></pre><p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_1.png" alt="image"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_2.png" alt="image"></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/web_domo/tomcat_3.png" alt="image"></p>
+<p>至此，<code>Web</code> 项目搭建完毕，就可以疯狂撸代码了，请开始你的表演~</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Web </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 小技巧 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[idea + SSH框架整合]]></title>
+      <url>/2017/03/28/idea+SSH%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88/</url>
+      <content type="html"><![CDATA[<p>Spring4 Struts2 Hibernate5 整合</p>
+<p>是现在比较流行的一种开发方式，许多网站都使用了这种架构进行开发。那么怎么整合这三大框架？</p>
+<a id="more"></a>
+<hr>
+<h3 id="两个问题"><a href="#两个问题" class="headerlink" title="两个问题"></a>两个问题</h3><h4 id="Spring-整合-Hibernate-整合什么？"><a href="#Spring-整合-Hibernate-整合什么？" class="headerlink" title="Spring 整合 Hibernate 整合什么？"></a><code>Spring</code> 整合 <code>Hibernate</code> 整合什么？</h4><pre><code>1) 由 `IOC` 容器管理 `Hibernagte` 的 `SessionFactory`
+2) 让 `Hibernate` 使用上 `Spring` 的声明式事务
+</code></pre><h4 id="Spring-整合-Struts2-整合什么？"><a href="#Spring-整合-Struts2-整合什么？" class="headerlink" title="Spring 整合 Struts2 整合什么？"></a><code>Spring</code> 整合 <code>Struts2</code> 整合什么？</h4><pre><code>1) 让 `Spring` 管理 `Struts2` 的 `Action`
+</code></pre><hr>
+<p>首先用搭建一个<code>Maven</code>管理的<code>Web</code>项目，可以参考我的这篇博文:<a href="http://www.yuanyang-miemie.win/2017/03/28/Idea%20%E4%BD%BF%E7%94%A8%20Maven%20%E6%90%AD%E5%BB%BA%20Web%20%E9%A1%B9%E7%9B%AE/">传送门</a></p>
+<hr>
+<p>搭建完成之后，我们需要加入相关<code>jar</code>包并进行配置</p>
+<h3 id="相关设置"><a href="#相关设置" class="headerlink" title="相关设置"></a>相关设置</h3><h4 id="添加jar包"><a href="#添加jar包" class="headerlink" title="添加jar包"></a>添加<code>jar</code>包</h4><p>在<code>pom.xml</code>中添加<code>jar</code>包依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div></pre></td><td class="code"><pre><div class="line">&lt;dependencies&gt;</div><div class="line"></div><div class="line">    &lt;!--Junit单元测试--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;junit&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;junit&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;4.12&lt;/version&gt;</div><div class="line">      &lt;scope&gt;test&lt;/scope&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;!--添加hibernate的jar包--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.hibernate&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;hibernate-core&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;5.2.8.Final&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.hibernate.javax.persistence&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;hibernate-jpa-2.1-api&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.0.0.Final&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.hibernate.common&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;hibernate-commons-annotations&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;5.0.1.Final&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.jboss.logging&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;jboss-logging&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;3.3.0.Final&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.jboss&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;jandex&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;2.0.3.Final&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.jboss.spec.javax.transaction&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;jboss-transaction-api_1.2_spec&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.0.1.Final&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.hamcrest&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;hamcrest-core&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.3&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;!--依赖log4j slf4j--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.slf4j&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.7.7&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;!-- Commons--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;commons-logging&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.2&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;commons-pool&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;commons-pool&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.3.1&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;commons-io&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;commons-io&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;2.4&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;3.1&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;!--配置Spring所需要的jar包--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-aop&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-aspects&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-context-support&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-core&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-expression&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-orm&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-test&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-tx&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-web&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;!--Struts2--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;asm&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;asm&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;3.2&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;asm&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;asm-commons&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;3.2&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;asm&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;asm-tree&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;3.2&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.freemarker&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;freemarker&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;2.3.19&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.javassist&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;javassist&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;3.20.0-GA&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;log4j&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;log4j&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.2.17&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;ognl&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;ognl&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;3.0.6&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.apache.struts&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;struts2-core&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;2.3.15.3&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.apache.struts.xwork&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;xwork-core&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;2.3.15.3&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;dom4j&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;dom4j&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.6.1&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;!--spring-Struts2整合--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.apache.struts&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;struts2-spring-plugin&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;2.3.15&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;!--aspectj--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;aopalliance&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;aopalliance&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.0&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.aspectj&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;aspectjrt&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.8.9&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;org.aspectj&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;1.8.9&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;!--配置jdbc所需要的jar包--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;mysql&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;5.1.38&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">    &lt;!--c3p0连接池--&gt;</div><div class="line">    &lt;dependency&gt;</div><div class="line">      &lt;groupId&gt;com.mchange&lt;/groupId&gt;</div><div class="line">      &lt;artifactId&gt;c3p0&lt;/artifactId&gt;</div><div class="line">      &lt;version&gt;0.9.5.2&lt;/version&gt;</div><div class="line">    &lt;/dependency&gt;</div><div class="line"></div><div class="line">  &lt;/dependencies&gt;</div></pre></td></tr></table></figure>
+<h4 id="在pom-xml中设置classpath"><a href="#在pom-xml中设置classpath" class="headerlink" title="在pom.xml中设置classpath"></a>在<code>pom.xml</code>中设置<code>classpath</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;build&gt;</div><div class="line">    &lt;finalName&gt;ssh_demo&lt;/finalName&gt;</div><div class="line">    &lt;resources&gt;</div><div class="line">      &lt;resource&gt;</div><div class="line">        &lt;directory&gt;src/main/java&lt;/directory&gt;</div><div class="line">      &lt;/resource&gt;</div><div class="line">      &lt;resource&gt;</div><div class="line">        &lt;directory&gt;src/main/resources&lt;/directory&gt;</div><div class="line">        &lt;includes&gt;</div><div class="line">          &lt;include&gt;**/*.xml&lt;/include&gt;</div><div class="line">          &lt;include&gt;**/*.properties&lt;/include&gt;</div><div class="line">        &lt;/includes&gt;</div><div class="line">      &lt;/resource&gt;</div><div class="line">    &lt;/resources&gt;</div><div class="line">  &lt;/build&gt;</div></pre></td></tr></table></figure>
+<h4 id="添加Hibernate配置文件"><a href="#添加Hibernate配置文件" class="headerlink" title="添加Hibernate配置文件"></a>添加<code>Hibernate</code>配置文件</h4><blockquote>
+<p><code>ctrl+alt+shift+s</code> 打开 <code>Project Structure</code> 选择 <code>Facets</code> 添加 <code>Hibernate</code> </p>
+<p>选择 <code>Hibernate</code> 点击右侧添加配置文件</p>
+<p>找到配置文件，并添加简单的配置，数据源的配置在 <code>Spring</code> 中进行</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;!--方言--&gt;</div><div class="line">&lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.MySQL57InnoDBDialect&lt;/property&gt;</div><div class="line">&lt;!--显示SQL--&gt;</div><div class="line">&lt;property name=&quot;hibernate.show_sql&quot;&gt;true&lt;/property&gt;</div><div class="line">&lt;!--格式化SQL--&gt;</div><div class="line">&lt;property name=&quot;hibernate.format_sql&quot;&gt;true&lt;/property&gt;</div><div class="line">&lt;!--生成表的策略--&gt;</div><div class="line">&lt;property name=&quot;hbm2ddl.auto&quot;&gt;update&lt;/property&gt;</div></pre></td></tr></table></figure>
+<h4 id="添加Spring配置文件-并整合Hibernate"><a href="#添加Spring配置文件-并整合Hibernate" class="headerlink" title="添加Spring配置文件,并整合Hibernate"></a>添加<code>Spring</code>配置文件,并整合<code>Hibernate</code></h4><blockquote>
+<p>直接在<code>Resources</code>下添加<code>Spring</code>的配置文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置数据源，请自定义取值--&gt;</div><div class="line">    &lt;bean id=&quot;dataSource&quot;</div><div class="line">          class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;</div><div class="line">        &lt;property name=&quot;user&quot; value=&quot;$&#123;jdbc.user&#125;&quot;/&gt;</div><div class="line">        &lt;property name=&quot;password&quot; value=&quot;$&#123;jdbc.password&#125;&quot;/&gt;</div><div class="line">        &lt;property name=&quot;driverClass&quot; value=&quot;$&#123;jdbc.driverClass&#125;&quot;/&gt;</div><div class="line">        &lt;property name=&quot;jdbcUrl&quot; value=&quot;$&#123;jdbc.url&#125;&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;property name=&quot;initialPoolSize&quot; value=&quot;$&#123;jdbc.initPoolSize&#125;&quot;/&gt;</div><div class="line">        &lt;property name=&quot;maxPoolSize&quot; value=&quot;$&#123;jdbc.maxPoolSize&#125;&quot;/&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line">&lt;!--SessionFactory--&gt;</div><div class="line">    &lt;bean id=&quot;sessionFactory&quot;</div><div class="line">          class=&quot;org.springframework.orm.hibernate5.LocalSessionFactoryBean&quot;&gt;</div><div class="line">        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:hibernate.cfg.xml&quot;&gt;&lt;/property&gt;</div><div class="line">        &lt;property name=&quot;mappingLocations&quot; value=&quot;classpath:com/geek/ssh/entities/*.hbm.xml&quot;/&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line">    </div><div class="line">    &lt;!--事务--&gt;</div><div class="line">    &lt;bean id=&quot;transactionManager&quot;</div><div class="line">          class=&quot;org.springframework.orm.hibernate5.HibernateTransactionManager&quot;&gt;</div><div class="line">        &lt;property name=&quot;sessionFactory&quot; ref=&quot;sessionFactory&quot;/&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line"></div><div class="line">    &lt;tx:advice id=&quot;txAdvice&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">        &lt;tx:attributes&gt;</div><div class="line">            &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">            &lt;tx:method name=&quot;get&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;/tx:attributes&gt;</div><div class="line">    &lt;/tx:advice&gt;</div><div class="line"></div><div class="line">    &lt;aop:config&gt;</div><div class="line">        &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* com.geek.ssh.service.*.*(..))&quot;/&gt;</div><div class="line">        &lt;aop:advisor advice-ref=&quot;txAdvice&quot; pointcut-ref=&quot;txPointCut&quot;/&gt;</div><div class="line">    &lt;/aop:config&gt;</div></pre></td></tr></table></figure>
+<h4 id="在Resources目录下添加Struts2配置文件-并进行配置"><a href="#在Resources目录下添加Struts2配置文件-并进行配置" class="headerlink" title="在Resources目录下添加Struts2配置文件,并进行配置"></a>在<code>Resources</code>目录下添加<code>Struts2</code>配置文件,并进行配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;package name=&quot;default&quot; namespace=&quot;/&quot; extends=&quot;struts-default&quot;&gt;</div><div class="line">    &lt;!--Action结点的class必须指向Spring中配置的bean--&gt;</div><div class="line">&lt;/package&gt;</div></pre></td></tr></table></figure>
+<h4 id="在web-xml进行配置"><a href="#在web-xml进行配置" class="headerlink" title="在web.xml进行配置"></a>在<code>web.xml</code>进行配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;context-param&gt;</div><div class="line">  &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</div><div class="line">  &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;</div><div class="line">&lt;/context-param&gt;</div><div class="line"></div><div class="line">&lt;filter&gt;</div><div class="line">  &lt;filter-name&gt;struts2&lt;/filter-name&gt;</div><div class="line">  &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;</div><div class="line">&lt;/filter&gt;</div><div class="line"></div><div class="line">&lt;filter-mapping&gt;</div><div class="line">  &lt;filter-name&gt;struts2&lt;/filter-name&gt;</div><div class="line">  &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</div><div class="line">&lt;/filter-mapping&gt;</div><div class="line"></div><div class="line">&lt;listener&gt;</div><div class="line">  &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;</div><div class="line">&lt;/listener&gt;</div></pre></td></tr></table></figure>
+<hr>
+<p>这时我们的SSH框架基本整合完毕啦。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Web </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> Struts2 </tag>
+            
+            <tag> Hibernate </tag>
+            
+            <tag> Maven </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hanoi(汉诺塔)————Java小算法]]></title>
+      <url>/2017/03/15/%E6%B1%89%E8%AF%BA%E5%A1%94(Hanoi)%E2%80%94%E2%80%94%E5%B0%8F%E5%B0%8F%E7%AE%97%E6%B3%95/</url>
+      <content type="html"><![CDATA[<blockquote>
+<p>汉诺(Hanoi)塔源于古印度,是非常著名的智力趣题,大意如下：</p>
+</blockquote>
+<p>勃拉玛是古印度的一个开天辟地的神，其在一个庙宇中留下了三根金刚石的棒，第一根上面套着64个大小不一的圆形金片。其中，最大的金片在最底下，其余的依次叠上去，且一个比一个小。勃拉玛要求众僧将该金刚石棒中的金片逐个地移动到另一根棒上，规定：</p>
+<p>一次只能移动一个金片，且金片在放到棒上时，只能大的放在小的下面，但是可以利用中间的一根棒最为辅助。<br><a id="more"></a></p>
+<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><hr>
+<p>从上至下,我将盘一次标号为1、2、3……</p>
+<ul>
+<li>当只有一个盘的时候,只需要将其从A棒移动至C棒;</li>
+</ul>
+<p>步骤:</p>
+<blockquote>
+<p>1号:A ——&gt; C</p>
+</blockquote>
+<ul>
+<li>当有两个盘时,需要先将第一个盘移动至B棒,再将第二个盘移动至C棒,再将第一个盘移动至C棒;</li>
+</ul>
+<p>步骤:</p>
+<blockquote>
+<p>1号:A ——&gt; B</p>
+<p>2号:A ——&gt; C</p>
+<p>1号:B ——&gt; C</p>
+</blockquote>
+<ul>
+<li>当有3个盘子时,需要进行的步骤为:</li>
+</ul>
+<blockquote>
+<p>1号:A ——&gt; C</p>
+<p>2号:A ——&gt; B</p>
+<p>1号:C ——&gt; B</p>
+<p>3号:A ——&gt; C</p>
+<p>1号:B ——&gt; A</p>
+<p>2号:B ——&gt; C</p>
+<p>1号:A ——&gt; C</p>
+</blockquote>
+<hr>
+<p>可以看出，当号数与盘子总数相等时,进行的操作只有A ——&gt; C。所以可以将把A棒上的所有盘子借助B棒移动到C棒的整个过程总结为三步：</p>
+<ol>
+<li>将A棒上的n-1个圆盘借助C棒移动到B棒上</li>
+<li>将A棒上的一个圆盘移动到C棒上</li>
+<li>将B棒上的圆盘借助A棒移动到C棒上</li>
+</ol>
+<p>当然，当只有一个盘子时只需A ——&gt; C;两个盘子的时候，也不需要中介。</p>
+<p>初态:<br><img src="http://omuut7fta.bkt.clouddn.com/Hanoi/start.png" alt="image"><br>移动n-1个圆盘:<br><img src="http://omuut7fta.bkt.clouddn.com/Hanoi/CtoB.png" alt="image"><br>移动剩下的一个盘:<br><img src="http://omuut7fta.bkt.clouddn.com/Hanoi/BtoC.png" alt="image"><br>移动B棒上的盘:<br><img src="http://omuut7fta.bkt.clouddn.com/Hanoi/end.png" alt="image"></p>
+<h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">package com.yuanyang.example;</div><div class="line"></div><div class="line">import java.util.Scanner;</div><div class="line"></div><div class="line">public class Hanoi &#123;</div><div class="line"></div><div class="line">    static long count;  //移动的次数</div><div class="line"></div><div class="line">    /**</div><div class="line">     * @param n 盘子总数</div><div class="line">     * @param a A棒</div><div class="line">     * @param b B棒</div><div class="line">     * @param c C棒</div><div class="line">     * @param disk 用来输出移动的第k个盘子</div><div class="line">     */</div><div class="line">    static void move(int n,char a,char b,char c,int disk)&#123;//A棒借助B棒移动到C棒</div><div class="line">        disk --;</div><div class="line">        if (n==1) &#123;//当只有一个盘子的时候,直接从A棒移动至C棒</div><div class="line">            System.out.printf(&quot;第%d次移动:\t第%d个盘子,圆盘从%c移动到%c棒\n&quot;,++count,disk,a,c);</div><div class="line">        &#125;else &#123;//当盘子大于一的时候。</div><div class="line">            move(n-1,a,c,b,disk);//将A棒上的n-1个盘子借助C棒移动到B棒</div><div class="line">            System.out.printf(&quot;第%d次移动:\t第%d个盘子,圆盘从%c移动到%c棒\n&quot;,++count,disk,a,c);//将最后一张盘子从A棒移到C棒</div><div class="line">            move(n-1,b,a,c,disk);//将B棒上剩下的n-1个盘子借助A棒移动到C棒</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        Scanner input = new Scanner(System.in);</div><div class="line">        System.out.println(&quot;请输入圆盘数:&quot;);</div><div class="line">        int n = input.nextInt();</div><div class="line">        move(n,&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,n + 1);</div><div class="line">        System.out.printf(&quot;一共进行了%d次移动\n&quot;,count);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样，我们就可以得到结果了。但是，可以发现，移动的次数n和盘子数x存在 x = 2^n-1 的关系，所以，当盘子达到64个的时候，次数达到了18446744073709551615次，这就很尴尬了，这群僧人估计搬完是没戏了。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 算法 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+            <tag> 小小算法 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[百钱百鸡————Java小算法]]></title>
+      <url>/2017/03/14/%E7%99%BE%E9%92%B1%E7%99%BE%E9%B8%A1%E5%B0%8F%E7%AE%97%E6%B3%95/</url>
+      <content type="html"><![CDATA[<p>百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：</p>
+<pre><code>鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
+</code></pre><p>大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？<br><a id="more"></a></p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>百钱买白鸡问题中，有三个变量：公鸡数量、母鸡数量、小鸡数量，分别设为x、y、z，这三者应该满足如下关系：</p>
+<pre><code>x+y+z=100；
+5x+3y+z/3=100；
+</code></pre><p>三个变量，两个方程，因此这是一个不定方程组，这导致求解的结果不唯一。</p>
+<h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><p>编写一段代码，用于计算<code>m</code>钱<code>n</code>鸡的问题,当<code>m=100</code>且<code>n=100</code>时,正好是百钱百鸡问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package com.example;</div><div class="line"></div><div class="line">public class Code &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        System.out.println(&quot;百钱百鸡问题的解为:&quot;);</div><div class="line">        buyChicken(100,100);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void buyChicken(int m,int n)&#123;</div><div class="line">        for (int x = 0;x &lt;= n;x++)  //公鸡数量</div><div class="line">           for (int y = 0;y &lt;= n;y++) &#123; //母鸡数量</div><div class="line">               if (x + y &lt;= n) &#123;    //公鸡和母鸡只和不能超过 n</div><div class="line">                   int z = n - x -y;    //小鸡数量, 用到第一个方程 x + y + z = n</div><div class="line">                   if (z%3 == 0 &amp;&amp; x*5 + y*3 + z/3 == m) &#123;</div><div class="line">                       //小鸡数量必须为3的倍数, 且当第二个方程成立时, 得到正确结果</div><div class="line">                       System.out.println(&quot;公鸡:&quot; + x +  &quot; 母鸡:&quot; + y + &quot; 小鸡:&quot; + z);</div><div class="line">                   &#125;else</div><div class="line">                       continue;    //当结果不满足条件时, 继续下一次循环</div><div class="line">               &#125;else</div><div class="line">                   break; //当公鸡和母鸡数超过 n 时, 退出当前循环</div><div class="line">           &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样，我们运行程序可以得到解：</p>
+<pre><code>百钱百鸡问题的解为:
+公鸡:0 母鸡:25 小鸡:75
+公鸡:4 母鸡:18 小鸡:78
+公鸡:8 母鸡:11 小鸡:81
+公鸡:12 母鸡:4 小鸡:84
+</code></pre><p>这里我采用了穷举的方法，将所有的值进行穷举，寻找方程组的解。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 算法 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 随笔 </tag>
+            
+            <tag> 小小算法 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[我的第一个小项目——GEEK网工作室主页]]></title>
+      <url>/2017/03/13/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%B0%8F%E9%A1%B9%E7%9B%AE%E2%80%94%E2%80%94GEEK%E7%BD%91%E5%B7%A5%E4%BD%9C%E5%AE%A4%E4%B8%BB%E9%A1%B5/</url>
+      <content type="html"><![CDATA[<p>很快,就到了大二的寒假，大学的生活就这样过去了接近一半，之前听说大二寒假会有项目什么的,已经准好了心理准备。但第一次着手项目，还是有点小紧张在这之前我已经看了一些框架，也需要把框架应用起来。光是纸上谈兵是没有用的，在实际操作中，必有变数。</p>
+<a id="more"></a>
+<h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>我们组是5个前端，一个后台。并我担任组长。看了之前学长学姐们做的主页，我们也慢慢开始琢磨我们自己网站的构造。</p>
+<p>可是没有UI、没有产品，这对于我来说是一次历练，因为我之前没有经验，不知道整个项目流程是什么，但这也是这次项目的目的，让我们<strong>熟悉项目流程</strong>。</p>
+<p>我们在放假后进行了两次讨论，确定我们用什么技术、做成什么样等等；我画出了所有页面的原型图，整理了网站运行流程然后分配任务。</p>
+<p>丑丑的原型图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/geek/pic.PNG" alt="丑丑的原型图"></p>
+<h4 id="制作网站"><a href="#制作网站" class="headerlink" title="制作网站"></a>制作网站</h4><p>当着手代码的时候，我发现网站的逻辑其实非常简单，因为是一个介绍性的网站，虽然有些内容需要连接数据库，但整个运行逻辑很清晰。</p>
+<p>由于只有我一个后台，所以我必须早日完成，并把接口给他们，我用了4-5天完成整个代码的书写并完成自测。</p>
+<p>我和长街（花名）一起完成后台了管理页面，而其他四个前端写的主页面。我估计他们用了一周左右吧，因为大家都是第一次，对交互需要摸索。</p>
+<h4 id="发现不足"><a href="#发现不足" class="headerlink" title="发现不足"></a>发现不足</h4><p>本来我为我们的项目搭建了一个github项目，方便代码共享，但只有我一个后台，我并没有太在意去用这个。而他们5个前端也没使用github，我觉得这是一个不足的地方，每次他们更新了代码都要发给我，在我这里测试，即使我为他们搭建了环境之后，当我的代码改动之后，他们的又需要更新。我作为组长，应该组织他们使用起来，不然交互的时候会非常麻烦，以后希望我们都能改进。</p>
+<h4 id="小小总结"><a href="#小小总结" class="headerlink" title="小小总结"></a>小小总结</h4><p>总的来说，我觉得还行吧。虽然我设计的后台的管理页面有点丑，毕竟我对这方面没有灵感。这次对我们6个人来说都是一次成长，虽然项目很小，并且只有我们知道，但是麻雀虽小五脏俱全。我们得到锻炼就行了，这就是目的。希望以后的项目我们要避免我们这次项目里面发现的问题，提高合作效率，做得更好！</p>
+<p>附上我们的网站截图，真的有点丑，怪我怪我。<br><img src="http://omuut7fta.bkt.clouddn.com/geek/geek.PNG" alt="geek网工作室"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 经验总结 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 项目取经 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
