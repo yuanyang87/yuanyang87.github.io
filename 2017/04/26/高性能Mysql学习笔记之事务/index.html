@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://www.yuanyang-miemie.win/2017/04/26/高性能Mysql学习笔记之事务/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
 <meta property="og:description" content="什么是事务?事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，要么全部执行成功，要么全部执行失败。">
-<meta property="og:updated_time" content="2017-04-26T16:22:30.322Z">
+<meta property="og:updated_time" content="2017-05-06T02:52:18.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高性能Mysql学习笔记之事务">
 <meta name="twitter:description" content="什么是事务?事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，要么全部执行成功，要么全部执行失败。">
@@ -309,38 +309,14 @@
         <h3 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务?"></a>什么是事务?</h3><p>事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，<strong>要么全部执行成功，要么全部执行失败</strong>。</p>
 <a id="more"></a>
 <h3 id="事务的ACID特性"><a href="#事务的ACID特性" class="headerlink" title="事务的ACID特性"></a>事务的ACID特性</h3><p>ACID表示事务的原子性(atomicity)、一致性(consistency)、隔离性(isolation)、持久性(durability)。一个运行良好的事务处理系统，必须具备这些标准特性。</p>
-<blockquote>
-<p>原子性(atomicity)</p>
-</blockquote>
-<p>一个事务必须被视为一个不可分割的最小工作单元,整个事务中的所有操作要么全部提交成功,要么全部失败回滚,对于一个事务来说,不可能只执行其中的一部分操作。</p>
-<blockquote>
-<p>一致性(consistency)</p>
-</blockquote>
-<p>数据库总是从一个一致性的状态换到另一个一致性的状态。</p>
-<blockquote>
-<p>隔离性(isolation)</p>
-</blockquote>
-<p><strong>通常来说</strong>：一个事务所做的修改在最终提交前,对其他事务是不可见的。</p>
-<blockquote>
-<p>持久性(durability)</p>
-</blockquote>
-<p>一旦事务提交,则其所做的修改就会永久保存到数据库中。此时即使系统崩溃,修改的数据也不会丢失。</p>
-<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><blockquote>
-<p>READ UNCOMMITTED(读未提交)</p>
-</blockquote>
-<p>也叫==脏读==,在这个级别中,事务中的修改,即使没有提交,对其他事务也是可见的.一般都不采用.</p>
-<blockquote>
-<p>READ COMMITTED(读已提交)</p>
-</blockquote>
-<p>也叫==不可重复读==,因为两次相同的查询可能得到不同的结果.大多数数据库都默认使用这种隔离级别,一个事务从开始直到提交之前,所做的任何修改对其他事务都是不可见的.</p>
-<blockquote>
-<p>REPEATABLE READ(可重复读)</p>
-</blockquote>
-<p>==Mysql默认隔离级别==解决了==脏读==的问题,该级别保证了在同一个事务中多次读取同样的记录结果是一样的.但无法解决==幻读==的问题。幻读(Phantom Read),指当某个事务在读取某个范围内的记录时,另外一个事务又在该范围插入了新的记录,当之前的事务再次读取该范围的记录时,会产生换行(Phantom Row)。InnoDB和XtraDB存储引擎通过多版本并发控制解决了幻读问题。</p>
-<blockquote>
-<p>SERIALIZABLE(可串行化)</p>
-</blockquote>
-<p>这是最高的个理解别,它会通过强制事务串行执行,避免了前面说的幻读问题.简单地说SERIALIZABLE会在读取的每一行数据上都加上锁,所以可能导致大量的超时和争锁时间的问题.实际应用中也很少使用,只有在急需要保持数据一致且接受没有并发的情况下,才考虑使用.</p>
+<h4 id="原子性-atomicity"><a href="#原子性-atomicity" class="headerlink" title="原子性(atomicity)"></a>原子性(atomicity)</h4><p>一个事务必须被视为一个不可分割的最小工作单元,整个事务中的所有操作要么全部提交成功,要么全部失败回滚,对于一个事务来说,不可能只执行其中的一部分操作。</p>
+<h4 id="一致性-consistency"><a href="#一致性-consistency" class="headerlink" title="一致性(consistency)"></a>一致性(consistency)</h4><p>数据库总是从一个一致性的状态换到另一个一致性的状态。</p>
+<h4 id="隔离性-isolation"><a href="#隔离性-isolation" class="headerlink" title="隔离性(isolation)"></a>隔离性(isolation)</h4><p><strong>通常来说</strong>：一个事务所做的修改在最终提交前,对其他事务是不可见的。</p>
+<h4 id="持久性-durability"><a href="#持久性-durability" class="headerlink" title="持久性(durability)"></a>持久性(durability)</h4><p>一旦事务提交,则其所做的修改就会永久保存到数据库中。此时即使系统崩溃,修改的数据也不会丢失。</p>
+<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><h4 id="READ-UNCOMMITTED-读未提交"><a href="#READ-UNCOMMITTED-读未提交" class="headerlink" title="READ UNCOMMITTED(读未提交)"></a>READ UNCOMMITTED(读未提交)</h4><p>也叫==脏读==,在这个级别中,事务中的修改,即使没有提交,对其他事务也是可见的.一般都不采用.</p>
+<h4 id="READ-COMMITTED-读已提交"><a href="#READ-COMMITTED-读已提交" class="headerlink" title="READ COMMITTED(读已提交)"></a>READ COMMITTED(读已提交)</h4><p>也叫==不可重复读==,因为两次相同的查询可能得到不同的结果.大多数数据库都默认使用这种隔离级别,一个事务从开始直到提交之前,所做的任何修改对其他事务都是不可见的.</p>
+<h4 id="REPEATABLE-READ-可重复读"><a href="#REPEATABLE-READ-可重复读" class="headerlink" title="REPEATABLE READ(可重复读)"></a>REPEATABLE READ(可重复读)</h4><p>==Mysql默认隔离级别==解决了==脏读==的问题,该级别保证了在同一个事务中多次读取同样的记录结果是一样的.但无法解决==幻读==的问题。幻读(Phantom Read),指当某个事务在读取某个范围内的记录时,另外一个事务又在该范围插入了新的记录,当之前的事务再次读取该范围的记录时,会产生换行(Phantom Row)。InnoDB和XtraDB存储引擎通过多版本并发控制解决了幻读问题。</p>
+<h4 id="SERIALIZABLE-可串行化"><a href="#SERIALIZABLE-可串行化" class="headerlink" title="SERIALIZABLE(可串行化)"></a>SERIALIZABLE(可串行化)</h4><p>这是最高的隔离级别,它会通过强制事务串行执行,避免了前面说的幻读问题.简单地说SERIALIZABLE会在读取的每一行数据上都加上锁,所以可能导致大量的超时和争锁时间的问题.实际应用中也很少使用,只有在急需要保持数据一致且接受没有并发的情况下,才考虑使用.</p>
 <table>
 <thead>
 <tr>
@@ -405,7 +381,7 @@
         <p><span>本文标题:</span><a href="/2017/04/26/高性能Mysql学习笔记之事务/">高性能Mysql学习笔记之事务</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">袁  阳</a></p>
         <p><span>发布时间:</span>2017-04-26, 23:48:59</p>
-        <p><span>最后更新:</span>2017-04-27, 00:22:30</p>
+        <p><span>最后更新:</span>2017-05-06, 10:52:18</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/04/26/高性能Mysql学习笔记之事务/" title="高性能Mysql学习笔记之事务">http://www.yuanyang-miemie.win/2017/04/26/高性能Mysql学习笔记之事务/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2017/04/26/高性能Mysql学习笔记之事务/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -441,7 +417,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是事务"><span class="toc-number">1.</span> <span class="toc-text">什么是事务?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事务的ACID特性"><span class="toc-number">2.</span> <span class="toc-text">事务的ACID特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隔离级别"><span class="toc-number">3.</span> <span class="toc-text">隔离级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#死锁"><span class="toc-number">4.</span> <span class="toc-text">死锁</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是事务"><span class="toc-number">1.</span> <span class="toc-text">什么是事务?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事务的ACID特性"><span class="toc-number">2.</span> <span class="toc-text">事务的ACID特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原子性-atomicity"><span class="toc-number">2.1.</span> <span class="toc-text">原子性(atomicity)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一致性-consistency"><span class="toc-number">2.2.</span> <span class="toc-text">一致性(consistency)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#隔离性-isolation"><span class="toc-number">2.3.</span> <span class="toc-text">隔离性(isolation)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#持久性-durability"><span class="toc-number">2.4.</span> <span class="toc-text">持久性(durability)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隔离级别"><span class="toc-number">3.</span> <span class="toc-text">隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#READ-UNCOMMITTED-读未提交"><span class="toc-number">3.1.</span> <span class="toc-text">READ UNCOMMITTED(读未提交)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#READ-COMMITTED-读已提交"><span class="toc-number">3.2.</span> <span class="toc-text">READ COMMITTED(读已提交)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#REPEATABLE-READ-可重复读"><span class="toc-number">3.3.</span> <span class="toc-text">REPEATABLE READ(可重复读)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SERIALIZABLE-可串行化"><span class="toc-number">3.4.</span> <span class="toc-text">SERIALIZABLE(可串行化)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#死锁"><span class="toc-number">4.</span> <span class="toc-text">死锁</span></a></li></ol>
         
     </div>
     <style>

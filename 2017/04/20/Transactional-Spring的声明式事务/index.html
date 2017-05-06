@@ -15,23 +15,20 @@
 
 
 
-<meta name="description" content="一、Spring的声明式事务
-需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransacti">
+<meta name="description" content="Spring的声明式事务配置需要在xml文件中配置
+1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring的声明式事务-Transactional">
 <meta property="og:url" content="http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="一、Spring的声明式事务
-需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransacti">
+<meta property="og:description" content="Spring的声明式事务配置需要在xml文件中配置
+1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
 <meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
-<meta property="og:updated_time" content="2017-04-20T09:05:31.906Z">
+<meta property="og:updated_time" content="2017-05-06T03:23:19.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring的声明式事务-Transactional">
-<meta name="twitter:description" content="一、Spring的声明式事务
-需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransacti">
+<meta name="twitter:description" content="Spring的声明式事务配置需要在xml文件中配置
+1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
 <meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
@@ -314,11 +311,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>一、Spring的声明式事务</p>
-<p>需要在<code>xml</code>文件中配置</p>
+        <h3 id="Spring的声明式事务"><a href="#Spring的声明式事务" class="headerlink" title="Spring的声明式事务"></a>Spring的声明式事务</h3><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件中配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<p><code>&lt;tx:advice.../&gt;</code>节点详情如下图<br><img src="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png" alt="tx:advice"></p>
+<h4 id="tx-advice节点"><a href="#tx-advice节点" class="headerlink" title="tx:advice节点"></a><code>tx:advice</code>节点</h4><p><code>&lt;tx:advice.../&gt;</code>节点详情如下图<br><img src="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png" alt="tx:advice"></p>
 <blockquote>
 <p>name:指定方法的名称可以使用通配符</p>
 <p>propagation:指定事务的传播行为,默认为为<code>PROPAGATION_REQUIRED</code></p>
@@ -337,13 +333,11 @@
 <p>rollback-for:指定触发事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
 <p>no-rollback-for:指定不处罚事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
 </blockquote>
-<p>二、使用<code>@Transactional</code>注解进行事务管理</p>
-<p>需要在<code>xml</code>文件里配置</p>
+<h3 id="Transactional注解"><a href="#Transactional注解" class="headerlink" title="@Transactional注解"></a><code>@Transactional</code>注解</h3><h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件里配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">          class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">        &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line">&lt;!--启动@Transactional注解--&gt;</div><div class="line">&lt;tx:annotation-driven transaction-manager = &quot;transactionManager&quot;/&gt;</div></pre></td></tr></table></figure>
 <p><code>@Transactional</code>注解即可以用于修饰<code>Spring Bean</code>类,也可以用于修饰<code>Bean</code>类中的某个方法</p>
 <p>如果使用该注解修饰<code>Bean</code>类,表明这些事务设置对整个<code>Bean</code>起作用;如果使用该注解修饰<code>Bean</code>类的方法,则表明这些事务设置只对该方法有效。</p>
-<p><code>@Transactional</code>注解的属性:</p>
-<blockquote>
+<h4 id="Transactional注解的属性"><a href="#Transactional注解的属性" class="headerlink" title="@Transactional注解的属性"></a><code>@Transactional</code>注解的属性</h4><blockquote>
 <p>isolation:用于指定事物的隔离级别.默认为底层事务的隔离级别</p>
 <p>noRollbackFor:用于指定遇到某个特定异常时强制不回滚事务</p>
 <p>noRollbackForClassName:指定遇到特定的多个异常时强制不回滚事务,可以指定多个异常类名</p>
@@ -365,7 +359,7 @@
         <p><span>本文标题:</span><a href="/2017/04/20/Transactional-Spring的声明式事务/">Spring的声明式事务-Transactional</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">袁  阳</a></p>
         <p><span>发布时间:</span>2017-04-20, 15:31:01</p>
-        <p><span>最后更新:</span>2017-04-20, 17:05:31</p>
+        <p><span>最后更新:</span>2017-05-06, 11:23:19</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/04/20/Transactional-Spring的声明式事务/" title="Spring的声明式事务-Transactional">http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -401,7 +395,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring的声明式事务"><span class="toc-number">1.</span> <span class="toc-text">Spring的声明式事务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tx-advice节点"><span class="toc-number">1.2.</span> <span class="toc-text">tx:advice节点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transactional注解"><span class="toc-number">2.</span> <span class="toc-text">@Transactional注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置-1"><span class="toc-number">2.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Transactional注解的属性"><span class="toc-number">2.2.</span> <span class="toc-text">@Transactional注解的属性</span></a></li></ol></li></ol>
         
     </div>
     <style>

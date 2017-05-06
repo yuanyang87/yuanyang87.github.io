@@ -16,9 +16,7 @@
 
 
 <meta name="description" content="本人乃学生小白一枚,近期在学习Linux,所以就简单记录一下~
-安装MySQL
-首先,需要检查一下是否已经安装了MySQL : # rpm -qa | grep mysql
-
+安装MySQL检查首先,需要检查一下是否已经安装了MySQL : # rpm -qa | grep mysql
 
 这时候没有任何输出,则代表没有安装MySQL">
 <meta property="og:type" content="article">
@@ -26,9 +24,7 @@
 <meta property="og:url" content="http://www.yuanyang-miemie.win/2017/05/03/CentOS7-MySQL安装与远程访问/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
 <meta property="og:description" content="本人乃学生小白一枚,近期在学习Linux,所以就简单记录一下~
-安装MySQL
-首先,需要检查一下是否已经安装了MySQL : # rpm -qa | grep mysql
-
+安装MySQL检查首先,需要检查一下是否已经安装了MySQL : # rpm -qa | grep mysql
 
 这时候没有任何输出,则代表没有安装MySQL">
 <meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step1.PNG">
@@ -36,13 +32,11 @@
 <meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step3.PNG">
 <meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step4.jpg">
 <meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/error.jpg">
-<meta property="og:updated_time" content="2017-05-03T14:01:35.328Z">
+<meta property="og:updated_time" content="2017-05-06T03:28:16.098Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7-MySQL安装与远程访问">
 <meta name="twitter:description" content="本人乃学生小白一枚,近期在学习Linux,所以就简单记录一下~
-安装MySQL
-首先,需要检查一下是否已经安装了MySQL : # rpm -qa | grep mysql
-
+安装MySQL检查首先,需要检查一下是否已经安装了MySQL : # rpm -qa | grep mysql
 
 这时候没有任何输出,则代表没有安装MySQL">
 <meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step1.PNG">
@@ -328,33 +322,31 @@
       
           
         <p>本人乃学生小白一枚,近期在学习<code>Linux</code>,所以就简单记录一下~</p>
-<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装<code>MySQL</code></h4><ul>
-<li>首先,需要检查一下是否已经安装了<code>MySQL</code> : <code># rpm -qa | grep mysql</code></li>
-</ul>
+<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装<code>MySQL</code></h3><h4 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h4><p>首先,需要检查一下是否已经安装了<code>MySQL</code> : <code># rpm -qa | grep mysql</code></p>
 <p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step1.PNG" alt="step1"></p>
 <p>这时候没有任何输出,则代表没有安装<code>MySQL</code><br><a id="more"></a></p>
-<ul>
-<li>CentOS7的yum源中没有自带的<code>MySQL</code>安装程序,所以要手动下载</li>
-</ul>
+<h4 id="下载源"><a href="#下载源" class="headerlink" title="下载源"></a>下载源</h4><p>CentOS7的yum源中没有自带的<code>MySQL</code>安装程序,所以要手动下载</p>
 <p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step2.PNG" alt="step2"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p>安装刚才下载的<code>mysql-community-release-el7-5.noarch.rpm</code><br><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step3.PNG" alt="step3"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -ivh mysql-community-release-el7-5.noarch.rpm</div></pre></td></tr></table></figure>
-</li>
-<li><p>正式安装<code>MySQL</code> : <code># yum install mysql-server</code></p>
-</li>
-<li>等待安装完成后,重启<code>MySQL</code>服务: <code># service mysqld restart</code></li>
-<li>新安装的MySQL是没有密码的,下面进行密码设置</li>
-</ul>
+<h4 id="安装源"><a href="#安装源" class="headerlink" title="安装源"></a>安装源</h4><p>安装刚才下载的<code>mysql-community-release-el7-5.noarch.rpm</code></p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step3.PNG" alt="step3"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># rpm -ivh mysql-community-release-el7-5.noarch.rpm</div></pre></td></tr></table></figure></p>
+<h4 id="正式安装MySQL"><a href="#正式安装MySQL" class="headerlink" title="正式安装MySQL"></a>正式安装<code>MySQL</code></h4><blockquote>
+<p>安装</p>
+</blockquote>
+<p><code># yum install mysql-server</code></p>
+<blockquote>
+<p>重启服务</p>
+</blockquote>
+<p>等待安装完成后,重启<code>MySQL</code>服务: <code># service mysqld restart</code></p>
+<blockquote>
+<p>设置密码</p>
+</blockquote>
+<p>新安装的MySQL是没有密码的,下面进行密码设置</p>
 <p>输入<code># mysql -uroot</code>可以直接登录,设置密码的时候,一定记得用<code>password()</code>函数加密<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysql&gt; set password = password(&apos;yourPassword&apos;);</div><div class="line">or</div><div class="line">mysql&gt; update user set password = password(&apos;yourPassword&apos;) where user = &apos;root&apos;;</div></pre></td></tr></table></figure></p>
 <ul>
 <li>修改完成后退出<code>MySQL</code>重启服务就可以了.(\q、quit、exit都可以退出)</li>
 </ul>
-<h4 id="远程访问"><a href="#远程访问" class="headerlink" title="远程访问"></a>远程访问</h4><p>本人使用的腾讯云服务器</p>
-<ul>
-<li>首先,远程访问需要设置一个允许远程访问的用户,<code>root</code>用户默认是不允许远程访问的<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; grant all privileges on *.* to &apos;yy&apos;@&apos;%&apos;</div></pre></td></tr></table></figure>
-</li>
-</ul>
+<h3 id="远程访问"><a href="#远程访问" class="headerlink" title="远程访问"></a>远程访问</h3><p>本人使用的腾讯云服务器</p>
+<h4 id="设置用户"><a href="#设置用户" class="headerlink" title="设置用户"></a>设置用户</h4><p>首先,远程访问需要设置一个允许远程访问的用户,<code>root</code>用户默认是不允许远程访问的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; grant all privileges on *.* to &apos;yy&apos;@&apos;%&apos;</div></pre></td></tr></table></figure></p>
 <p>授予<code>yy</code>用户所有访问权限,<code>*.*</code>代表任意数据库的任意表,<code>%</code>代表任意<code>ip</code>地址(这里也可以直接授予<code>root</code>用户这种权限)</p>
 <p>授权完成后刷新一下 : <code>mysql&gt; flush privileges;</code></p>
 <ul>
@@ -362,9 +354,7 @@
 </li>
 </ul>
 <p>出现success即开放成功,然后重启防火墙<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># systemctl restart firewalld.service</div></pre></td></tr></table></figure></p>
-<ul>
-<li>然后,需要设置一个安全组,在安全组的规则里面<strong>必须</strong>开放<code>3306</code>端口</li>
-</ul>
+<h4 id="设置安全组"><a href="#设置安全组" class="headerlink" title="设置安全组"></a>设置安全组</h4><p>然后,需要设置一个安全组,在安全组的规则里面<strong>必须</strong>开放<code>3306</code>端口</p>
 <p>这些工作作完之后,就可以开始尝试连接了</p>
 <p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step4.jpg" alt="step4"></p>
 <p>我在连接的时候遇到了下面的问题,连接失败了</p>
@@ -389,7 +379,7 @@
         <p><span>本文标题:</span><a href="/2017/05/03/CentOS7-MySQL安装与远程访问/">CentOS7-MySQL安装与远程访问</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">袁  阳</a></p>
         <p><span>发布时间:</span>2017-05-03, 21:31:01</p>
-        <p><span>最后更新:</span>2017-05-03, 22:01:35</p>
+        <p><span>最后更新:</span>2017-05-06, 11:28:16</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/05/03/CentOS7-MySQL安装与远程访问/" title="CentOS7-MySQL安装与远程访问">http://www.yuanyang-miemie.win/2017/05/03/CentOS7-MySQL安装与远程访问/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2017/05/03/CentOS7-MySQL安装与远程访问/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -425,7 +415,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装MySQL"><span class="toc-number">1.</span> <span class="toc-text">安装MySQL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#远程访问"><span class="toc-number">2.</span> <span class="toc-text">远程访问</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装MySQL"><span class="toc-number">1.</span> <span class="toc-text">安装MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#检查"><span class="toc-number">1.1.</span> <span class="toc-text">检查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下载源"><span class="toc-number">1.2.</span> <span class="toc-text">下载源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装源"><span class="toc-number">1.3.</span> <span class="toc-text">安装源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正式安装MySQL"><span class="toc-number">1.4.</span> <span class="toc-text">正式安装MySQL</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#远程访问"><span class="toc-number">2.</span> <span class="toc-text">远程访问</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#设置用户"><span class="toc-number">2.1.</span> <span class="toc-text">设置用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置安全组"><span class="toc-number">2.2.</span> <span class="toc-text">设置安全组</span></a></li></ol></li></ol>
         
     </div>
     <style>

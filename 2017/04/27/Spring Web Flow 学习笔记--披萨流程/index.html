@@ -32,7 +32,7 @@ Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程
 Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程请求都需要首先经过DispatcherServlet.我们需要在Spring应用上下文中配置一些Bean来处理流程并执行请求.
 首">
 <meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/springwebflowjar.PNG">
-<meta property="og:updated_time" content="2017-04-27T14:45:57.815Z">
+<meta property="og:updated_time" content="2017-05-06T03:29:12.519Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Spring 实战》-- Spring Web Flow 学习笔记">
 <meta name="twitter:description" content="Spring Web Flow是Spring MVC的扩展,它支持开发基于流程的应用程序.它将流程的定义与实现流程行为的类和视图分离开来.
@@ -330,35 +330,23 @@ Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程
 <p><code>Spring Web Flow</code>是构建于<code>Spring MVC</code>的基础上的,这意味着所有的流程请求都需要首先经过<code>DispatcherServlet</code>.我们需要在<code>Spring</code>应用上下文中配置一些<code>Bean</code>来处理流程并执行请求.</p>
 <p>首先,我们在<code>Spring</code>的基础上会多使用到4个<code>jar</code>包,并且会使用到<code>flow</code>命名空间</p>
 <p><img src="http://omuut7fta.bkt.clouddn.com/springwebflowjar.PNG" alt="jar包"></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><blockquote>
-<p>做好了准备工作,让我们一起来学习一下配置:</p>
-</blockquote>
-<ul>
-<li>装配流程执行器</li>
-</ul>
-<p>在<code>Spring</code>配置文件中使用<code>&lt;flow:flow-executor&gt;</code>元素创建一个流程执行器.</p>
+<a id="more"></a>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>做好了准备工作,让我们一起来看一下配置</p>
+<h4 id="装配流程执行器"><a href="#装配流程执行器" class="headerlink" title="装配流程执行器"></a>装配流程执行器</h4><p>在<code>Spring</code>配置文件中使用<code>&lt;flow:flow-executor&gt;</code>元素创建一个流程执行器.</p>
 <p>正如其名,流程执行器驱动流程的执行,用户进入一个流程时,<strong>流程执行器会为用户创建并启动一个流程执行实例</strong>,当流程暂停的时候(如为用户展示视图时),<strong>流程执行器会在用户执行操作后恢复流程</strong>.流程执行器只负责创建和执行流程,但它并不负责加载流程定义.这个任务由流程注册表完成</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;flow:flow-executor id=&quot;flowExecutor&quot;/&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>配置流程注册表</li>
-</ul>
-<p>在<code>Spring</code>配置文件中使用<code>&lt;flow:flow-register&gt;</code>配置流程注册表,流程注册表的工作是加载定义并让流程执行器能够使用它们.</p>
+<h4 id="配置流程注册表"><a href="#配置流程注册表" class="headerlink" title="配置流程注册表"></a>配置流程注册表</h4><p>在<code>Spring</code>配置文件中使用<code>&lt;flow:flow-register&gt;</code>配置流程注册表,流程注册表的工作是加载定义并让流程执行器能够使用它们.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;flow:flow-registry id=&quot;flowRegistry&quot; base-path=&quot;/WEB-INF/flows&quot;&gt;</div><div class="line">     &lt;flow:flow-location-pattern value=&quot;/**/*-flow.xml&quot; /&gt;</div><div class="line">&lt;/flow:flow-registry&gt;</div></pre></td></tr></table></figure>
 <p>如果不使用通配符,这里也可以使用<code>&lt;flow:flow-location id=&quot;pizza&quot; path=&quot;/WEN-INF/flows/springpizza.xml&quot;/&gt;</code>来指定流程配置文件的详细位置,当不显示指定<code>id</code>时,以<strong>文件名</strong>作为<code>id</code>的值</p>
-<ul>
-<li>处理流程请求</li>
-</ul>
-<p>在<code>Spring MVC</code>的基础上,还需要一个<code>FlowHandlerMapping</code>来帮助<code>DispatcherServlet</code>发送流程请求给<code>spring web flow</code>,在<code>Spring</code>的上下文中添加如下配置</p>
+<h4 id="处理流程请求"><a href="#处理流程请求" class="headerlink" title="处理流程请求"></a>处理流程请求</h4><p>在<code>Spring MVC</code>的基础上,还需要一个<code>FlowHandlerMapping</code>来帮助<code>DispatcherServlet</code>发送流程请求给<code>spring web flow</code>,在<code>Spring</code>的上下文中添加如下配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;bean class=&quot;org.springframework.webflow.mvc.servlet.FlowHandlerMapping&quot;&gt;</div><div class="line">    &lt;property name=&quot;flowRegistry&quot; ref=&quot;flowRegistry&quot; /&gt;</div><div class="line">  &lt;/bean&gt;</div></pre></td></tr></table></figure>
 <p>可以看到,它装配了流程注册表的引用,这样它就能知道如何<strong>将请求的URL匹配到流程上</strong></p>
 <p><code>FlowHandlerMapping</code>仅是对流程请求的处理,响应请求由<code>FlowHandlerAdapter</code>处理,它会把响应发送的流程请求进行处理,在<code>Spring</code>的上下文中添加如下配置:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;bean class=&quot;org.springframework.webflow.mvc.servlet.FlowHandlerAdapter&quot;&gt;</div><div class="line">    &lt;property name=&quot;flowExecutor&quot; ref=&quot;flowExecutor&quot; /&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
-<h2 id="这样-所有的准备工作都已经做完了"><a href="#这样-所有的准备工作都已经做完了" class="headerlink" title="这样,所有的准备工作都已经做完了!"></a>这样,所有的准备工作都已经做完了!</h2><p>但这还不够,在定义流程前,我们先来看一下流程组件</p>
-<p>在<code>Spring Web Flow</code>中,流程是由三个主要元素定义的:<strong>状态、转移和流程数据</strong>.</p>
-<blockquote>
-<p>状态(state)</p>
-</blockquote>
-<p>即流程中事件的发生地点,如果将流程比喻成公路旅行,那么状态就是路途上的城镇或风景点,一共有<strong>五种</strong>不同的状态</p>
+<hr>
+<p>这样,所有的准备工作都已经做完了!但这还不够,在定义流程前,我们先来看一下流程组件</p>
+<h3 id="流程组件"><a href="#流程组件" class="headerlink" title="流程组件"></a>流程组件</h3><p>在<code>Spring Web Flow</code>中,流程是由三个主要元素定义的:<strong>状态、转移和流程数据</strong>.</p>
+<h4 id="状态-state"><a href="#状态-state" class="headerlink" title="状态(state)"></a>状态(state)</h4><p>即流程中事件的发生地点,如果将流程比喻成公路旅行,那么状态就是路途上的城镇或风景点,一共有<strong>五种</strong>不同的状态</p>
 <table>
 <thead>
 <tr>
@@ -389,25 +377,25 @@ Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程
 </tr>
 </tbody>
 </table>
-<ul>
-<li>视图状态</li>
-</ul>
+<blockquote>
+<p>视图状态</p>
+</blockquote>
 <p>视图状态用于为用户展现信息并使用户在流程中发挥作用,可以是任意<code>Spring</code>支持的视图类型.在下面的示例中,<code>id</code>在流程内标识这个状态,当不使用<code>view</code>显示指定另一个视图名称时,它也代表视图的名称,<code>model</code>指明表单所绑定的对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;view-state id=&quot;welcome&quot; view=&quot;greeting&quot; model=&quot;flowScope.paymentDetails&quot;/&gt;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>行为状态</li>
-</ul>
+<blockquote>
+<p>行为状态</p>
+</blockquote>
 <p>行为状态是<strong>应用程序自身在执行任务</strong>,行为状态一般会触发<code>Spring</code>所管理的<code>Bean</code>的一些方法并根据方法调用的执行结果<strong>转移</strong>到另一个状态.如下例,其中的<code>evaluate</code>子节点代表行为状态要做的事,在此处它会找到<code>id</code>为<code>pizzaFlowActions</code>的<code>bean</code>并执行<code>saveOrder()</code>方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;action-state id=&quot;saveOrder&quot;&gt;</div><div class="line">    &lt;evaluate expression=&quot;pizzaFlowActions.saveOrder(order)&quot; /&gt;</div><div class="line">    &lt;transition to=&quot;thankYou&quot; /&gt;</div><div class="line">&lt;/action-state&gt;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>决策状态</li>
-</ul>
+<blockquote>
+<p>决策状态</p>
+</blockquote>
 <p>决策状态能够在流程执行时产生两个分支.决策状态将评估一个<code>Boolean</code>类型的表达式,然后在两个状态中选择转移一个.可以看到,<code>if</code>子节点是这个状体的核心,<code>test</code>中的表达式值为<code>true</code>则转移到<code>then</code>指定状态,否则转移到<code>else</code>指定状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;decision-state id=&quot;checkDeliveryArea&quot;&gt;</div><div class="line">  &lt;if test=&quot;pizzaFlowActions.checkDeliveryArea(order.customer.zipCode)&quot; </div><div class="line">      then=&quot;addCustomer&quot; </div><div class="line">      else=&quot;deliveryWarning&quot;/&gt;</div><div class="line">&lt;/decision-state&gt;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>子流程状态</li>
-</ul>
+<blockquote>
+<p>子流程状态</p>
+</blockquote>
 <p>就像把代码逻辑分写到多个类/方法中一样,流程也将其分成一些子流程.如下例中子流程结束的<code>&lt;endstate&gt;</code>的<code>id</code>为<code>orderCreated</code>,则流程将会进入到名为<code>payment</code>的状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;subflow-state id=&quot;customer&quot; subflow=&quot;pizza/customer&quot;&gt;</div><div class="line">    &lt;input name=&quot;order&quot; value=&quot;order&quot;/&gt;</div><div class="line">    &lt;transition on=&quot;customerReady&quot; to=&quot;order&quot; /&gt;</div><div class="line">&lt;/subflow-state&gt;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>结束状态</li>
-</ul>
+<blockquote>
+<p>结束状态</p>
+</blockquote>
 <p>所有的流程均会结束,这就是结束状态要做的事情.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;end-state id=&quot;customerReady&quot;&gt;</div></pre></td></tr></table></figure></p>
 <p>在流程结束后,接下来会发生什么取决于以下因素:</p>
 <ol>
@@ -416,24 +404,18 @@ Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程
 <li>如果结束的流程不是子流程,也没有指定<code>view</code>属性,那这个流程<strong>只是会结束而已</strong>,浏览器最后将会加载流程的基本URl地址,当前已没有活动的流程,所以会开始一个新的流程实例</li>
 </ol>
 <p>==流程可能会有不止一个结束状态,子流程的结束状态<code>id</code>确定了激活的事件,所以可以通过多钟结束状态来结束子流程,从而能够在流程中触发不同的事件,即使不是在子流程中,在结束流程后也可以根据流程的执行情况进行多个页面的选择==</p>
-<blockquote>
-<p>转移</p>
-</blockquote>
-<p>流程中<strong>除结束</strong>状态之外的每个状态都<strong>至少需要一个转移</strong>,使用<code>&lt;transition&gt;</code>子节点来定义,在前面可能你已经看到了他的身影.它是<code>action-state/view-state/subflow-state</code>的子节点,其中<code>id</code>可以是用户触发的事件,在子流程中,事件取决于子流程结束的<code>id</code>,任何事件都可以使用<code>no</code>来触发转移事件,当抛出异常时,可以使用<code>on-exception</code>来指定异常的转移状态.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;transition to=&quot;lookupCustomer&quot; id=&quot;phoneEntered&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="转移"><a href="#转移" class="headerlink" title="转移"></a>转移</h4><p>流程中<strong>除结束</strong>状态之外的每个状态都<strong>至少需要一个转移</strong>,使用<code>&lt;transition&gt;</code>子节点来定义,在前面可能你已经看到了他的身影.它是<code>action-state/view-state/subflow-state</code>的子节点,其中<code>id</code>可以是用户触发的事件,在子流程中,事件取决于子流程结束的<code>id</code>,任何事件都可以使用<code>no</code>来触发转移事件,当抛出异常时,可以使用<code>on-exception</code>来指定异常的转移状态.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;transition to=&quot;lookupCustomer&quot; id=&quot;phoneEntered&quot;/&gt;</div></pre></td></tr></table></figure></p>
 <p>全局转移:在多个状态中都需要用到的转移,可以定义成全局转移<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;global-transitions&gt;</div><div class="line">  &lt;transition on=&quot;cancel&quot; to=&quot;endState&quot; /&gt;</div><div class="line">&lt;/global-transitions&gt;</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>流程数据</p>
-<ul>
-<li>定义变量</li>
-</ul>
+<h4 id="流程数据"><a href="#流程数据" class="headerlink" title="流程数据"></a>流程数据</h4><blockquote>
+<p>定义变量</p>
 </blockquote>
 <p>流程数据保存在变量中,而变量可以在流程的各个地方进行引用,它能够以多钟方式创建,在流程中创建变量的最简单形式就是使用<code>&lt;var&gt;</code>元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;var name=&quot;order&quot; class=&quot;com.springinaction.pizza.domain.Order&quot;/&gt;</div></pre></td></tr></table></figure></p>
 <p>当然,也可以使用<code>&lt;evaluate&gt;</code>元素计算并创建一个变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;evaluate result=&quot;viewScope.toppingsList&quot; </div><div class="line">        expression=&quot;T(com.springinaction.pizza.domain.Topping).asList()&quot; /&gt;</div></pre></td></tr></table></figure></p>
 <p>也可以使用<code>&lt;set&gt;</code>元素设置变量的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;set name=&quot;flowScope.pizza&quot; </div><div class="line">        value=&quot;new com.springinaction.pizza.domain.Pizza()&quot; /&gt;</div></pre></td></tr></table></figure></p>
 <p>后面两个特别类似,都是通过计算生成结果</p>
-<ul>
-<li>流程数据的作用域</li>
-</ul>
+<blockquote>
+<p>流程数据的作用域</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -478,7 +460,7 @@ Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程
         <p><span>本文标题:</span><a href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/">《Spring 实战》-- Spring Web Flow 学习笔记</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">袁  阳</a></p>
         <p><span>发布时间:</span>2017-04-27, 15:31:01</p>
-        <p><span>最后更新:</span>2017-04-27, 22:45:57</p>
+        <p><span>最后更新:</span>2017-05-06, 11:29:12</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/" title="《Spring 实战》-- Spring Web Flow 学习笔记">http://www.yuanyang-miemie.win/2017/04/27/Spring Web Flow 学习笔记--披萨流程/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2017/04/27/Spring Web Flow 学习笔记--披萨流程/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -514,7 +496,7 @@ Spring Web Flow是构建于Spring MVC的基础上的,这意味着所有的流程
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#这样-所有的准备工作都已经做完了"><span class="toc-number">2.</span> <span class="toc-text">这样,所有的准备工作都已经做完了!</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">1.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#装配流程执行器"><span class="toc-number">1.1.</span> <span class="toc-text">装配流程执行器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置流程注册表"><span class="toc-number">1.2.</span> <span class="toc-text">配置流程注册表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理流程请求"><span class="toc-number">1.3.</span> <span class="toc-text">处理流程请求</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#流程组件"><span class="toc-number">2.</span> <span class="toc-text">流程组件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#状态-state"><span class="toc-number">2.1.</span> <span class="toc-text">状态(state)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#转移"><span class="toc-number">2.2.</span> <span class="toc-text">转移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#流程数据"><span class="toc-number">2.3.</span> <span class="toc-text">流程数据</span></a></li></ol></li></ol>
         
     </div>
     <style>
