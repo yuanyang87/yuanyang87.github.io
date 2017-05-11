@@ -3,6 +3,70 @@
   
     
     <entry>
+      <title><![CDATA[applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析]]></title>
+      <url>/2017/05/12/applicationContext.xml%20%E8%A7%A3%E6%9E%90%E8%AF%A6%E7%BB%86-Spring%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%B9%8BXML%E6%96%87%E4%BB%B6%E7%9A%84%E5%88%9D%E8%A7%A3%E6%9E%90/</url>
+      <content type="html"><![CDATA[<p>首先,在我的<a href="http://www.yuanyang-miemie.win/2017/05/05/BeanFactory%E4%B8%8EApplicationContext%E7%9A%84%E5%8C%BA%E5%88%AB-Spring%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/">这篇博客</a>中已经说到容器是怎么初步实现的,并且要使用<code>XmlBeanDefinitionReader</code>对象对<code>Xml</code>文件进行解析,那么<code>Xml</code>文件是如何进行解析的,将在这片博客中进行一些陈述.</p>
+<hr>
+<h3 id="数据准备阶段"><a href="#数据准备阶段" class="headerlink" title="数据准备阶段"></a>数据准备阶段</h3><p>准备的目的是封装<code>resource</code>参数,目的是为了考虑到<code>Resource</code>可能存在编码要求的情况,其次,通过<code>SAX</code>读取<code>XML</code>文件的方式来准备<code>InputSource</code>对象,最后将参数传递到<strong>最核心的实现部分</strong><code>doLoadBeanDefinitions(inputSource,encodedResource.getResource())</code></p>
+<h4 id="封装Resource"><a href="#封装Resource" class="headerlink" title="封装Resource"></a>封装Resource</h4><p>调用<code>XmlBeanDefinitionReader</code>的<code>loadBeanDefinitions(Resource resource)</code>方法时,首先将resource对象进行再次封装成<code>EncodedResource</code>,查看源码可以发现里面增加了字符集和编码的封装,从命名上来看也可以体现出来,将资源封装完成后,就调用重载的同名函数<code>loadBeanDefinitions(EncodedResource resource)</code>进行正式的解析.</p>
+<h4 id="数据准备操作"><a href="#数据准备操作" class="headerlink" title="数据准备操作"></a>数据准备操作</h4><p>在重载方法里面首先通过<code>Set&lt;!-- &lt;EncodedResource&gt; --&gt; currentResources</code>属性来记录已经加载的资源,其次,从<code>EncodedResource</code>对象中获取封装好的<code>Resource</code>对象,并获取其<code>inputStream</code>,将获取到的输入流与SAX解析的<code>InputSource</code>绑定,接下来就进入到了核心的实现部分:<code>doLoadBeanDefinitions(inputSource,encodedResource.getResource())</code></p>
+<a id="more"></a>
+<h3 id="核心实现"><a href="#核心实现" class="headerlink" title="核心实现"></a>核心实现</h3><p>核心部分有两个关键步骤:</p>
+<ol>
+<li>调用<code>doLoadDocument(inputSource.resource)</code>方法获取<code>Document</code></li>
+<li>根据返回的<code>Document</code>信息注册<code>Bean</code>信息</li>
+</ol>
+<p>这两个步骤支持着整个<code>Spring</code>容器部分的实现基础</p>
+<h4 id="获取Document"><a href="#获取Document" class="headerlink" title="获取Document"></a>获取Document</h4><p>进入方法体后,将<code>Document</code>的创建交给<code>DefaultDocumentLoader documentLoader</code>属性的<code>loadDocument()</code>方法,该方法声明如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Document loadDocument(</div><div class="line">			InputSource inputSource, EntityResolver entityResolver,</div><div class="line">			ErrorHandler errorHandler, int validationMode, boolean namespaceAware)</div><div class="line">			throws Exception;</div></pre></td></tr></table></figure></p>
+<p>调用情况:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">documentLoader.loadDocument(inputSource, getEntityResolver(), this.errorHandler,</div><div class="line">				getValidationModeForResource(resource), isNamespaceAware())</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p><code>InputSource</code>:<code>SAX</code>解析需要使用到的对象</p>
+</li>
+<li><p><code>EntityResolver</code>:它的作用是项目本身就可以提供一个如何寻找<code>DTD</code>声明的方法,由程序来实现寻找<code>DTD</code>声明的过程,将<code>DTD</code>文件放到项目中某处,在实现时直接将此文档读取并返回给<code>SAX</code>即可,避免了必须通过网络来寻找相应的声明.</p>
+</li>
+</ul>
+<p>在这个接口中定义了一个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">InputSource resolveEntity (String publicId,String systemId)</div><div class="line">        throws SAXException, IOException;</div></pre></td></tr></table></figure></p>
+<p>如果解析的验证模式是<code>XSD</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</div><div class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</div><div class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&gt;</div></pre></td></tr></table></figure></p>
+<p>那么.此时得到的两个参数值分别是:</p>
+<p><code>publicId</code>:null<br><code>systemId</code>:<a href="http://www.springframework.org/schema/beans/spring-beans.xsd" target="_blank" rel="external">http://www.springframework.org/schema/beans/spring-beans.xsd</a></p>
+<p>如果解析的验证模式是<code>DTD</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE beans PUBLIC &quot;-//Spring//DTD BEAN 2.0//EN&quot; &quot;http://www.Springframework.org/dtd/Spring-beans-2.0.dtd&quot;</div></pre></td></tr></table></figure></p>
+<p>那么,此时得到的两个参数值分别是:</p>
+<p><code>publicId</code>:-//Spring//DTD BEAN 2.0//EN<br><code>systemId</code>:<a href="http://www.Springframework.org/dtd/Spring-beans-2.0.dtd" target="_blank" rel="external">http://www.Springframework.org/dtd/Spring-beans-2.0.dtd</a></p>
+<p>而对于不同的验证模式,<code>Spring</code>使用了不同的解析器,当使用<code>DTD</code>验证时,<code>Spring</code>会截取后面的<code>*.dtd</code>,并直接到当前目录去寻找,当使用<code>XSD</code>验证时,<code>Spring</code>会到<code>META-INF/Spring.schemas</code>文件中去匹配相应的<code>systemId</code>并加载对应的<code>XSD</code>文件</p>
+<ul>
+<li><code>validationMode</code>:验证模式</li>
+</ul>
+<p>首先,为了保证<code>XML</code>文件的正确性,有常见两种验证模式:<code>DTD</code>、<code>XSD</code></p>
+<h5 id="两种验证模式的区别"><a href="#两种验证模式的区别" class="headerlink" title="两种验证模式的区别"></a>两种验证模式的区别</h5><p>我对这两种的区别目前还不是很详细,只能简略的给出定义,但我看到的<strong>最直观</strong>的区别是,==<code>DTD</code>验证需要单独写出一个标签<code>&lt;!DOCTYPE ...&gt;</code>,而<code>XSD</code>验证会将信息写入<code>&lt;beans xmlns=&quot;...&quot;&gt;</code>结点==</p>
+<h6 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h6><p><code>DTD</code>(Document Type Definition)即文档类型定义,是一种保证<code>XML</code>文档格式正确的有效方法,可以通过比较<code>XML</code>文档和<code>DTD</code>文件来看文档是否符合规范.</p>
+<h6 id="XSD"><a href="#XSD" class="headerlink" title="XSD"></a>XSD</h6><p><code>XML Schema</code>语言就是<code>XSD</code>(XML Schema Definition),描述了<code>XML</code>文档的结构,可以用一个指定的<code>XML Schema</code>来验证<code>XML</code>文档,以检查文档是否符合要求.</p>
+<h5 id="验证模式的读取"><a href="#验证模式的读取" class="headerlink" title="验证模式的读取"></a>验证模式的读取</h5><p>验证模式的读取非常简单,在<code>getValidationModeForResource(resource)</code>方法中先获取当前设定的验证模式是不是自动选择,源码中是这么解释的<code>since we cannot find a clear indication</code>,当找不到一个确切的验证模式时,采用这种方式,然后判断当前<code>resource</code>对象中采用的是什么验证模式,通过检索字符串的方式,当存在<code>DOCTYPE</code>的时候,就采用DTD验证模式,否则采用<code>XSD</code>验证模式</p>
+<ul>
+<li><code>namespaceAware</code>:一个布尔值,默认为<code>false</code>,在前面可以看到,在使用<code>XSD</code>验证的时候会有<code>xmlns=&quot;&quot;</code>,其实就是<code>XML namespace</code>的缩写,可以有多个命名空间,如果使用的是<code>XSD</code>解析,将会把这个值改为<code>true</code></li>
+</ul>
+<h4 id="解析并注册BeanDefinitions"><a href="#解析并注册BeanDefinitions" class="headerlink" title="解析并注册BeanDefinitions"></a>解析并注册<code>BeanDefinitions</code></h4><p>在上一步得到<code>Docment</code>对象之后,调用<code>registerBeanDefinitions(Document doc,Resource resource)</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException &#123;</div><div class="line">        //创建对象</div><div class="line">		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();</div><div class="line">		//记录当前已经加载的数量</div><div class="line">		int countBefore = getRegistry().getBeanDefinitionCount();</div><div class="line">		//加载并注册</div><div class="line">		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));</div><div class="line">		//返回本次加载的个数</div><div class="line">		return getRegistry().getBeanDefinitionCount() - countBefore;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>而在调用<code>documentReader</code>对象方法中,才开始进行正式的解析工作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public void registerBeanDefinitions(Document doc, XmlReaderContext readerContext) &#123;</div><div class="line">		this.readerContext = readerContext;</div><div class="line">		logger.debug(&quot;Loading bean definitions&quot;);</div><div class="line">		Element root = doc.getDocumentElement();</div><div class="line">		doRegisterBeanDefinitions(root);</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>解析的工作全权交给<code>doRegisterBeanDefinition(root)</code>方法实现,这样<code>XML</code>文件就正式进入了解析步骤,至于怎么解析的,博主将慢慢学习并写入后续博客.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Spring </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 学习笔记 </tag>
+            
+            <tag> Spring源码 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现]]></title>
       <url>/2017/05/05/BeanFactory%E4%B8%8EApplicationContext%E7%9A%84%E5%8C%BA%E5%88%AB-Spring%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/</url>
       <content type="html"><![CDATA[<h3 id="可以加载XML两种方法"><a href="#可以加载XML两种方法" class="headerlink" title="可以加载XML两种方法"></a>可以加载XML两种方法</h3><h4 id="使用-BeanFactory-加载-XML"><a href="#使用-BeanFactory-加载-XML" class="headerlink" title="使用 BeanFactory 加载 XML"></a>使用 <code>BeanFactory</code> 加载 <code>XML</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BeanFactory bf = new XmlBeanFactory(new ClassPathResource(&quot;applicaitonContext.xml&quot;));</div></pre></td></tr></table></figure>
@@ -159,11 +223,11 @@
         
         <tags>
             
-            <tag> Spring MVC </tag>
-            
             <tag> Spring </tag>
             
             <tag> 学习笔记 </tag>
+            
+            <tag> Spring MVC </tag>
             
         </tags>
         
@@ -309,11 +373,11 @@
         
         <tags>
             
-            <tag> Spring MVC </tag>
-            
             <tag> Spring </tag>
             
             <tag> 学习笔记 </tag>
+            
+            <tag> Spring MVC </tag>
             
         </tags>
         

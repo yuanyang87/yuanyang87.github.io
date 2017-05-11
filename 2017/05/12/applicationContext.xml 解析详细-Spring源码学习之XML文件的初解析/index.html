@@ -15,16 +15,22 @@
 
 
 
-<meta name="description" content="什么是事务?事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，要么全部执行成功，要么全部执行失败。">
+<meta name="description" content="首先,在我的这篇博客中已经说到容器是怎么初步实现的,并且要使用XmlBeanDefinitionReader对象对Xml文件进行解析,那么Xml文件是如何进行解析的,将在这片博客中进行一些陈述.
+
+数据准备阶段准备的目的是封装resource参数,目的是为了考虑到Resource可能存在编码要求的情况,其次,通过SAX读取XML文件的方式来准备InputSource对象,最后将参数传递到最核心的实">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高性能Mysql学习笔记之事务">
-<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/04/26/高性能Mysql学习笔记之事务/index.html">
+<meta property="og:title" content="applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析">
+<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="什么是事务?事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，要么全部执行成功，要么全部执行失败。">
-<meta property="og:updated_time" content="2017-05-06T03:59:58.579Z">
+<meta property="og:description" content="首先,在我的这篇博客中已经说到容器是怎么初步实现的,并且要使用XmlBeanDefinitionReader对象对Xml文件进行解析,那么Xml文件是如何进行解析的,将在这片博客中进行一些陈述.
+
+数据准备阶段准备的目的是封装resource参数,目的是为了考虑到Resource可能存在编码要求的情况,其次,通过SAX读取XML文件的方式来准备InputSource对象,最后将参数传递到最核心的实">
+<meta property="og:updated_time" content="2017-05-11T16:24:53.803Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="高性能Mysql学习笔记之事务">
-<meta name="twitter:description" content="什么是事务?事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，要么全部执行成功，要么全部执行失败。">
+<meta name="twitter:title" content="applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析">
+<meta name="twitter:description" content="首先,在我的这篇博客中已经说到容器是怎么初步实现的,并且要使用XmlBeanDefinitionReader对象对Xml文件进行解析,那么Xml文件是如何进行解析的,将在这片博客中进行一些陈述.
+
+数据准备阶段准备的目的是封装resource参数,目的是为了考虑到Resource可能存在编码要求的情况,其次,通过SAX读取XML文件的方式来准备InputSource对象,最后将参数传递到最核心的实">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +62,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>高性能Mysql学习笔记之事务 | 袁咩咩的博客</title>
+<title>applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析 | 袁咩咩的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -283,11 +289,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-高性能Mysql学习笔记之事务" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/26/高性能Mysql学习笔记之事务/" class="article-date">
-      <time datetime="2017-04-26T15:48:59.000Z" itemprop="datePublished">2017-04-26</time>
+      <a href="/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/" class="article-date">
+      <time datetime="2017-05-11T16:23:01.000Z" itemprop="datePublished">2017-05-12</time>
 </a>
 
 
@@ -302,7 +308,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      高性能Mysql学习笔记之事务
+      applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析
     </h1>
   
 
@@ -311,13 +317,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring源码/">Spring源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -327,70 +333,48 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务?"></a>什么是事务?</h3><p>事务就是一组原子性的SQL查询,或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就会执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。简单的说，一个事务内的语句，<strong>要么全部执行成功，要么全部执行失败</strong>。</p>
+        <p>首先,在我的<a href="http://www.yuanyang-miemie.win/2017/05/05/BeanFactory%E4%B8%8EApplicationContext%E7%9A%84%E5%8C%BA%E5%88%AB-Spring%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/">这篇博客</a>中已经说到容器是怎么初步实现的,并且要使用<code>XmlBeanDefinitionReader</code>对象对<code>Xml</code>文件进行解析,那么<code>Xml</code>文件是如何进行解析的,将在这片博客中进行一些陈述.</p>
+<hr>
+<h3 id="数据准备阶段"><a href="#数据准备阶段" class="headerlink" title="数据准备阶段"></a>数据准备阶段</h3><p>准备的目的是封装<code>resource</code>参数,目的是为了考虑到<code>Resource</code>可能存在编码要求的情况,其次,通过<code>SAX</code>读取<code>XML</code>文件的方式来准备<code>InputSource</code>对象,最后将参数传递到<strong>最核心的实现部分</strong><code>doLoadBeanDefinitions(inputSource,encodedResource.getResource())</code></p>
+<h4 id="封装Resource"><a href="#封装Resource" class="headerlink" title="封装Resource"></a>封装Resource</h4><p>调用<code>XmlBeanDefinitionReader</code>的<code>loadBeanDefinitions(Resource resource)</code>方法时,首先将resource对象进行再次封装成<code>EncodedResource</code>,查看源码可以发现里面增加了字符集和编码的封装,从命名上来看也可以体现出来,将资源封装完成后,就调用重载的同名函数<code>loadBeanDefinitions(EncodedResource resource)</code>进行正式的解析.</p>
+<h4 id="数据准备操作"><a href="#数据准备操作" class="headerlink" title="数据准备操作"></a>数据准备操作</h4><p>在重载方法里面首先通过<code>Set&lt;!-- &lt;EncodedResource&gt; --&gt; currentResources</code>属性来记录已经加载的资源,其次,从<code>EncodedResource</code>对象中获取封装好的<code>Resource</code>对象,并获取其<code>inputStream</code>,将获取到的输入流与SAX解析的<code>InputSource</code>绑定,接下来就进入到了核心的实现部分:<code>doLoadBeanDefinitions(inputSource,encodedResource.getResource())</code></p>
 <a id="more"></a>
-<h3 id="事务的ACID特性"><a href="#事务的ACID特性" class="headerlink" title="事务的ACID特性"></a>事务的ACID特性</h3><p>ACID表示事务的原子性(atomicity)、一致性(consistency)、隔离性(isolation)、持久性(durability)。一个运行良好的事务处理系统，必须具备这些标准特性。</p>
-<h4 id="原子性-atomicity"><a href="#原子性-atomicity" class="headerlink" title="原子性(atomicity)"></a>原子性(atomicity)</h4><p>一个事务必须被视为一个不可分割的最小工作单元,整个事务中的所有操作要么全部提交成功,要么全部失败回滚,对于一个事务来说,不可能只执行其中的一部分操作。</p>
-<h4 id="一致性-consistency"><a href="#一致性-consistency" class="headerlink" title="一致性(consistency)"></a>一致性(consistency)</h4><p>数据库总是从一个一致性的状态换到另一个一致性的状态。</p>
-<h4 id="隔离性-isolation"><a href="#隔离性-isolation" class="headerlink" title="隔离性(isolation)"></a>隔离性(isolation)</h4><p><strong>通常来说</strong>：一个事务所做的修改在最终提交前,对其他事务是不可见的。</p>
-<h4 id="持久性-durability"><a href="#持久性-durability" class="headerlink" title="持久性(durability)"></a>持久性(durability)</h4><p>一旦事务提交,则其所做的修改就会永久保存到数据库中。此时即使系统崩溃,修改的数据也不会丢失。</p>
-<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><h4 id="READ-UNCOMMITTED-读未提交"><a href="#READ-UNCOMMITTED-读未提交" class="headerlink" title="READ UNCOMMITTED(读未提交)"></a>READ UNCOMMITTED(读未提交)</h4><p>也叫==脏读==,在这个级别中,事务中的修改,即使没有提交,对其他事务也是可见的.一般都不采用.</p>
-<h4 id="READ-COMMITTED-读已提交"><a href="#READ-COMMITTED-读已提交" class="headerlink" title="READ COMMITTED(读已提交)"></a>READ COMMITTED(读已提交)</h4><p>也叫==不可重复读==,因为两次相同的查询可能得到不同的结果.大多数数据库都默认使用这种隔离级别,一个事务从开始直到提交之前,所做的任何修改对其他事务都是不可见的.</p>
-<h4 id="REPEATABLE-READ-可重复读"><a href="#REPEATABLE-READ-可重复读" class="headerlink" title="REPEATABLE READ(可重复读)"></a>REPEATABLE READ(可重复读)</h4><p>==Mysql默认隔离级别==解决了==脏读==的问题,该级别保证了在同一个事务中多次读取同样的记录结果是一样的.但无法解决==幻读==的问题。幻读(Phantom Read),指当某个事务在读取某个范围内的记录时,另外一个事务又在该范围插入了新的记录,当之前的事务再次读取该范围的记录时,会产生换行(Phantom Row)。InnoDB和XtraDB存储引擎通过多版本并发控制解决了幻读问题。</p>
-<h4 id="SERIALIZABLE-可串行化"><a href="#SERIALIZABLE-可串行化" class="headerlink" title="SERIALIZABLE(可串行化)"></a>SERIALIZABLE(可串行化)</h4><p>这是最高的隔离级别,它会通过强制事务串行执行,避免了前面说的幻读问题.简单地说SERIALIZABLE会在读取的每一行数据上都加上锁,所以可能导致大量的超时和争锁时间的问题.实际应用中也很少使用,只有在急需要保持数据一致且接受没有并发的情况下,才考虑使用.</p>
-<table>
-<thead>
-<tr>
-<th>隔离级别</th>
-<th>脏读可能性</th>
-<th>不可重复读可能性</th>
-<th>幻读可能性</th>
-<th>加锁读</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>READ UNCOMMITTED</td>
-<td>YES</td>
-<td>YES</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr>
-<td>READ COMMITTED</td>
-<td>NO</td>
-<td>YES</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr>
-<td>REPEATABLE</td>
-<td>NO</td>
-<td>NO</td>
-<td>YES</td>
-<td>NO</td>
-</tr>
-<tr>
-<td>SERIALIZABLE</td>
-<td>NO</td>
-<td>NO</td>
-<td>NO</td>
-<td>YES</td>
-</tr>
-</tbody>
-</table>
-<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>死锁是指两个或多个事务在同一个资源上相互占用,并请求锁定对方占用的资源,从而导致恶性循环的现象.当多个事务试图以不同的顺序锁定资源时,就可能会产生死锁,多个事务同时锁定同一个资源时,也会产生死锁</p>
-<p>例如:</p>
-<blockquote>
-<p>事务1:</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start transaction;</div><div class="line">update stock_price set close = 45.50 where stock_id = 4 and date = &apos;2017-4-26&apos;;</div><div class="line">update stock_price set close = 19.80 where stock_id = 3 and date = &apos;2017-4-27&apos;;</div><div class="line">commit;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>事务2:</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">start transaction;</div><div class="line">update stock_price set high = 20.10 where stock_id = 3 and date = &apos;2017-4-27&apos;;</div><div class="line">update stock_price set high = 47.20 where stock_id = 4 and date = &apos;2017-4-26&apos;;</div><div class="line">commit;</div></pre></td></tr></table></figure>
-<p>如果凑巧,两个事务均执行了第一条<code>update</code>语句,同时锁定了该资源,当尝试执行第二条<code>update</code>语句的时候,去发现资源已经被锁定,两个事务都等待对方释放锁,则陷入死循环,形成死锁</p>
-<p>为了解决这种问题,数据库系统实现了各种死锁检测和死锁超时机制.比如InnoDB存储引擎目前的处理方法是将持有最少级排他锁的事务进行回滚.</p>
+<h3 id="核心实现"><a href="#核心实现" class="headerlink" title="核心实现"></a>核心实现</h3><p>核心部分有两个关键步骤:</p>
+<ol>
+<li>调用<code>doLoadDocument(inputSource.resource)</code>方法获取<code>Document</code></li>
+<li>根据返回的<code>Document</code>信息注册<code>Bean</code>信息</li>
+</ol>
+<p>这两个步骤支持着整个<code>Spring</code>容器部分的实现基础</p>
+<h4 id="获取Document"><a href="#获取Document" class="headerlink" title="获取Document"></a>获取Document</h4><p>进入方法体后,将<code>Document</code>的创建交给<code>DefaultDocumentLoader documentLoader</code>属性的<code>loadDocument()</code>方法,该方法声明如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Document loadDocument(</div><div class="line">			InputSource inputSource, EntityResolver entityResolver,</div><div class="line">			ErrorHandler errorHandler, int validationMode, boolean namespaceAware)</div><div class="line">			throws Exception;</div></pre></td></tr></table></figure></p>
+<p>调用情况:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">documentLoader.loadDocument(inputSource, getEntityResolver(), this.errorHandler,</div><div class="line">				getValidationModeForResource(resource), isNamespaceAware())</div></pre></td></tr></table></figure></p>
+<ul>
+<li><p><code>InputSource</code>:<code>SAX</code>解析需要使用到的对象</p>
+</li>
+<li><p><code>EntityResolver</code>:它的作用是项目本身就可以提供一个如何寻找<code>DTD</code>声明的方法,由程序来实现寻找<code>DTD</code>声明的过程,将<code>DTD</code>文件放到项目中某处,在实现时直接将此文档读取并返回给<code>SAX</code>即可,避免了必须通过网络来寻找相应的声明.</p>
+</li>
+</ul>
+<p>在这个接口中定义了一个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">InputSource resolveEntity (String publicId,String systemId)</div><div class="line">        throws SAXException, IOException;</div></pre></td></tr></table></figure></p>
+<p>如果解析的验证模式是<code>XSD</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</div><div class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</div><div class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&gt;</div></pre></td></tr></table></figure></p>
+<p>那么.此时得到的两个参数值分别是:</p>
+<p><code>publicId</code>:null<br><code>systemId</code>:<a href="http://www.springframework.org/schema/beans/spring-beans.xsd" target="_blank" rel="external">http://www.springframework.org/schema/beans/spring-beans.xsd</a></p>
+<p>如果解析的验证模式是<code>DTD</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;!DOCTYPE beans PUBLIC &quot;-//Spring//DTD BEAN 2.0//EN&quot; &quot;http://www.Springframework.org/dtd/Spring-beans-2.0.dtd&quot;</div></pre></td></tr></table></figure></p>
+<p>那么,此时得到的两个参数值分别是:</p>
+<p><code>publicId</code>:-//Spring//DTD BEAN 2.0//EN<br><code>systemId</code>:<a href="http://www.Springframework.org/dtd/Spring-beans-2.0.dtd" target="_blank" rel="external">http://www.Springframework.org/dtd/Spring-beans-2.0.dtd</a></p>
+<p>而对于不同的验证模式,<code>Spring</code>使用了不同的解析器,当使用<code>DTD</code>验证时,<code>Spring</code>会截取后面的<code>*.dtd</code>,并直接到当前目录去寻找,当使用<code>XSD</code>验证时,<code>Spring</code>会到<code>META-INF/Spring.schemas</code>文件中去匹配相应的<code>systemId</code>并加载对应的<code>XSD</code>文件</p>
+<ul>
+<li><code>validationMode</code>:验证模式</li>
+</ul>
+<p>首先,为了保证<code>XML</code>文件的正确性,有常见两种验证模式:<code>DTD</code>、<code>XSD</code></p>
+<h5 id="两种验证模式的区别"><a href="#两种验证模式的区别" class="headerlink" title="两种验证模式的区别"></a>两种验证模式的区别</h5><p>我对这两种的区别目前还不是很详细,只能简略的给出定义,但我看到的<strong>最直观</strong>的区别是,==<code>DTD</code>验证需要单独写出一个标签<code>&lt;!DOCTYPE ...&gt;</code>,而<code>XSD</code>验证会将信息写入<code>&lt;beans xmlns=&quot;...&quot;&gt;</code>结点==</p>
+<h6 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h6><p><code>DTD</code>(Document Type Definition)即文档类型定义,是一种保证<code>XML</code>文档格式正确的有效方法,可以通过比较<code>XML</code>文档和<code>DTD</code>文件来看文档是否符合规范.</p>
+<h6 id="XSD"><a href="#XSD" class="headerlink" title="XSD"></a>XSD</h6><p><code>XML Schema</code>语言就是<code>XSD</code>(XML Schema Definition),描述了<code>XML</code>文档的结构,可以用一个指定的<code>XML Schema</code>来验证<code>XML</code>文档,以检查文档是否符合要求.</p>
+<h5 id="验证模式的读取"><a href="#验证模式的读取" class="headerlink" title="验证模式的读取"></a>验证模式的读取</h5><p>验证模式的读取非常简单,在<code>getValidationModeForResource(resource)</code>方法中先获取当前设定的验证模式是不是自动选择,源码中是这么解释的<code>since we cannot find a clear indication</code>,当找不到一个确切的验证模式时,采用这种方式,然后判断当前<code>resource</code>对象中采用的是什么验证模式,通过检索字符串的方式,当存在<code>DOCTYPE</code>的时候,就采用DTD验证模式,否则采用<code>XSD</code>验证模式</p>
+<ul>
+<li><code>namespaceAware</code>:一个布尔值,默认为<code>false</code>,在前面可以看到,在使用<code>XSD</code>验证的时候会有<code>xmlns=&quot;&quot;</code>,其实就是<code>XML namespace</code>的缩写,可以有多个命名空间,如果使用的是<code>XSD</code>解析,将会把这个值改为<code>true</code></li>
+</ul>
+<h4 id="解析并注册BeanDefinitions"><a href="#解析并注册BeanDefinitions" class="headerlink" title="解析并注册BeanDefinitions"></a>解析并注册<code>BeanDefinitions</code></h4><p>在上一步得到<code>Docment</code>对象之后,调用<code>registerBeanDefinitions(Document doc,Resource resource)</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException &#123;</div><div class="line">        //创建对象</div><div class="line">		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();</div><div class="line">		//记录当前已经加载的数量</div><div class="line">		int countBefore = getRegistry().getBeanDefinitionCount();</div><div class="line">		//加载并注册</div><div class="line">		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));</div><div class="line">		//返回本次加载的个数</div><div class="line">		return getRegistry().getBeanDefinitionCount() - countBefore;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>而在调用<code>documentReader</code>对象方法中,才开始进行正式的解析工作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public void registerBeanDefinitions(Document doc, XmlReaderContext readerContext) &#123;</div><div class="line">		this.readerContext = readerContext;</div><div class="line">		logger.debug(&quot;Loading bean definitions&quot;);</div><div class="line">		Element root = doc.getDocumentElement();</div><div class="line">		doRegisterBeanDefinitions(root);</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>解析的工作全权交给<code>doRegisterBeanDefinition(root)</code>方法实现,这样<code>XML</code>文件就正式进入了解析步骤,至于怎么解析的,博主将慢慢学习并写入后续博客.</p>
 
       
     </div>
@@ -399,13 +383,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/04/26/高性能Mysql学习笔记之事务/">高性能Mysql学习笔记之事务</a></p>
+        <p><span>Title:</span><a href="/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/">applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">袁  阳</a></p>
-        <p><span>Created:</span>2017-04-26, 23:48:59</p>
-        <p><span>Updated:</span>2017-05-06, 11:59:58</p>
+        <p><span>Created:</span>2017-05-12, 00:23:01</p>
+        <p><span>Updated:</span>2017-05-12, 00:24:53</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/04/26/高性能Mysql学习笔记之事务/" title="高性能Mysql学习笔记之事务">http://www.yuanyang-miemie.win/2017/04/26/高性能Mysql学习笔记之事务/</a>
-            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2017/04/26/高性能Mysql学习笔记之事务/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/" title="applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析">http://www.yuanyang-miemie.win/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/</a>
+            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -417,16 +401,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/">
-                    《Spring 实战》-- Spring Web Flow 学习笔记
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/04/20/Transactional-Spring的声明式事务/">
-                    Spring的声明式事务-Transactional
+                <a href="/2017/05/05/BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现/">
+                    BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现
                 </a>
             </div>
         
@@ -438,7 +416,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是事务"><span class="toc-number">1.</span> <span class="toc-text">什么是事务?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事务的ACID特性"><span class="toc-number">2.</span> <span class="toc-text">事务的ACID特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原子性-atomicity"><span class="toc-number">2.1.</span> <span class="toc-text">原子性(atomicity)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一致性-consistency"><span class="toc-number">2.2.</span> <span class="toc-text">一致性(consistency)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#隔离性-isolation"><span class="toc-number">2.3.</span> <span class="toc-text">隔离性(isolation)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#持久性-durability"><span class="toc-number">2.4.</span> <span class="toc-text">持久性(durability)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隔离级别"><span class="toc-number">3.</span> <span class="toc-text">隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#READ-UNCOMMITTED-读未提交"><span class="toc-number">3.1.</span> <span class="toc-text">READ UNCOMMITTED(读未提交)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#READ-COMMITTED-读已提交"><span class="toc-number">3.2.</span> <span class="toc-text">READ COMMITTED(读已提交)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#REPEATABLE-READ-可重复读"><span class="toc-number">3.3.</span> <span class="toc-text">REPEATABLE READ(可重复读)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SERIALIZABLE-可串行化"><span class="toc-number">3.4.</span> <span class="toc-text">SERIALIZABLE(可串行化)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#死锁"><span class="toc-number">4.</span> <span class="toc-text">死锁</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据准备阶段"><span class="toc-number">1.</span> <span class="toc-text">数据准备阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#封装Resource"><span class="toc-number">1.1.</span> <span class="toc-text">封装Resource</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据准备操作"><span class="toc-number">1.2.</span> <span class="toc-text">数据准备操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#核心实现"><span class="toc-number">2.</span> <span class="toc-text">核心实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取Document"><span class="toc-number">2.1.</span> <span class="toc-text">获取Document</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#两种验证模式的区别"><span class="toc-number">2.1.1.</span> <span class="toc-text">两种验证模式的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#DTD"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">DTD</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#XSD"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">XSD</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#验证模式的读取"><span class="toc-number">2.1.2.</span> <span class="toc-text">验证模式的读取</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解析并注册BeanDefinitions"><span class="toc-number">2.2.</span> <span class="toc-text">解析并注册BeanDefinitions</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -474,7 +452,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"高性能Mysql学习笔记之事务　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -494,15 +472,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/" title="Pre: 《Spring 实战》-- Spring Web Flow 学习笔记">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/04/20/Transactional-Spring的声明式事务/" title="Next: Spring的声明式事务-Transactional">
+            <a href="/2017/05/05/BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现/" title="Next: BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现">
                 <i class="fa fa-angle-right"></i>
             </a>
         
