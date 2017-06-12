@@ -3,6 +3,64 @@
   
     
     <entry>
+      <title><![CDATA[云服务器 java+tomcat 部署与配置]]></title>
+      <url>/2017/06/12/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%20java+tomcat%20%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<p>安装之前首先下载</p>
+<ul>
+<li><a href="http://tomcat.apache.org/download-90.cgi" target="_blank" rel="external">tomcat</a></li>
+<li><a href="https://www.java.com/zh_CN/download/manual.jsp" target="_blank" rel="external">java</a></li>
+<li>文件上传工具<a href="https://filezilla-project.org/download.php" target="_blank" rel="external">FileZilla</a></li>
+</ul>
+<p>选择合适的版本压缩包(*.tar.gz)进行下载,或者到<a href="http://pan.baidu.com/s/1geHhDXh" target="_blank" rel="external">百度云盘</a>进行下载</p>
+<h3 id="安装Java-JDK8-0"><a href="#安装Java-JDK8-0" class="headerlink" title="安装Java JDK8.0"></a>安装Java JDK8.0</h3><h4 id="建立java目录，存放jdk和tomcat"><a href="#建立java目录，存放jdk和tomcat" class="headerlink" title="建立java目录，存放jdk和tomcat"></a>建立<code>java</code>目录，存放<code>jdk</code>和<code>tomcat</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/</div><div class="line">mkdir java</div></pre></td></tr></table></figure>
+<p>使用<code>FileZilla</code>将下载好的<code>jdk-8u101-linux-x64.tar.gz</code>和 <code>apache-tomcat-9.0.0.M10.tar.gz</code>上传至刚才建立的<code>java</code>目录下,至于怎么使用,百度经验妥妥的.<br><a id="more"></a></p>
+<h4 id="将上传的jdk解压，然后重命名为jdk"><a href="#将上传的jdk解压，然后重命名为jdk" class="headerlink" title="将上传的jdk解压，然后重命名为jdk"></a>将上传的<code>jdk</code>解压，然后重命名为<code>jdk</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -zxv -f jdk-8u101-linux-x64.tar.gz</div><div class="line">mv jdk1.8.0_101 jdk</div></pre></td></tr></table></figure>
+<p>如果不清楚解压后的文件名,可以输入命令<code>ls</code>查看</p>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div></pre></td></tr></table></figure>
+<p>打开文件之后按键盘<code>i</code>进入编辑模式,将下面的内容复制到底部<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">JAVA_HOME=/usr/local/java/jdk</div><div class="line">PATH=$JAVA_HOME/bin:$PATH</div><div class="line">CLASSPATH=$JAVA_HOME/jre/lib/ext:$JAVA_HOME/lib/tools.jar</div><div class="line">export PATH JAVA_HOME CLASSPATH</div></pre></td></tr></table></figure></p>
+<p>输入完毕后,按<code>ESC</code>退出输入模式,然后直接输入<code>:wq</code>回车,保存并且关闭<code>Vim</code>。</p>
+<p>使用<code>source /etc/profile</code>命令使其立即生效<br>通过<code>java -version</code>验证java环境是否配置成功。</p>
+<h3 id="安装Tomcat9-0"><a href="#安装Tomcat9-0" class="headerlink" title="安装Tomcat9.0"></a>安装Tomcat9.0</h3><h4 id="解压Tomcat9-0-重命名为tomcat9"><a href="#解压Tomcat9-0-重命名为tomcat9" class="headerlink" title="解压Tomcat9.0,重命名为tomcat9"></a>解压<code>Tomcat9.0</code>,重命名为<code>tomcat9</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -zxv -f apache-tomcat-9.0.0.M10.tar.gz</div><div class="line">mv apache-tomcat-9.0.0.M10 tomcat9</div></pre></td></tr></table></figure>
+<p>解压完毕后即可直接启动</p>
+<ul>
+<li>启动命令为: <code>/usr/local/java/tomcat9/bin/startup.sh</code></li>
+<li>关闭命令为: <code>/usr/local/java/tomcat9/bin/shutdown.sh</code></li>
+</ul>
+<p>启动完成后还需开放8080端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --zone=public --add-port=8080/tcp --permanent</div></pre></td></tr></table></figure></p>
+<p>出现<code>success</code>表明添加成功</p>
+<p>然后更新防火墙即可：<code>firewall-cmd --reload</code></p>
+<p>重启防火墙命令: <code>systemctl restart firewalld.service</code></p>
+<p>然后再次在浏览器中输入<code>http://ip:8080</code>，如果看到<code>tomcat</code>的欢迎界面，说明安装成功。</p>
+<p>如果还不能访问,则有可能是云服务器没有设置对应的安全组,则需在安全组的设置里加入一条8080端口的访问规则.</p>
+<h3 id="小妙招"><a href="#小妙招" class="headerlink" title="小妙招"></a>小妙招</h3><p>如果你的<code>java</code>和<code>tomcat</code>都安装成功了,那么接下来你会想,每次都这样进行<code>tomcat</code>的启动和关闭,是不是有点麻烦?</p>
+<p>那么可以通过一个脚本来帮我们实现命令启动<code>tomcat</code></p>
+<h4 id="创建脚本"><a href="#创建脚本" class="headerlink" title="创建脚本"></a>创建脚本</h4><p>执行代码：<code>vi etc/init.d/tomcat</code><br>按<code>i</code>进入编辑,将以下内容输入进入,按<code>ESC</code>退出编辑并输入<code>:wq</code>保存并退出<code>Vim</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"># !/bin/bash    </div><div class="line"># Description: start or stop the tomcat    </div><div class="line"># Usage:        tomcat [start|stop|restart]    </div><div class="line">#    </div><div class="line">export PATH=$PATH:$HOME/bin  </div><div class="line">export BASH_ENV=$HOME/.bashrc  </div><div class="line">export USERNAME=&quot;root&quot;  </div><div class="line">  </div><div class="line">case &quot;$1&quot; in  </div><div class="line">start)  </div><div class="line">#startup the tomcat    </div><div class="line">cd /usr/local/java/tomcat9/bin  </div><div class="line">./startup.sh  </div><div class="line">;;  </div><div class="line">stop)  </div><div class="line"># stop tomcat    </div><div class="line">cd /usr/local/java/tomcat9/bin</div><div class="line">./shutdown.sh  </div><div class="line">echo &quot;Tomcat Stoped&quot;  </div><div class="line">;;  </div><div class="line">restart)  </div><div class="line">$0 stop  </div><div class="line">$0 start  </div><div class="line">;;  </div><div class="line">*)  </div><div class="line">echo &quot;tomcat: usage: tomcat [start|stop|restart]&quot;  </div><div class="line">exit 1  </div><div class="line">esac  </div><div class="line">exit 0</div></pre></td></tr></table></figure></p>
+<h4 id="为脚本添加执行权限"><a href="#为脚本添加执行权限" class="headerlink" title="为脚本添加执行权限"></a>为脚本添加执行权限</h4><p>执行命令:<code>chmod +x /etc/init.d/tomcat</code></p>
+<h4 id="创建软连接"><a href="#创建软连接" class="headerlink" title="创建软连接"></a>创建软连接</h4><p>依次执行如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd usr/bin</div><div class="line">ln -s /etc/init.d/tomcat</div></pre></td></tr></table></figure></p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>这样,我们就可以分别使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tomcat start</div><div class="line">tomcat stop</div><div class="line">tomcat restart</div></pre></td></tr></table></figure></p>
+<p>来进行服务器的启动、关闭和重启操作了</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Lunix </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tomcat </tag>
+            
+            <tag> java </tag>
+            
+            <tag> Lunix </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析]]></title>
       <url>/2017/05/12/applicationContext.xml%20%E8%A7%A3%E6%9E%90%E8%AF%A6%E7%BB%86-Spring%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%B9%8BXML%E6%96%87%E4%BB%B6%E7%9A%84%E5%88%9D%E8%A7%A3%E6%9E%90/</url>
       <content type="html"><![CDATA[<p>首先,在我的<a href="http://www.yuanyang-miemie.win/2017/05/05/BeanFactory%E4%B8%8EApplicationContext%E7%9A%84%E5%8C%BA%E5%88%AB-Spring%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%AE%B9%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0/">这篇博客</a>中已经说到容器是怎么初步实现的,并且要使用<code>XmlBeanDefinitionReader</code>对象对<code>Xml</code>文件进行解析,那么<code>Xml</code>文件是如何进行解析的,将在这片博客中进行一些陈述.</p>

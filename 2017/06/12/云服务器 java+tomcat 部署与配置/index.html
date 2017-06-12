@@ -15,21 +15,40 @@
 
 
 
-<meta name="description" content="Spring的声明式事务配置需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
+<meta name="description" content="安装之前首先下载
+
+tomcat
+java
+文件上传工具FileZilla
+
+选择合适的版本压缩包(*.tar.gz)进行下载,或者到百度云盘进行下载
+安装Java JDK8.0建立java目录，存放jdk和tomcat12cd /usr/local/mkdir java
+使用FileZilla将下载好的jdk-8u101-linux-x64.tar.gz和 apache-tomcat-9.0.0">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring的声明式事务-Transactional">
-<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/index.html">
+<meta property="og:title" content="云服务器 java+tomcat 部署与配置">
+<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/06/12/云服务器 java+tomcat 部署与配置/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="Spring的声明式事务配置需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
-<meta property="og:updated_time" content="2017-05-06T03:59:36.428Z">
+<meta property="og:description" content="安装之前首先下载
+
+tomcat
+java
+文件上传工具FileZilla
+
+选择合适的版本压缩包(*.tar.gz)进行下载,或者到百度云盘进行下载
+安装Java JDK8.0建立java目录，存放jdk和tomcat12cd /usr/local/mkdir java
+使用FileZilla将下载好的jdk-8u101-linux-x64.tar.gz和 apache-tomcat-9.0.0">
+<meta property="og:updated_time" content="2017-06-12T11:48:27.842Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring的声明式事务-Transactional">
-<meta name="twitter:description" content="Spring的声明式事务配置需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
-<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
+<meta name="twitter:title" content="云服务器 java+tomcat 部署与配置">
+<meta name="twitter:description" content="安装之前首先下载
+
+tomcat
+java
+文件上传工具FileZilla
+
+选择合适的版本压缩包(*.tar.gz)进行下载,或者到百度云盘进行下载
+安装Java JDK8.0建立java目录，存放jdk和tomcat12cd /usr/local/mkdir java
+使用FileZilla将下载好的jdk-8u101-linux-x64.tar.gz和 apache-tomcat-9.0.0">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +80,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Spring的声明式事务-Transactional | 袁咩咩的博客</title>
+<title>云服务器 java+tomcat 部署与配置 | 袁咩咩的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -288,11 +307,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Transactional-Spring的声明式事务" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-云服务器 java+tomcat 部署与配置" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/20/Transactional-Spring的声明式事务/" class="article-date">
-      <time datetime="2017-04-20T07:31:01.000Z" itemprop="datePublished">2017-04-20</time>
+      <a href="/2017/06/12/云服务器 java+tomcat 部署与配置/" class="article-date">
+      <time datetime="2017-06-12T07:31:01.000Z" itemprop="datePublished">2017-06-12</time>
 </a>
 
 
@@ -307,7 +326,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spring的声明式事务-Transactional
+      云服务器 java+tomcat 部署与配置
     </h1>
   
 
@@ -316,13 +335,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+    <a class="article-category-link" href="/categories/Lunix/">Lunix</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lunix/">Lunix</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tomcat/">tomcat</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -332,43 +351,40 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="Spring的声明式事务"><a href="#Spring的声明式事务" class="headerlink" title="Spring的声明式事务"></a>Spring的声明式事务</h3><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件中配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h4 id="tx-advice节点"><a href="#tx-advice节点" class="headerlink" title="tx:advice节点"></a><code>tx:advice</code>节点</h4><p><code>&lt;tx:advice.../&gt;</code>节点详情如下图<br><img src="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png" alt="tx:advice"></p>
-<blockquote>
-<p>name:指定方法的名称可以使用通配符</p>
-<p>propagation:指定事务的传播行为,默认为为<code>PROPAGATION_REQUIRED</code></p>
-<blockquote>
-<p><code>PROPAGATION_REQUIRED</code>:要求在事务环境中执行该方法,如果当前执行线程已经处于事务环境中,则直接调用;如果当前线程不处于事务环境中,则启动新的事务后执行该方法.</p>
-<p><code>PROPAGATION_MANDATORY</code>:要求调用该方法的线程必须处于事务中,否则抛出异常</p>
-<p><code>PROPAGATION_NESTED</code>:即使执行该方法的线程已经处于事务中们也依然启动新的事务,方法在嵌套的事务里执行;即使执行该方法的线程未处于事务环境中,也启动新的事务,然后执行该方法,此时与默认情况一致.</p>
-<p><code>PROPAGATION_NEVER</code>:不允许调用该方法的线程处于事务环境中,如果调用该方法的线程处于事务环境中,则抛出异常</p>
-<p><code>PROPAGATION_NOT_SUPPORTED</code>:如果调用该方法的线程处于事务中,则先暂停当前事务,然后执行该方法</p>
-<p><code>PROPAGATION_REQUIRED_NEW</code>:该方法要求在新的事务环境中执行,如果当前执行线程已处于事务环境中,则先暂停当前事务,启动新的事务后执行该方法,如果当前线程不处于事务环境中,则启动新的事务后执行方法.</p>
-<p><code>PROPAGATION_SUPPORTS</code>:如果当前线程处于事务环境中,则使用当前事务,否则不使用事务</p>
-</blockquote>
-<p>isolation:指定事务的隔离级别</p>
-<p>timeout:指定事务的超时时间</p>
-<p>read-only:指定事务是否只读</p>
-<p>rollback-for:指定触发事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
-<p>no-rollback-for:指定不处罚事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
-</blockquote>
-<h3 id="Transactional注解"><a href="#Transactional注解" class="headerlink" title="@Transactional注解"></a><code>@Transactional</code>注解</h3><h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件里配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">          class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">        &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line">&lt;!--启动@Transactional注解--&gt;</div><div class="line">&lt;tx:annotation-driven transaction-manager = &quot;transactionManager&quot;/&gt;</div></pre></td></tr></table></figure>
-<p><code>@Transactional</code>注解即可以用于修饰<code>Spring Bean</code>类,也可以用于修饰<code>Bean</code>类中的某个方法</p>
-<p>如果使用该注解修饰<code>Bean</code>类,表明这些事务设置对整个<code>Bean</code>起作用;如果使用该注解修饰<code>Bean</code>类的方法,则表明这些事务设置只对该方法有效。</p>
-<h4 id="Transactional注解的属性"><a href="#Transactional注解的属性" class="headerlink" title="@Transactional注解的属性"></a><code>@Transactional</code>注解的属性</h4><blockquote>
-<p>isolation:用于指定事物的隔离级别.默认为底层事务的隔离级别</p>
-<p>noRollbackFor:用于指定遇到某个特定异常时强制不回滚事务</p>
-<p>noRollbackForClassName:指定遇到特定的多个异常时强制不回滚事务,可以指定多个异常类名</p>
-<p>propagation:指定事务的传播行为</p>
-<p>readOnly:指定是否只读</p>
-<p>rollbackFor:指定遇到特定异常时强制回滚事务</p>
-<p>rollbackForClassName:指定遇到特定的多个异常时强制回滚事务.可以设置多个异常类名</p>
-<p>timeout:指定事务的超时时长</p>
-</blockquote>
-<p><code>@Transactional</code>注解中所指定的属性与<code>&lt;tx:advice.../&gt;</code>元素中所指定的事务属性基本上是对应的。</p>
+        <p>安装之前首先下载</p>
+<ul>
+<li><a href="http://tomcat.apache.org/download-90.cgi" target="_blank" rel="external">tomcat</a></li>
+<li><a href="https://www.java.com/zh_CN/download/manual.jsp" target="_blank" rel="external">java</a></li>
+<li>文件上传工具<a href="https://filezilla-project.org/download.php" target="_blank" rel="external">FileZilla</a></li>
+</ul>
+<p>选择合适的版本压缩包(*.tar.gz)进行下载,或者到<a href="http://pan.baidu.com/s/1geHhDXh" target="_blank" rel="external">百度云盘</a>进行下载</p>
+<h3 id="安装Java-JDK8-0"><a href="#安装Java-JDK8-0" class="headerlink" title="安装Java JDK8.0"></a>安装Java JDK8.0</h3><h4 id="建立java目录，存放jdk和tomcat"><a href="#建立java目录，存放jdk和tomcat" class="headerlink" title="建立java目录，存放jdk和tomcat"></a>建立<code>java</code>目录，存放<code>jdk</code>和<code>tomcat</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/</div><div class="line">mkdir java</div></pre></td></tr></table></figure>
+<p>使用<code>FileZilla</code>将下载好的<code>jdk-8u101-linux-x64.tar.gz</code>和 <code>apache-tomcat-9.0.0.M10.tar.gz</code>上传至刚才建立的<code>java</code>目录下,至于怎么使用,百度经验妥妥的.<br><a id="more"></a></p>
+<h4 id="将上传的jdk解压，然后重命名为jdk"><a href="#将上传的jdk解压，然后重命名为jdk" class="headerlink" title="将上传的jdk解压，然后重命名为jdk"></a>将上传的<code>jdk</code>解压，然后重命名为<code>jdk</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -zxv -f jdk-8u101-linux-x64.tar.gz</div><div class="line">mv jdk1.8.0_101 jdk</div></pre></td></tr></table></figure>
+<p>如果不清楚解压后的文件名,可以输入命令<code>ls</code>查看</p>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim /etc/profile</div></pre></td></tr></table></figure>
+<p>打开文件之后按键盘<code>i</code>进入编辑模式,将下面的内容复制到底部<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">JAVA_HOME=/usr/local/java/jdk</div><div class="line">PATH=$JAVA_HOME/bin:$PATH</div><div class="line">CLASSPATH=$JAVA_HOME/jre/lib/ext:$JAVA_HOME/lib/tools.jar</div><div class="line">export PATH JAVA_HOME CLASSPATH</div></pre></td></tr></table></figure></p>
+<p>输入完毕后,按<code>ESC</code>退出输入模式,然后直接输入<code>:wq</code>回车,保存并且关闭<code>Vim</code>。</p>
+<p>使用<code>source /etc/profile</code>命令使其立即生效<br>通过<code>java -version</code>验证java环境是否配置成功。</p>
+<h3 id="安装Tomcat9-0"><a href="#安装Tomcat9-0" class="headerlink" title="安装Tomcat9.0"></a>安装Tomcat9.0</h3><h4 id="解压Tomcat9-0-重命名为tomcat9"><a href="#解压Tomcat9-0-重命名为tomcat9" class="headerlink" title="解压Tomcat9.0,重命名为tomcat9"></a>解压<code>Tomcat9.0</code>,重命名为<code>tomcat9</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -zxv -f apache-tomcat-9.0.0.M10.tar.gz</div><div class="line">mv apache-tomcat-9.0.0.M10 tomcat9</div></pre></td></tr></table></figure>
+<p>解压完毕后即可直接启动</p>
+<ul>
+<li>启动命令为: <code>/usr/local/java/tomcat9/bin/startup.sh</code></li>
+<li>关闭命令为: <code>/usr/local/java/tomcat9/bin/shutdown.sh</code></li>
+</ul>
+<p>启动完成后还需开放8080端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">firewall-cmd --zone=public --add-port=8080/tcp --permanent</div></pre></td></tr></table></figure></p>
+<p>出现<code>success</code>表明添加成功</p>
+<p>然后更新防火墙即可：<code>firewall-cmd --reload</code></p>
+<p>重启防火墙命令: <code>systemctl restart firewalld.service</code></p>
+<p>然后再次在浏览器中输入<code>http://ip:8080</code>，如果看到<code>tomcat</code>的欢迎界面，说明安装成功。</p>
+<p>如果还不能访问,则有可能是云服务器没有设置对应的安全组,则需在安全组的设置里加入一条8080端口的访问规则.</p>
+<h3 id="小妙招"><a href="#小妙招" class="headerlink" title="小妙招"></a>小妙招</h3><p>如果你的<code>java</code>和<code>tomcat</code>都安装成功了,那么接下来你会想,每次都这样进行<code>tomcat</code>的启动和关闭,是不是有点麻烦?</p>
+<p>那么可以通过一个脚本来帮我们实现命令启动<code>tomcat</code></p>
+<h4 id="创建脚本"><a href="#创建脚本" class="headerlink" title="创建脚本"></a>创建脚本</h4><p>执行代码：<code>vi etc/init.d/tomcat</code><br>按<code>i</code>进入编辑,将以下内容输入进入,按<code>ESC</code>退出编辑并输入<code>:wq</code>保存并退出<code>Vim</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"># !/bin/bash    </div><div class="line"># Description: start or stop the tomcat    </div><div class="line"># Usage:        tomcat [start|stop|restart]    </div><div class="line">#    </div><div class="line">export PATH=$PATH:$HOME/bin  </div><div class="line">export BASH_ENV=$HOME/.bashrc  </div><div class="line">export USERNAME=&quot;root&quot;  </div><div class="line">  </div><div class="line">case &quot;$1&quot; in  </div><div class="line">start)  </div><div class="line">#startup the tomcat    </div><div class="line">cd /usr/local/java/tomcat9/bin  </div><div class="line">./startup.sh  </div><div class="line">;;  </div><div class="line">stop)  </div><div class="line"># stop tomcat    </div><div class="line">cd /usr/local/java/tomcat9/bin</div><div class="line">./shutdown.sh  </div><div class="line">echo &quot;Tomcat Stoped&quot;  </div><div class="line">;;  </div><div class="line">restart)  </div><div class="line">$0 stop  </div><div class="line">$0 start  </div><div class="line">;;  </div><div class="line">*)  </div><div class="line">echo &quot;tomcat: usage: tomcat [start|stop|restart]&quot;  </div><div class="line">exit 1  </div><div class="line">esac  </div><div class="line">exit 0</div></pre></td></tr></table></figure></p>
+<h4 id="为脚本添加执行权限"><a href="#为脚本添加执行权限" class="headerlink" title="为脚本添加执行权限"></a>为脚本添加执行权限</h4><p>执行命令:<code>chmod +x /etc/init.d/tomcat</code></p>
+<h4 id="创建软连接"><a href="#创建软连接" class="headerlink" title="创建软连接"></a>创建软连接</h4><p>依次执行如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd usr/bin</div><div class="line">ln -s /etc/init.d/tomcat</div></pre></td></tr></table></figure></p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>这样,我们就可以分别使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tomcat start</div><div class="line">tomcat stop</div><div class="line">tomcat restart</div></pre></td></tr></table></figure></p>
+<p>来进行服务器的启动、关闭和重启操作了</p>
 
       
     </div>
@@ -377,13 +393,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/04/20/Transactional-Spring的声明式事务/">Spring的声明式事务-Transactional</a></p>
+        <p><span>本文标题:</span><a href="/2017/06/12/云服务器 java+tomcat 部署与配置/">云服务器 java+tomcat 部署与配置</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">袁  阳</a></p>
-        <p><span>发布时间:</span>2017-04-20, 15:31:01</p>
-        <p><span>最后更新:</span>2017-05-06, 11:59:36</p>
+        <p><span>发布时间:</span>2017-06-12, 15:31:01</p>
+        <p><span>最后更新:</span>2017-06-12, 19:48:27</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/04/20/Transactional-Spring的声明式事务/" title="Spring的声明式事务-Transactional">http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/06/12/云服务器 java+tomcat 部署与配置/" title="云服务器 java+tomcat 部署与配置">http://www.yuanyang-miemie.win/2017/06/12/云服务器 java+tomcat 部署与配置/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2017/06/12/云服务器 java+tomcat 部署与配置/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -395,16 +411,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/04/26/高性能Mysql学习笔记之事务/">
-                    高性能Mysql学习笔记之事务
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/">
-                    Idea-使用Mybatis-generator插件快速生成Mybatis相关代码
+                <a href="/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/">
+                    applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析
                 </a>
             </div>
         
@@ -416,7 +426,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring的声明式事务"><span class="toc-number">1.</span> <span class="toc-text">Spring的声明式事务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tx-advice节点"><span class="toc-number">1.2.</span> <span class="toc-text">tx:advice节点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transactional注解"><span class="toc-number">2.</span> <span class="toc-text">@Transactional注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置-1"><span class="toc-number">2.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Transactional注解的属性"><span class="toc-number">2.2.</span> <span class="toc-text">@Transactional注解的属性</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Java-JDK8-0"><span class="toc-number">1.</span> <span class="toc-text">安装Java JDK8.0</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#建立java目录，存放jdk和tomcat"><span class="toc-number">1.1.</span> <span class="toc-text">建立java目录，存放jdk和tomcat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将上传的jdk解压，然后重命名为jdk"><span class="toc-number">1.2.</span> <span class="toc-text">将上传的jdk解压，然后重命名为jdk</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置环境变量"><span class="toc-number">1.3.</span> <span class="toc-text">配置环境变量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Tomcat9-0"><span class="toc-number">2.</span> <span class="toc-text">安装Tomcat9.0</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#解压Tomcat9-0-重命名为tomcat9"><span class="toc-number">2.1.</span> <span class="toc-text">解压Tomcat9.0,重命名为tomcat9</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小妙招"><span class="toc-number">3.</span> <span class="toc-text">小妙招</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建脚本"><span class="toc-number">3.1.</span> <span class="toc-text">创建脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为脚本添加执行权限"><span class="toc-number">3.2.</span> <span class="toc-text">为脚本添加执行权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建软连接"><span class="toc-number">3.3.</span> <span class="toc-text">创建软连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-number">3.4.</span> <span class="toc-text">测试</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -452,7 +462,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Spring的声明式事务-Transactional　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"云服务器 java+tomcat 部署与配置　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -472,15 +482,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/04/26/高性能Mysql学习笔记之事务/" title="上一篇: 高性能Mysql学习笔记之事务">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/" title="下一篇: Idea-使用Mybatis-generator插件快速生成Mybatis相关代码">
+            <a href="/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/" title="下一篇: applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析">
                 <i class="fa fa-angle-right"></i>
             </a>
         
