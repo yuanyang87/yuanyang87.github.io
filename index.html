@@ -289,6 +289,80 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Linux系统部署Web项目" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/08/Linux系统部署Web项目/" class="article-date">
+      <time datetime="2017-07-08T14:43:00.000Z" itemprop="datePublished">2017-07-08</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/08/Linux系统部署Web项目/">Linux系统部署Web项目与问题分享</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>首先,需要有java环境和tomcat服务器,至于这个怎么安装,可以参考:<a href="http://www.yuanyang-miemie.win/2017/06/12/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%20java+tomcat%20%E9%83%A8%E7%BD%B2%E4%B8%8E%E9%85%8D%E7%BD%AE/#more">云服务器 java+tomcat 部署与配置</a></p>
+<h2 id="项目部署"><a href="#项目部署" class="headerlink" title="项目部署"></a>项目部署</h2><p>有两个大步骤:</p>
+<h4 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h4><p>将已经写好的web项目打包成<code>war包</code>,在IDEA中使用<code>Maven</code>项目时,可以直接在<code>pom.xml</code>中指定打包方式为<code>war</code>,在<code>target</code>目录中可以找到对应的war包文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;packaging&gt;war&lt;/packaging&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h4><p>将打包好的<code>*.war</code>文件用文件传输工具上传到<code>Linux</code>系统中的<code>Tomcat</code>服务器的<code>webapps</code>文件夹中,上传之后,<code>Tomcat</code>会自动帮我们部署项目,接下来就可以访问了.</p>
+<p>例如:按上面文章所采用的方法,需要把<code>war</code>包放到<code>/usr/local/java/tomcat9/webapps</code>文件夹下</p>
+<p>之后就可以通过<code>http://host:port/content</code>来访问项目了</p>
+<p>例如:有一个<code>test</code>项目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://39.39.39.39:8080/test/index.html</div></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/项目取经/">项目取经</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/07/08/Linux系统部署Web项目/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-云服务器 java+tomcat 部署与配置" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -910,75 +984,6 @@
       
         <p class="article-more-link">
           <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Idea 使用 Maven 搭建 Web 项目" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/03/28/Idea 使用 Maven 搭建 Web 项目/" class="article-date">
-      <time datetime="2017-03-28T07:31:01.000Z" itemprop="datePublished">2017-03-28</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/28/Idea 使用 Maven 搭建 Web 项目/">Idea 使用 Maven 搭建 Web 项目</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>Maven项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。</p>
-<p>使用它来搭建项目可以省去很多操作，它不仅有依赖管理、自动生成项目站点等超酷的特性，还可以让你从琐碎的手工劳动中解脱出来，帮你规范整个组织的构建系统。（可以通过《Maven 实战》一书进行详细学习）</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Web/">Web</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小技巧/">小技巧</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/03/28/Idea 使用 Maven 搭建 Web 项目/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
