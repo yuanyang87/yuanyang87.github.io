@@ -25,7 +25,7 @@ Step1将已经写好的web项目打包成war包,在IDEA中使用Maven项目时,�
 <meta property="og:description" content="首先,需要有java环境和tomcat服务器,至于这个怎么安装,可以参考:云服务器 java+tomcat 部署与配置
 项目部署有两个大步骤:
 Step1将已经写好的web项目打包成war包,在IDEA中使用Maven项目时,可以直接在pom.xml中指定打包方式为war,在target目录中可以找到对应的war包文件1&amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt;">
-<meta property="og:updated_time" content="2017-07-08T14:39:57.705Z">
+<meta property="og:updated_time" content="2017-07-09T02:37:33.697Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux系统部署Web项目与问题分享">
 <meta name="twitter:description" content="首先,需要有java环境和tomcat服务器,至于这个怎么安装,可以参考:云服务器 java+tomcat 部署与配置
@@ -344,7 +344,7 @@ Step1将已经写好的web项目打包成war包,在IDEA中使用Maven项目时,�
 <p>我在部署中遇见这样一个问题:</p>
 <p>我的<code>mysql</code>数据库设置了一个普通用户<code>yy</code>,拥有这个项目所使用数据库的所有权限,但是通过项目连接数据库怎么也连不上,直接通过用户在黑框框里登录是可以的,我到<code>Linux</code>系统中查看日志文件(方法见底),发现报出的错误为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java.sql.SQLException: Access denied for user &apos;root&apos;@&apos;云服务器ip&apos; (using password: YES)，</div></pre></td></tr></table></figure></p>
 <p>我当时都惊了,我<code>jdbc.properties</code>文件里面不是用的<code>root</code>用户,为什么会报这个错误呢,原因在哪儿?</p>
-<p>这个错误不是在远程连接的时候没有权限被拒的错误吗?所以我就试着给<code>root</code>用户授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grant all privileges on *.* on &apos;root&apos;@&apos;%&apos; identified by &apos;password&apos; with grant option;</div></pre></td></tr></table></figure></p>
+<p>而且从后面的<code>using password:YES</code>可以看出,可以不需要密码就可以登录,所以我就试着给<code>root</code>用户重新授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grant all privileges on *.* on &apos;root&apos;@&apos;%&apos; identified by &apos;password&apos; with grant option;</div></pre></td></tr></table></figure></p>
 <p>授权之后惊人的一幕出现了,这个时候居然可以用项目中的用户访问数据库了,我觉得非常奇怪,后来我为了证明这个问题,我删除了<code>root</code>用户的这些授权,更奇怪的事情出现了,这个时候<code>yy</code>仍然可以通过项目连接到数据库,并没有受<code>root</code>用户的影响,可是之前有受到了影响,我觉得很奇怪,记录下来,我觉得应该是它抽风了吧,23333</p>
 <p>查看日志的方法如下:<br>首先进入到<code>tomcat</code>服务器的<code>logs</code>目录,输入下面的命令就可以实时跟踪日志,<code>ctrl+c</code>即可退出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail -f catalina.out</div></pre></td></tr></table></figure></p>
 
@@ -358,7 +358,7 @@ Step1将已经写好的web项目打包成war包,在IDEA中使用Maven项目时,�
         <p><span>本文标题:</span><a href="/2017/07/08/Linux系统部署Web项目/">Linux系统部署Web项目与问题分享</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">袁  阳</a></p>
         <p><span>发布时间:</span>2017-07-08, 22:43:00</p>
-        <p><span>最后更新:</span>2017-07-08, 22:39:57</p>
+        <p><span>最后更新:</span>2017-07-09, 10:37:33</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/07/08/Linux系统部署Web项目/" title="Linux系统部署Web项目与问题分享">http://www.yuanyang-miemie.win/2017/07/08/Linux系统部署Web项目/</a>
             <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2017/07/08/Linux系统部署Web项目/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
