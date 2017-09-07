@@ -15,21 +15,19 @@
 
 
 
-<meta name="description" content="Spring的声明式事务配置需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
+<meta name="description" content="编程语言的整个目的就在于操作值,要是按照历史上编程语言的传统,这些值被成为一等值,而编程语言中的其他结构也许有助于表示值的结构,但在程序执行期间不能传递,因此为二等值,比如方法和类等则是二等值,类可以实例化来产生值,但方法和类本身都不是值,java8的设计者则决定允许方法作为值,让编程更轻松.
+举个栗子就农场库存程序而言,如果要实现一个从列表中塞选出绿色苹果的功能,可能会这样写(1.0)12345">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring的声明式事务-Transactional">
-<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/index.html">
+<meta property="og:title" content="Java8函数式编程学习笔记(初探)">
+<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/09/07/Java8函数式编程学习笔记(初探)/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="Spring的声明式事务配置需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
-<meta property="og:updated_time" content="2017-05-06T03:59:36.428Z">
+<meta property="og:description" content="编程语言的整个目的就在于操作值,要是按照历史上编程语言的传统,这些值被成为一等值,而编程语言中的其他结构也许有助于表示值的结构,但在程序执行期间不能传递,因此为二等值,比如方法和类等则是二等值,类可以实例化来产生值,但方法和类本身都不是值,java8的设计者则决定允许方法作为值,让编程更轻松.
+举个栗子就农场库存程序而言,如果要实现一个从列表中塞选出绿色苹果的功能,可能会这样写(1.0)12345">
+<meta property="og:updated_time" content="2017-09-07T08:31:40.993Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring的声明式事务-Transactional">
-<meta name="twitter:description" content="Spring的声明式事务配置需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
-<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
+<meta name="twitter:title" content="Java8函数式编程学习笔记(初探)">
+<meta name="twitter:description" content="编程语言的整个目的就在于操作值,要是按照历史上编程语言的传统,这些值被成为一等值,而编程语言中的其他结构也许有助于表示值的结构,但在程序执行期间不能传递,因此为二等值,比如方法和类等则是二等值,类可以实例化来产生值,但方法和类本身都不是值,java8的设计者则决定允许方法作为值,让编程更轻松.
+举个栗子就农场库存程序而言,如果要实现一个从列表中塞选出绿色苹果的功能,可能会这样写(1.0)12345">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Spring的声明式事务-Transactional | 袁咩咩的博客</title>
+<title>Java8函数式编程学习笔记(初探) | 袁咩咩的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -288,11 +286,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-Transactional-Spring的声明式事务" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Java8函数式编程学习笔记(初探)" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/20/Transactional-Spring的声明式事务/" class="article-date">
-      <time datetime="2017-04-20T07:31:01.000Z" itemprop="datePublished">2017-04-20</time>
+      <a href="/2017/09/07/Java8函数式编程学习笔记(初探)/" class="article-date">
+      <time datetime="2017-09-07T06:43:00.000Z" itemprop="datePublished">2017-09-07</time>
 </a>
 
 
@@ -307,7 +305,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spring的声明式事务-Transactional
+      Java8函数式编程学习笔记(初探)
     </h1>
   
 
@@ -316,13 +314,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+    <a class="article-category-link" href="/categories/学习笔记/">学习笔记</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -332,43 +330,23 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="Spring的声明式事务"><a href="#Spring的声明式事务" class="headerlink" title="Spring的声明式事务"></a>Spring的声明式事务</h3><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件中配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h4 id="tx-advice节点"><a href="#tx-advice节点" class="headerlink" title="tx:advice节点"></a><code>tx:advice</code>节点</h4><p><code>&lt;tx:advice.../&gt;</code>节点详情如下图<br><img src="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png" alt="tx:advice"></p>
-<blockquote>
-<p>name:指定方法的名称可以使用通配符</p>
-<p>propagation:指定事务的传播行为,默认为为<code>PROPAGATION_REQUIRED</code></p>
-<blockquote>
-<p><code>PROPAGATION_REQUIRED</code>:要求在事务环境中执行该方法,如果当前执行线程已经处于事务环境中,则直接调用;如果当前线程不处于事务环境中,则启动新的事务后执行该方法.</p>
-<p><code>PROPAGATION_MANDATORY</code>:要求调用该方法的线程必须处于事务中,否则抛出异常</p>
-<p><code>PROPAGATION_NESTED</code>:即使执行该方法的线程已经处于事务中们也依然启动新的事务,方法在嵌套的事务里执行;即使执行该方法的线程未处于事务环境中,也启动新的事务,然后执行该方法,此时与默认情况一致.</p>
-<p><code>PROPAGATION_NEVER</code>:不允许调用该方法的线程处于事务环境中,如果调用该方法的线程处于事务环境中,则抛出异常</p>
-<p><code>PROPAGATION_NOT_SUPPORTED</code>:如果调用该方法的线程处于事务中,则先暂停当前事务,然后执行该方法</p>
-<p><code>PROPAGATION_REQUIRED_NEW</code>:该方法要求在新的事务环境中执行,如果当前执行线程已处于事务环境中,则先暂停当前事务,启动新的事务后执行该方法,如果当前线程不处于事务环境中,则启动新的事务后执行方法.</p>
-<p><code>PROPAGATION_SUPPORTS</code>:如果当前线程处于事务环境中,则使用当前事务,否则不使用事务</p>
-</blockquote>
-<p>isolation:指定事务的隔离级别</p>
-<p>timeout:指定事务的超时时间</p>
-<p>read-only:指定事务是否只读</p>
-<p>rollback-for:指定触发事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
-<p>no-rollback-for:指定不处罚事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
-</blockquote>
-<h3 id="Transactional注解"><a href="#Transactional注解" class="headerlink" title="@Transactional注解"></a><code>@Transactional</code>注解</h3><h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件里配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">          class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">        &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line">&lt;!--启动@Transactional注解--&gt;</div><div class="line">&lt;tx:annotation-driven transaction-manager = &quot;transactionManager&quot;/&gt;</div></pre></td></tr></table></figure>
-<p><code>@Transactional</code>注解即可以用于修饰<code>Spring Bean</code>类,也可以用于修饰<code>Bean</code>类中的某个方法</p>
-<p>如果使用该注解修饰<code>Bean</code>类,表明这些事务设置对整个<code>Bean</code>起作用;如果使用该注解修饰<code>Bean</code>类的方法,则表明这些事务设置只对该方法有效。</p>
-<h4 id="Transactional注解的属性"><a href="#Transactional注解的属性" class="headerlink" title="@Transactional注解的属性"></a><code>@Transactional</code>注解的属性</h4><blockquote>
-<p>isolation:用于指定事物的隔离级别.默认为底层事务的隔离级别</p>
-<p>noRollbackFor:用于指定遇到某个特定异常时强制不回滚事务</p>
-<p>noRollbackForClassName:指定遇到特定的多个异常时强制不回滚事务,可以指定多个异常类名</p>
-<p>propagation:指定事务的传播行为</p>
-<p>readOnly:指定是否只读</p>
-<p>rollbackFor:指定遇到特定异常时强制回滚事务</p>
-<p>rollbackForClassName:指定遇到特定的多个异常时强制回滚事务.可以设置多个异常类名</p>
-<p>timeout:指定事务的超时时长</p>
-</blockquote>
-<p><code>@Transactional</code>注解中所指定的属性与<code>&lt;tx:advice.../&gt;</code>元素中所指定的事务属性基本上是对应的。</p>
+        <p>编程语言的整个目的就在于操作值,要是按照历史上编程语言的传统,这些值被成为一等值,而编程语言中的其他结构也许有助于表示值的结构,但在程序执行期间不能传递,因此为二等值,比如方法和类等则是二等值,类可以实例化来产生值,但方法和类本身都不是值,java8的设计者则决定允许方法作为值,让编程更轻松.</p>
+<h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><p>就农场库存程序而言,如果要实现一个从列表中塞选出绿色苹果的功能,可能会这样写(1.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterGreenApples(List&lt;Apple&gt; inventory) &#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : inventory) &#123;</div><div class="line">            if (&quot;green&quot;.equals(apple.getColor()))&#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>假如这个时候要赛选出不仅是绿色的苹果,可能会加入一个颜色作为参数,就象这样(2.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterGreenApples(List&lt;Apple&gt; inventory, String color) &#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : inventory) &#123;</div><div class="line">            if (color.equals(apple.getColor()))&#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>但这个时候别人可能还想区分出重苹果和轻苹果,你可能会这样来赛选重苹果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterApplesByWeight(List&lt;Apple&gt; inventory, int weight)&#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : inventory)&#123;</div><div class="line">            if (apple.getWeight() &gt; weight) &#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>这样解决确实不错,但是却复制了大量的代码来实现功能,它打破了DRY(Don’t Repeat Yourself)的软件工程原则,会许这时候你可能会将两种条件结合起来,并用一个标识表示赛选那种类型的苹果,像这样(3.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterGreenApples(List&lt;Apple&gt; inventory, String color, Integer weight, boolean flag)&#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : inventory)&#123;</div><div class="line">            if ((flag &amp;&amp; apple.getColor().equals(color)) || (!flag &amp;&amp; apple.getWeight() &gt; weight)) &#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>但是,这并不是一个可行的解决方案,首先别人阅读你的代码的时候,true|false表示什么?如果这个时候还有更加复杂的塞选情况又该怎么办?java8的<code>行为化参数</code>可以解决这个问题</p>
+<h3 id="行为参数化"><a href="#行为参数化" class="headerlink" title="行为参数化"></a>行为参数化</h3><p>让方法接受多种行为(或战略)作为参数,并在内部使用,来完成不同的行为.</p>
+<p>好处: 多种行为,一个参数,可以把迭代要塞选的集合的逻辑和对集合中每个元素应用的行为区分开来,这样可以重复使用同一个方法,给他不同的行为达到不同的目的.</p>
+<p>定义一个接口来对选择标准建模<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public interface ApplePredicate &#123;</div><div class="line">    boolean test (Apple apple);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在就可以为它进行多个实现了,比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public class AppleGreenColorPredicate implements ApplePredicate &#123;</div><div class="line">    @Override</div><div class="line">    public boolean test(Apple apple) &#123;</div><div class="line">    //仅选出绿色的苹果</div><div class="line">        return &quot;green&quot;.equals(apple.getColor());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class AppleHeavyWeightPredicate implements ApplePredicate &#123;</div><div class="line">    @Override</div><div class="line">    public boolean test(Apple apple) &#123;</div><div class="line">    //仅选出重的苹果</div><div class="line">        return apple.getWeight() &gt; 150;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在经过java8的改良,代码可能会是这个样子(4.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterApples(List&lt;Apple&gt; apples, ApplePredicate predicate)&#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : apples)&#123;</div><div class="line">            if (predicate.test(apple))&#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>每次调用的时候,只需要传递相应的行为即可,比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; greenApples = filterApples(inventory,new AppleGreenColorPredicate());</div></pre></td></tr></table></figure></p>
+<p>这样一来,每次塞选的是什么苹果完全取决于通过<code>ApplePredicate</code>对象传递的代码,换句话说,把<code>filterApple</code>的方法行为参数化了</p>
+<p>当然,到了这里你可能还觉得不甘心,因为每次都要去创建一个新的类,有点啰嗦,所以,你可以使用<code>匿名类</code>来完成这一工作(5.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; redApples = filterApples(inventory, new ApplePredicate() &#123;</div><div class="line">    @Override</div><div class="line">    public boolean test(Apple apple) &#123;</div><div class="line">        return &quot;red&quot;.equals(apple.getColor());</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>但是,匿名类还是不够还,因为它占用了很多空间,所以,在java8中可以直接使用<code>Lambda</code>表达式来完成(6.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; weightApples = filterApples(inventory, (Apple apple) -&gt; apple.getWeight() &gt; 150);</div></pre></td></tr></table></figure></p>
+<p>到目前为止,总算是可以解决啰嗦麻烦的问题了,因为它更像在描述问题本身.现在你可以将<code>List</code>抽象画,让他应用面更加广泛<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public interface Predicate&lt;T&gt;&#123;</div><div class="line">    boolean test(T t);</div><div class="line">&#125;</div><div class="line"></div><div class="line">public static &lt;T&gt; List&lt;T&gt; filter(List&lt;T&gt; list, Predicate&lt;T&gt; p)&#123;</div><div class="line">    List&lt;T&gt; result = new ArrayList&lt;&gt;();</div><div class="line">    for(T e : list)&#123;</div><div class="line">        if(p.test(e))&#123;</div><div class="line">            result.add(e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在在灵活性和简洁性之间找到了平衡点,这是java8带来的便利.</p>
 
       
     </div>
@@ -377,13 +355,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/04/20/Transactional-Spring的声明式事务/">Spring的声明式事务-Transactional</a></p>
+        <p><span>Title:</span><a href="/2017/09/07/Java8函数式编程学习笔记(初探)/">Java8函数式编程学习笔记(初探)</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">袁  阳</a></p>
-        <p><span>Created:</span>2017-04-20, 15:31:01</p>
-        <p><span>Updated:</span>2017-05-06, 11:59:36</p>
+        <p><span>Created:</span>2017-09-07, 14:43:00</p>
+        <p><span>Updated:</span>2017-09-07, 16:31:40</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/04/20/Transactional-Spring的声明式事务/" title="Spring的声明式事务-Transactional">http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/</a>
-            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2017/09/07/Java8函数式编程学习笔记(初探)/" title="Java8函数式编程学习笔记(初探)">http://www.yuanyang-miemie.win/2017/09/07/Java8函数式编程学习笔记(初探)/</a>
+            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2017/09/07/Java8函数式编程学习笔记(初探)/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -395,16 +373,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/04/26/高性能Mysql学习笔记之事务/">
-                    高性能Mysql学习笔记之事务
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/">
-                    Idea-使用Mybatis-generator插件快速生成Mybatis相关代码
+                <a href="/2017/07/08/Linux系统部署Web项目/">
+                    Linux系统部署Web项目与问题分享
                 </a>
             </div>
         
@@ -416,7 +388,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring的声明式事务"><span class="toc-number">1.</span> <span class="toc-text">Spring的声明式事务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tx-advice节点"><span class="toc-number">1.2.</span> <span class="toc-text">tx:advice节点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transactional注解"><span class="toc-number">2.</span> <span class="toc-text">@Transactional注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置-1"><span class="toc-number">2.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Transactional注解的属性"><span class="toc-number">2.2.</span> <span class="toc-text">@Transactional注解的属性</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#举个栗子"><span class="toc-number">1.</span> <span class="toc-text">举个栗子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#行为参数化"><span class="toc-number">1.1.</span> <span class="toc-text">行为参数化</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -452,7 +424,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Spring的声明式事务-Transactional　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Java8函数式编程学习笔记(初探)　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -472,15 +444,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/04/26/高性能Mysql学习笔记之事务/" title="Pre: 高性能Mysql学习笔记之事务">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/" title="Next: Idea-使用Mybatis-generator插件快速生成Mybatis相关代码">
+            <a href="/2017/07/08/Linux系统部署Web项目/" title="Next: Linux系统部署Web项目与问题分享">
                 <i class="fa fa-angle-right"></i>
             </a>
         

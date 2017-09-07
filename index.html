@@ -161,13 +161,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
+                        <li>Menu</li>
+                        <li>Tags</li>
                         
-                        <li>友情链接</li>
+                        <li>Friends</li>
                         
                         
-                        <li>关于我</li>
+                        <li>About Me</li>
                         
                     </ul>
                 </div>
@@ -210,7 +210,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hibernate/">Hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lunix/">Lunix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-MVC/">Spring MVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring源码/">Spring源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Struts2/">Struts2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小小算法/">小小算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目取经/">项目取经</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hibernate/">Hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lunix/">Lunix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-MVC/">Spring MVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring源码/">Spring源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Struts2/">Struts2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小小算法/">小小算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目取经/">项目取经</a></li></ul>
                     </div>
                 </section>
                 
@@ -285,9 +285,89 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Java8函数式编程学习笔记(初探)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/07/Java8函数式编程学习笔记(初探)/" class="article-date">
+      <time datetime="2017-09-07T06:43:00.000Z" itemprop="datePublished">2017-09-07</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/07/Java8函数式编程学习笔记(初探)/">Java8函数式编程学习笔记(初探)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>编程语言的整个目的就在于操作值,要是按照历史上编程语言的传统,这些值被成为一等值,而编程语言中的其他结构也许有助于表示值的结构,但在程序执行期间不能传递,因此为二等值,比如方法和类等则是二等值,类可以实例化来产生值,但方法和类本身都不是值,java8的设计者则决定允许方法作为值,让编程更轻松.</p>
+<h2 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h2><p>就农场库存程序而言,如果要实现一个从列表中塞选出绿色苹果的功能,可能会这样写(1.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterGreenApples(List&lt;Apple&gt; inventory) &#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : inventory) &#123;</div><div class="line">            if (&quot;green&quot;.equals(apple.getColor()))&#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>假如这个时候要赛选出不仅是绿色的苹果,可能会加入一个颜色作为参数,就象这样(2.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterGreenApples(List&lt;Apple&gt; inventory, String color) &#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : inventory) &#123;</div><div class="line">            if (color.equals(apple.getColor()))&#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>但这个时候别人可能还想区分出重苹果和轻苹果,你可能会这样来赛选重苹果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterApplesByWeight(List&lt;Apple&gt; inventory, int weight)&#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : inventory)&#123;</div><div class="line">            if (apple.getWeight() &gt; weight) &#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>这样解决确实不错,但是却复制了大量的代码来实现功能,它打破了DRY(Don’t Repeat Yourself)的软件工程原则,会许这时候你可能会将两种条件结合起来,并用一个标识表示赛选那种类型的苹果,像这样(3.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterGreenApples(List&lt;Apple&gt; inventory, String color, Integer weight, boolean flag)&#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : inventory)&#123;</div><div class="line">            if ((flag &amp;&amp; apple.getColor().equals(color)) || (!flag &amp;&amp; apple.getWeight() &gt; weight)) &#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>但是,这并不是一个可行的解决方案,首先别人阅读你的代码的时候,true|false表示什么?如果这个时候还有更加复杂的塞选情况又该怎么办?java8的<code>行为化参数</code>可以解决这个问题</p>
+<h3 id="行为参数化"><a href="#行为参数化" class="headerlink" title="行为参数化"></a>行为参数化</h3><p>让方法接受多种行为(或战略)作为参数,并在内部使用,来完成不同的行为.</p>
+<p>好处: 多种行为,一个参数,可以把迭代要塞选的集合的逻辑和对集合中每个元素应用的行为区分开来,这样可以重复使用同一个方法,给他不同的行为达到不同的目的.</p>
+<p>定义一个接口来对选择标准建模<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public interface ApplePredicate &#123;</div><div class="line">    boolean test (Apple apple);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在就可以为它进行多个实现了,比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public class AppleGreenColorPredicate implements ApplePredicate &#123;</div><div class="line">    @Override</div><div class="line">    public boolean test(Apple apple) &#123;</div><div class="line">    //仅选出绿色的苹果</div><div class="line">        return &quot;green&quot;.equals(apple.getColor());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class AppleHeavyWeightPredicate implements ApplePredicate &#123;</div><div class="line">    @Override</div><div class="line">    public boolean test(Apple apple) &#123;</div><div class="line">    //仅选出重的苹果</div><div class="line">        return apple.getWeight() &gt; 150;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在经过java8的改良,代码可能会是这个样子(4.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static List&lt;Apple&gt; filterApples(List&lt;Apple&gt; apples, ApplePredicate predicate)&#123;</div><div class="line">        List&lt;Apple&gt; result = new ArrayList&lt;&gt;();</div><div class="line">        for (Apple apple : apples)&#123;</div><div class="line">            if (predicate.test(apple))&#123;</div><div class="line">                result.add(apple);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return result;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>每次调用的时候,只需要传递相应的行为即可,比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; greenApples = filterApples(inventory,new AppleGreenColorPredicate());</div></pre></td></tr></table></figure></p>
+<p>这样一来,每次塞选的是什么苹果完全取决于通过<code>ApplePredicate</code>对象传递的代码,换句话说,把<code>filterApple</code>的方法行为参数化了</p>
+<p>当然,到了这里你可能还觉得不甘心,因为每次都要去创建一个新的类,有点啰嗦,所以,你可以使用<code>匿名类</code>来完成这一工作(5.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; redApples = filterApples(inventory, new ApplePredicate() &#123;</div><div class="line">    @Override</div><div class="line">    public boolean test(Apple apple) &#123;</div><div class="line">        return &quot;red&quot;.equals(apple.getColor());</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>但是,匿名类还是不够还,因为它占用了很多空间,所以,在java8中可以直接使用<code>Lambda</code>表达式来完成(6.0)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List&lt;Apple&gt; weightApples = filterApples(inventory, (Apple apple) -&gt; apple.getWeight() &gt; 150);</div></pre></td></tr></table></figure></p>
+<p>到目前为止,总算是可以解决啰嗦麻烦的问题了,因为它更像在描述问题本身.现在你可以将<code>List</code>抽象画,让他应用面更加广泛<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public interface Predicate&lt;T&gt;&#123;</div><div class="line">    boolean test(T t);</div><div class="line">&#125;</div><div class="line"></div><div class="line">public static &lt;T&gt; List&lt;T&gt; filter(List&lt;T&gt; list, Predicate&lt;T&gt; p)&#123;</div><div class="line">    List&lt;T&gt; result = new ArrayList&lt;&gt;();</div><div class="line">    for(T e : list)&#123;</div><div class="line">        if(p.test(e))&#123;</div><div class="line">            result.add(e);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>现在在灵活性和简洁性之间找到了平衡点,这是java8带来的便利.</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/学习笔记/">学习笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Linux系统部署Web项目" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -652,6 +732,76 @@
 
 
   
+    <article id="post-Spring MVC 搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/27/Spring MVC 搭建/" class="article-date">
+      <time datetime="2017-04-27T07:31:01.000Z" itemprop="datePublished">2017-04-27</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/27/Spring MVC 搭建/">Spring MVC 搭建 - Hello world</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>现在的<code>Web</code>框架基本都采用了<code>MVC(model-view-Controller)</code>设计模式,其中,<code>Servlet</code>和<code>Filter</code>都可以充当控制器.<code>Spring MVC</code>采用一个<code>Servlet</code>作为控制器,而<code>Struts2</code>则采用的<code>Filter</code>作为控制器.</p>
+<p>对于他们的区别我在这里不多赘述,可以参见这篇文章<a href="http://blog.csdn.net/chenleixing/article/details/44570681">SpringMVC与Struts2区别与比较总结</a></p>
+<p>Spring MVC的搭建可以通过Java代码的方式(在《Spring 实战》一书中有详细讲解),也可以通过配置文件的方式,这里讲到的是<strong>运用配置文件</strong>的方式进行搭建.</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-MVC/">Spring MVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/27/Spring MVC 搭建/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Spring Web Flow 学习笔记--披萨流程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -708,76 +858,6 @@
       
         <p class="article-more-link">
           <a href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Spring MVC 搭建" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/27/Spring MVC 搭建/" class="article-date">
-      <time datetime="2017-04-27T07:31:01.000Z" itemprop="datePublished">2017-04-27</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/27/Spring MVC 搭建/">Spring MVC 搭建 - Hello world</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>现在的<code>Web</code>框架基本都采用了<code>MVC(model-view-Controller)</code>设计模式,其中,<code>Servlet</code>和<code>Filter</code>都可以充当控制器.<code>Spring MVC</code>采用一个<code>Servlet</code>作为控制器,而<code>Struts2</code>则采用的<code>Filter</code>作为控制器.</p>
-<p>对于他们的区别我在这里不多赘述,可以参见这篇文章<a href="http://blog.csdn.net/chenleixing/article/details/44570681">SpringMVC与Struts2区别与比较总结</a></p>
-<p>Spring MVC的搭建可以通过Java代码的方式(在《Spring 实战》一书中有详细讲解),也可以通过配置文件的方式,这里讲到的是<strong>运用配置文件</strong>的方式进行搭建.</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Spring/">Spring</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-MVC/">Spring MVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/27/Spring MVC 搭建/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -933,75 +1013,6 @@
 
 
   
-    <article id="post-idea-使用Mybatis-generator插件快速生成Mybatis代码" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/" class="article-date">
-      <time datetime="2017-04-19T14:43:00.000Z" itemprop="datePublished">2017-04-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/">Idea-使用Mybatis-generator插件快速生成Mybatis相关代码</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>使用这个插件可以快速生成一些代码,包含 实体类/Mapper接口/*Mapper.xml文件</p>
-<h4 id="项目要求"><a href="#项目要求" class="headerlink" title="项目要求"></a>项目要求</h4><p>首先,我们需要搭建一个<code>Maven</code>的项目,当然,这个项目必须要支持使用<code>Mybatis</code>。</p>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Mybatis/">Mybatis</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/">Mybatis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1016,14 +1027,14 @@
                 2016-2017 袁  阳
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -1032,7 +1043,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -1065,9 +1076,9 @@
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
