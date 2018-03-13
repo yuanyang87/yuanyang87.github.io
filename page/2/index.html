@@ -289,6 +289,75 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Transactional-Spring的声明式事务" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/20/Transactional-Spring的声明式事务/" class="article-date">
+      <time datetime="2017-04-20T07:31:01.000Z" itemprop="datePublished">2017-04-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/20/Transactional-Spring的声明式事务/">Spring的声明式事务-Transactional</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="Spring的声明式事务"><a href="#Spring的声明式事务" class="headerlink" title="Spring的声明式事务"></a>Spring的声明式事务</h3><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件中配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/20/Transactional-Spring的声明式事务/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-idea-使用Mybatis-generator插件快速生成Mybatis代码" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -339,7 +408,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/#more">more >></a>
+          <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -408,7 +477,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/03/28/Idea 使用 Maven 搭建 Web 项目/#more">more >></a>
+          <a href="/2017/03/28/Idea 使用 Maven 搭建 Web 项目/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -477,7 +546,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/03/28/idea+SSH框架整合/#more">more >></a>
+          <a href="/2017/03/28/idea+SSH框架整合/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -549,7 +618,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/03/15/汉诺塔(Hanoi)——小小算法/#more">more >></a>
+          <a href="/2017/03/15/汉诺塔(Hanoi)——小小算法/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -619,7 +688,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/03/14/百钱百鸡小算法/#more">more >></a>
+          <a href="/2017/03/14/百钱百鸡小算法/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -687,7 +756,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/#more">more >></a>
+          <a href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -717,7 +786,7 @@
         <div id="footer-info">
             <div class="footer-left">
                 <i class="fa fa-copyright"></i> 
-                2016-2017 袁  阳
+                2016-2018 袁  阳
             </div>
             <div class="footer-right">
                 <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
