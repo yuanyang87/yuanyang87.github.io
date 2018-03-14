@@ -15,21 +15,25 @@
 
 
 
-<meta name="description" content="Java的线程既是工作单元，也是执行机制。从JDK5开始，把工作单元与执行机制分离开来。工作单元包括Runnable和Callable，而执行机制由Executor框架提供。
-Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线程终止时，这个操作系统线程也被收回。操作系统会调度所有线程">
+<meta name="description" content="工厂模式主要是为创建对象提供过渡接口，以便将创建对象的具体过程屏蔽隔离起来，达到提高灵活性的目的。
+工厂模式有三种：简单工厂模式、工厂方法模式、抽象工厂模式
+这里先介绍简单工厂模式
+简单工厂模式又称静态工厂方法模式，从名字来看，这种模式体现的就是简单。主要的实现思想是通过创建一个工厂类，通过调用工厂方法的静态方法返回相应的对象。例如有一个计算程序：输入两个数和运算符号（+-*/），输出运算结果。可">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Executor 框架">
-<meta property="og:url" content="http://www.yuanyang-miemie.win/2018/03/14/executor 框架/index.html">
+<meta property="og:title" content="简单工厂模式">
+<meta property="og:url" content="http://www.yuanyang-miemie.win/2018/03/14/简单工厂模式/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="Java的线程既是工作单元，也是执行机制。从JDK5开始，把工作单元与执行机制分离开来。工作单元包括Runnable和Callable，而执行机制由Executor框架提供。
-Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线程终止时，这个操作系统线程也被收回。操作系统会调度所有线程">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/executors.PNG">
-<meta property="og:updated_time" content="2018-03-14T02:58:09.083Z">
+<meta property="og:description" content="工厂模式主要是为创建对象提供过渡接口，以便将创建对象的具体过程屏蔽隔离起来，达到提高灵活性的目的。
+工厂模式有三种：简单工厂模式、工厂方法模式、抽象工厂模式
+这里先介绍简单工厂模式
+简单工厂模式又称静态工厂方法模式，从名字来看，这种模式体现的就是简单。主要的实现思想是通过创建一个工厂类，通过调用工厂方法的静态方法返回相应的对象。例如有一个计算程序：输入两个数和运算符号（+-*/），输出运算结果。可">
+<meta property="og:updated_time" content="2018-03-14T13:52:00.912Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Executor 框架">
-<meta name="twitter:description" content="Java的线程既是工作单元，也是执行机制。从JDK5开始，把工作单元与执行机制分离开来。工作单元包括Runnable和Callable，而执行机制由Executor框架提供。
-Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线程终止时，这个操作系统线程也被收回。操作系统会调度所有线程">
-<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/executors.PNG">
+<meta name="twitter:title" content="简单工厂模式">
+<meta name="twitter:description" content="工厂模式主要是为创建对象提供过渡接口，以便将创建对象的具体过程屏蔽隔离起来，达到提高灵活性的目的。
+工厂模式有三种：简单工厂模式、工厂方法模式、抽象工厂模式
+这里先介绍简单工厂模式
+简单工厂模式又称静态工厂方法模式，从名字来看，这种模式体现的就是简单。主要的实现思想是通过创建一个工厂类，通过调用工厂方法的静态方法返回相应的对象。例如有一个计算程序：输入两个数和运算符号（+-*/），输出运算结果。可">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +65,7 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Executor 框架 | 袁咩咩的博客</title>
+<title>简单工厂模式 | 袁咩咩的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -288,11 +292,11 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-executor 框架" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-简单工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/03/14/executor 框架/" class="article-date">
-      <time datetime="2018-03-14T02:35:01.000Z" itemprop="datePublished">2018-03-14</time>
+      <a href="/2018/03/14/简单工厂模式/" class="article-date">
+      <time datetime="2018-03-14T14:35:01.000Z" itemprop="datePublished">2018-03-14</time>
 </a>
 
 
@@ -307,7 +311,7 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
         
   
     <h1 class="article-title" itemprop="name">
-      Executor 框架
+      简单工厂模式
     </h1>
   
 
@@ -322,7 +326,7 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -332,50 +336,14 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Java的线程既是工作单元，也是执行机制。从JDK5开始，把工作单元与执行机制分离开来。工作单元包括<code>Runnable</code>和<code>Callable</code>，而执行机制由<code>Executor</code>框架提供。</p>
-<h5 id="Executor-框架简介"><a href="#Executor-框架简介" class="headerlink" title="Executor 框架简介"></a>Executor 框架简介</h5><p>在<code>HotSpot VM</code>的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线程终止时，这个操作系统线程也被收回。操作系统会调度所有线程并将他们分配给可用的CPU。如图</p>
-<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/executors.PNG" alt="两级调度模型"></p>
-<h5 id="Executor-框架结构"><a href="#Executor-框架结构" class="headerlink" title="Executor 框架结构"></a>Executor 框架结构</h5><p>主要由3大部分组成：</p>
-<ul>
-<li>任务：包括被执行任务需要实现的接口：<code>Runnable</code>接口和<code>Callable</code>接口</li>
-<li>任务的执行：包括任务执行机制的核心接口<code>Executor</code>，以及继承自它的<code>ExecutorService</code>接口。有两个关键类实现了<code>ExecutorService</code>接口(<code>ThreadPoolExecutor</code>和<code>ScheduledThreadPoolExecutor</code>)。</li>
-<li>异步计算的结果：包括接口<code>Future</code>和实现它的<code>FutureTask</code>类</li>
-</ul>
-<h5 id="Executor框架的成员"><a href="#Executor框架的成员" class="headerlink" title="Executor框架的成员"></a>Executor框架的成员</h5><ul>
-<li><p>ThreadPoolExecutor：通常使用工具类<code>Executors</code>来创建。<code>Executors</code>可以创建3种类型的<code>ThreadPoolExecutor</code>:</p>
-<ul>
-<li><p>SingleThreadExecutor:用于需要保证顺序地执行每个任务，并且在任意时间点不会有多个线程是活动的应用场景。下面是创建单个线程的API</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newSingleThreadExecutor();</div><div class="line">public static ExecutorService newSingleThreadExecutor(ThreadFactory threadFactory)</div></pre></td></tr></table></figure>
-</li>
-<li><p>FixedThreadPool：用于为了满足资源管理的需求，而需要限制当前线程数量的应用场景，它适用于负载比较重的服务器。下面是创建使用固定线程数的<code>FixedThreadPool</code>的API</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newFixedThreadPool(int nThreads);</div><div class="line">public static ExecutorService newFixedThreadPool(int nThreads, ThreadFactory threadFactory);</div></pre></td></tr></table></figure>
-</li>
-<li><p>CachedThreadPool:它是无界大小的线程池，用于执行很多短期异步小任务的小程序,或者是负载比较轻的服务器。下面是创建一个根据需要创建新线程的API</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newCachedThreadPool();</div><div class="line">public static ExecutorService newCachedThreadPool(ThreadFactory threadFactory);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>ScheduledThreadPoolExecutor：通常使用工具类<code>Executors</code>来创建。<code>Executors</code>可以创建2种类型的<code>ScheduledThreadPoolExecutor</code>:</p>
-<ul>
-<li><p>ScheduledThreadPoolExecutor：包含若干个线程的ScheduledThreadPoolExecutor，适用于需要多个后台线程执行周期任务，同时为了满足资源管理的需求而需要限制后台线程的数量的场景。下面是创建的API：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize);</div><div class="line">public static ScheduledExecutorService newScheduledThreadPool(</div><div class="line">        int corePoolSize, ThreadFactory threadFactory);</div></pre></td></tr></table></figure>
-</li>
-<li><p>SingleThreadScheduledExecutor：只包含一个线程的ScheduledThreadPoolExecutor，适用于需要单个线程执行周期任务，同时需要保证顺序地执行各个任务的场景。下面是创建的API：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static ScheduledExecutorService newSingleThreadScheduledExecutor();</div><div class="line">public static ScheduledExecutorService newSingleThreadScheduledExecutor(ThreadFactory threadFactory);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>Future接口<br><code>Future</code>接口和实现<code>Future</code>接口的<code>FutureTask</code>类用来表示异步计算的结果。当我们把<code>Runnable</code>接口或<code>Callable</code>接口的实现类提交（submit）给<code>ThreadPoolExecutor</code>或<code>ScheduledThreadPoolExecutor</code>时，<code>ThreadPoolExecutor</code>或<code>ScheduledThreadPoolExecutor</code>会向我们返回一个<code>FutureTask</code>对象。下面是对应API：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public &lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task)</div><div class="line">public &lt;T&gt; Future&lt;T&gt; submit(Runnable task, T result)</div><div class="line">public Future&lt;?&gt; submit(Runnable task)</div></pre></td></tr></table></figure>
-</li>
-<li><p>Runnable接口和Callable接口<br>这两个接口的实现类都可以被<code>ThreadPoolExecutor</code>或<code>ScheduledThreadPoolExecutor</code>执行，最后一个方法没有返回值，其他均可以通过得到的<code>FutureTask</code>对象的get方法获取执行后结果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">public class ExecutorTest &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws ExecutionException, InterruptedException &#123;</div><div class="line">        ExecutorService executor = Executors.newFixedThreadPool(5);</div><div class="line">        //submit(Runnable task)</div><div class="line">        Future&lt;String&gt; f1 = executor.submit(new Runnable()&#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                System.out.println(1);</div><div class="line">            &#125;</div><div class="line">        &#125;,&quot;result&quot;);</div><div class="line">        System.out.println(f1.get());</div><div class="line">        //submit(Runnable task,T result)</div><div class="line">        Future f2 = executor.submit(new Runnable()&#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                System.out.println(2);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        System.out.println(f2.get());</div><div class="line">        //submit(Callable&lt;T&gt; task)</div><div class="line">        Future&lt;String&gt; f3 = executor.submit(new Callable&lt;String&gt;() &#123;</div><div class="line">            @Override</div><div class="line">            public String call() throws Exception &#123;</div><div class="line">                System.out.println(3);</div><div class="line">                return &quot;result&quot;;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        System.out.println(f3.get());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>执行结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line">result</div><div class="line">2</div><div class="line">null</div><div class="line">3</div><div class="line">result</div></pre></td></tr></table></figure></p>
-<p>除了自己实现<code>Callable</code>接口外，<code>Executors</code>可以把一个<code>Runnable</code>包装成一个<code>Callable</code>，下面是对应的API<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static Callable&lt;Object&gt; callable(Runnable task)</div><div class="line">public static Callable&lt;T&gt; callable(Runnable task, T result)</div></pre></td></tr></table></figure></p>
-<p>此时将这种转换过的对象交给<code>ThreadPoolExecutor</code>或<code>ScheduledThreadPoolExecutor</code>执行时，第一个种转换方法不会有返回值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Callable c1 = Executors.callable(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        System.out.println(4);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Callable c2 = Executors.callable(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        System.out.println(5);</div><div class="line">    &#125;</div><div class="line">&#125;,&quot;result2&quot;);</div><div class="line"></div><div class="line">Future f4 = executor.submit(c1);</div><div class="line">System.out.println(f4.get());</div><div class="line">Future f5 = executor.submit(c2);</div><div class="line">System.out.println(f5.get());</div></pre></td></tr></table></figure></p>
-<p>执行结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">4</div><div class="line">null</div><div class="line">5</div><div class="line">result2</div></pre></td></tr></table></figure></p>
+        <p>工厂模式主要是为创建对象提供过渡接口，以便将创建对象的具体过程屏蔽隔离起来，达到提高灵活性的目的。</p>
+<p><strong>工厂模式有三种</strong>：简单工厂模式、工厂方法模式、抽象工厂模式</p>
+<p><strong>这里先介绍简单工厂模式</strong></p>
+<h4 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h4><p>又称静态工厂方法模式，从名字来看，这种模式体现的就是简单。主要的实现思想是通过创建一个工厂类，通过调用工厂方法的静态方法返回相应的对象。例如有一个计算程序：输入两个数和运算符号（+-*/），输出运算结果。可以这样写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">Scanner scanner = new Scanner(System.in);</div><div class="line">System.out.println(&quot;请输入第一个数：&quot;);</div><div class="line">String number1 = scanner.next();</div><div class="line">System.out.println(&quot;请输入第二个数：&quot;);</div><div class="line">String number2 = scanner.next();</div><div class="line">System.out.println(&quot;请输入运算符号：&quot;);</div><div class="line">String operation = scanner.next();</div><div class="line">switch (operation)&#123;</div><div class="line">    case &quot;+&quot;:</div><div class="line">        System.out.println(Integer.valueOf(number1) + Integer.valueOf(number2));</div><div class="line">        break;</div><div class="line">    case &quot;-&quot;:</div><div class="line">        System.out.println(Integer.valueOf(number1) - Integer.valueOf(number2));</div><div class="line">        break;</div><div class="line">    case &quot;*&quot;:</div><div class="line">        System.out.println(Integer.valueOf(number1) * Integer.valueOf(number2));</div><div class="line">        break;</div><div class="line">    case &quot;/&quot;:</div><div class="line">        System.out.println(Integer.valueOf(number1) / Integer.valueOf(number2));</div><div class="line">        break;</div><div class="line">&#125;</div><div class="line">scanner.close();</div></pre></td></tr></table></figure></p>
+<p>当然，这只是最简单的实现，并且没有对除数为0等做处理，这样做也行，但如果后面要添加更多的计算方法，比如开方、乘方等，那么就要无限的增加<code>switch</code>分支，让程序难以维护。所以可以采用简单工厂的方式实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">public abstract class Operation &#123;</div><div class="line"></div><div class="line">    private double number1 = 0;</div><div class="line">    private double number2 = 0;</div><div class="line"></div><div class="line">    public double getNumber1() &#123;</div><div class="line">        return number1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setNumber1(double number1) &#123;</div><div class="line">        this.number1 = number1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public double getNumber2() &#123;</div><div class="line">        return number2;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setNumber2(double number2) &#123;</div><div class="line">        this.number2 = number2;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public abstract double getResult();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运算抽象类，后面的运算规则通过继承这个类进行运算。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">public class AddOperation extends Operation &#123;</div><div class="line">    @Override</div><div class="line">    public double getResult() &#123;</div><div class="line">        return getNumber1() + getNumber2();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">public class SubOperation extends Operation &#123;</div><div class="line">    @Override</div><div class="line">    public double getResult() &#123;</div><div class="line">        return getNumber1() - getNumber2();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">public class MulOperation extends Operation &#123;</div><div class="line">    @Override</div><div class="line">    public double getResult() &#123;</div><div class="line">        return getNumber1() * getNumber2();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">public class DivOperation extends Operation &#123;</div><div class="line">    @Override</div><div class="line">    public double getResult() &#123;</div><div class="line">        return getNumber1() / getNumber2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>定义一个构造计算方法的工厂：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public class OperationFactory &#123;</div><div class="line"></div><div class="line">    public static Operation createOperation(char operate)&#123;</div><div class="line">        Operation operation = null;</div><div class="line">        switch (operate)&#123;</div><div class="line">            case &apos;+&apos;:</div><div class="line">                operation = new AddOperation();</div><div class="line">                break;</div><div class="line">            case &apos;-&apos;:</div><div class="line">                operation = new SubOperation();</div><div class="line">                break;</div><div class="line">            case &apos;*&apos;:</div><div class="line">                operation = new MulOperation();</div><div class="line">                break;</div><div class="line">            case &apos;/&apos;:</div><div class="line">                operation = new DivOperation();</div><div class="line">                break;</div><div class="line">        &#125;</div><div class="line">        return operation;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这样就能通过这个简单工厂来创建相应的运算对象（当然，有很多细节没有进行处理）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">Scanner scanner = new Scanner(System.in);</div><div class="line">System.out.println(&quot;请输入第一个数：&quot;);</div><div class="line">String number1 = scanner.next();</div><div class="line">System.out.println(&quot;请输入第二个数：&quot;);</div><div class="line">String number2 = scanner.next();</div><div class="line">System.out.println(&quot;请输入运算符号：&quot;);</div><div class="line">String operation = scanner.next();</div><div class="line">Operation o = null;</div><div class="line">try &#123;</div><div class="line">    o = OperationFactory.createOperation(operation.charAt(0));</div><div class="line">    o.setNumber1(Double.valueOf(number1));</div><div class="line">    o.setNumber2(Double.valueOf(number2));</div><div class="line">&#125;catch (Exception e)&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line">System.out.println(o.getResult());</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -384,13 +352,13 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2018/03/14/executor 框架/">Executor 框架</a></p>
+        <p><span>Title:</span><a href="/2018/03/14/简单工厂模式/">简单工厂模式</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">袁  阳</a></p>
-        <p><span>Created:</span>2018-03-14, 10:35:01</p>
-        <p><span>Updated:</span>2018-03-14, 10:58:09</p>
+        <p><span>Created:</span>2018-03-14, 22:35:01</p>
+        <p><span>Updated:</span>2018-03-14, 21:52:00</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2018/03/14/executor 框架/" title="Executor 框架">http://www.yuanyang-miemie.win/2018/03/14/executor 框架/</a>
-            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2018/03/14/executor 框架/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2018/03/14/简单工厂模式/" title="简单工厂模式">http://www.yuanyang-miemie.win/2018/03/14/简单工厂模式/</a>
+            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2018/03/14/简单工厂模式/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -402,16 +370,10 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2018/03/14/Executor 框架详解/">
-                    Executor 框架详解
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/03/12/Java线程池/">
-                    Java 线程池
+                <a href="/2018/03/14/Executor 框架详解/">
+                    Executor 框架详解
                 </a>
             </div>
         
@@ -423,7 +385,7 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Executor-框架简介"><span class="toc-number">1.</span> <span class="toc-text">Executor 框架简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Executor-框架结构"><span class="toc-number">2.</span> <span class="toc-text">Executor 框架结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Executor框架的成员"><span class="toc-number">3.</span> <span class="toc-text">Executor框架的成员</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#简单工厂模式"><span class="toc-number">1.</span> <span class="toc-text">简单工厂模式</span></a></li></ol>
         
     </div>
     <style>
@@ -459,7 +421,7 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Executor 框架　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"简单工厂模式　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -479,15 +441,13 @@ Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2018/03/14/Executor 框架详解/" title="Pre: Executor 框架详解">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/03/12/Java线程池/" title="Next: Java 线程池">
+            <a href="/2018/03/14/Executor 框架详解/" title="Next: Executor 框架详解">
                 <i class="fa fa-angle-right"></i>
             </a>
         
