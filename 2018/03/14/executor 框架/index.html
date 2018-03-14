@@ -15,21 +15,21 @@
 
 
 
-<meta name="description" content="Spring的声明式事务配置需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
+<meta name="description" content="Java的线程既是工作单元，也是执行机制。从JDK5开始，把工作单元与执行机制分离开来。工作单元包括Runnable和Callable，而执行机制由Executor框架提供。
+Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线程终止时，这个操作系统线程也被收回。操作系统会调度所有线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring的声明式事务-Transactional">
-<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/index.html">
+<meta property="og:title" content="Executor 框架">
+<meta property="og:url" content="http://www.yuanyang-miemie.win/2018/03/14/executor 框架/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="Spring的声明式事务配置需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
-<meta property="og:updated_time" content="2017-05-06T03:59:36.428Z">
+<meta property="og:description" content="Java的线程既是工作单元，也是执行机制。从JDK5开始，把工作单元与执行机制分离开来。工作单元包括Runnable和Callable，而执行机制由Executor框架提供。
+Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线程终止时，这个操作系统线程也被收回。操作系统会调度所有线程">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/executors.PNG">
+<meta property="og:updated_time" content="2018-03-14T02:58:09.083Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring的声明式事务-Transactional">
-<meta name="twitter:description" content="Spring的声明式事务配置需要在xml文件中配置
-1234567891011121314151617181920212223&amp;lt;!--配置事务管理器类--&amp;gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;      class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactio">
-<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png">
+<meta name="twitter:title" content="Executor 框架">
+<meta name="twitter:description" content="Java的线程既是工作单元，也是执行机制。从JDK5开始，把工作单元与执行机制分离开来。工作单元包括Runnable和Callable，而执行机制由Executor框架提供。
+Executor 框架简介在HotSpot VM的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线程终止时，这个操作系统线程也被收回。操作系统会调度所有线程">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/executors.PNG">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -61,7 +61,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Spring的声明式事务-Transactional | 袁咩咩的博客</title>
+<title>Executor 框架 | 袁咩咩的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -288,11 +288,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Transactional-Spring的声明式事务" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-executor 框架" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/20/Transactional-Spring的声明式事务/" class="article-date">
-      <time datetime="2017-04-20T07:31:01.000Z" itemprop="datePublished">2017-04-20</time>
+      <a href="/2018/03/14/executor 框架/" class="article-date">
+      <time datetime="2018-03-14T02:35:01.000Z" itemprop="datePublished">2018-03-14</time>
 </a>
 
 
@@ -307,7 +307,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Spring的声明式事务-Transactional
+      Executor 框架
     </h1>
   
 
@@ -316,13 +316,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -332,43 +332,50 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="Spring的声明式事务"><a href="#Spring的声明式事务" class="headerlink" title="Spring的声明式事务"></a>Spring的声明式事务</h3><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件中配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!--配置事务管理器类--&gt;</div><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">      class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">      &lt;!--这里的dataSource引用前边配置好的dataSource--&gt;</div><div class="line">    &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line"></div><div class="line">&lt;!--事务的建议--&gt;</div><div class="line">&lt;tx:advice id=&quot;interceptor&quot; transaction-manager=&quot;transactionManager&quot;&gt;</div><div class="line">    &lt;tx:attributes&gt;</div><div class="line">        &lt;tx:method name=&quot;get*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;select*&quot; read-only=&quot;true&quot;/&gt;</div><div class="line">        &lt;tx:method name=&quot;*&quot;/&gt;</div><div class="line">    &lt;/tx:attributes&gt;</div><div class="line">&lt;/tx:advice&gt;</div><div class="line"></div><div class="line">&lt;!--配置事务切面--&gt;</div><div class="line">&lt;aop:config proxy-target-class=&quot;true&quot; expose-proxy=&quot;true&quot;&gt;</div><div class="line">    &lt;!--切点为该包下的所有类的所有方法,任意返回值,任意参数--&gt;</div><div class="line">    &lt;aop:pointcut id=&quot;txPointCut&quot; expression=&quot;execution(* geek.service.*.* (..))&quot;/&gt;</div><div class="line">    &lt;!--在切点处加入事务--&gt;</div><div class="line">    &lt;aop:advisor advice-ref=&quot;interceptor&quot; pointcut-ref=&quot;txPointCut&quot;&gt;&lt;/aop:advisor&gt;</div><div class="line">&lt;/aop:config&gt;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h4 id="tx-advice节点"><a href="#tx-advice节点" class="headerlink" title="tx:advice节点"></a><code>tx:advice</code>节点</h4><p><code>&lt;tx:advice.../&gt;</code>节点详情如下图<br><img src="http://omuut7fta.bkt.clouddn.com/spring/spring-transactionnal.png" alt="tx:advice"></p>
-<blockquote>
-<p>name:指定方法的名称可以使用通配符</p>
-<p>propagation:指定事务的传播行为,默认为为<code>PROPAGATION_REQUIRED</code></p>
-<blockquote>
-<p><code>PROPAGATION_REQUIRED</code>:要求在事务环境中执行该方法,如果当前执行线程已经处于事务环境中,则直接调用;如果当前线程不处于事务环境中,则启动新的事务后执行该方法.</p>
-<p><code>PROPAGATION_MANDATORY</code>:要求调用该方法的线程必须处于事务中,否则抛出异常</p>
-<p><code>PROPAGATION_NESTED</code>:即使执行该方法的线程已经处于事务中们也依然启动新的事务,方法在嵌套的事务里执行;即使执行该方法的线程未处于事务环境中,也启动新的事务,然后执行该方法,此时与默认情况一致.</p>
-<p><code>PROPAGATION_NEVER</code>:不允许调用该方法的线程处于事务环境中,如果调用该方法的线程处于事务环境中,则抛出异常</p>
-<p><code>PROPAGATION_NOT_SUPPORTED</code>:如果调用该方法的线程处于事务中,则先暂停当前事务,然后执行该方法</p>
-<p><code>PROPAGATION_REQUIRED_NEW</code>:该方法要求在新的事务环境中执行,如果当前执行线程已处于事务环境中,则先暂停当前事务,启动新的事务后执行该方法,如果当前线程不处于事务环境中,则启动新的事务后执行方法.</p>
-<p><code>PROPAGATION_SUPPORTS</code>:如果当前线程处于事务环境中,则使用当前事务,否则不使用事务</p>
-</blockquote>
-<p>isolation:指定事务的隔离级别</p>
-<p>timeout:指定事务的超时时间</p>
-<p>read-only:指定事务是否只读</p>
-<p>rollback-for:指定触发事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
-<p>no-rollback-for:指定不处罚事务回滚的异常类(全类名限定),可以指定多个,用英文逗号<code>,</code>隔开</p>
-</blockquote>
-<h3 id="Transactional注解"><a href="#Transactional注解" class="headerlink" title="@Transactional注解"></a><code>@Transactional</code>注解</h3><h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><p>需要在<code>xml</code>文件里配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;bean id=&quot;transactionManager&quot;</div><div class="line">          class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;</div><div class="line">        &lt;constructor-arg name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div><div class="line">&lt;!--启动@Transactional注解--&gt;</div><div class="line">&lt;tx:annotation-driven transaction-manager = &quot;transactionManager&quot;/&gt;</div></pre></td></tr></table></figure>
-<p><code>@Transactional</code>注解即可以用于修饰<code>Spring Bean</code>类,也可以用于修饰<code>Bean</code>类中的某个方法</p>
-<p>如果使用该注解修饰<code>Bean</code>类,表明这些事务设置对整个<code>Bean</code>起作用;如果使用该注解修饰<code>Bean</code>类的方法,则表明这些事务设置只对该方法有效。</p>
-<h4 id="Transactional注解的属性"><a href="#Transactional注解的属性" class="headerlink" title="@Transactional注解的属性"></a><code>@Transactional</code>注解的属性</h4><blockquote>
-<p>isolation:用于指定事物的隔离级别.默认为底层事务的隔离级别</p>
-<p>noRollbackFor:用于指定遇到某个特定异常时强制不回滚事务</p>
-<p>noRollbackForClassName:指定遇到特定的多个异常时强制不回滚事务,可以指定多个异常类名</p>
-<p>propagation:指定事务的传播行为</p>
-<p>readOnly:指定是否只读</p>
-<p>rollbackFor:指定遇到特定异常时强制回滚事务</p>
-<p>rollbackForClassName:指定遇到特定的多个异常时强制回滚事务.可以设置多个异常类名</p>
-<p>timeout:指定事务的超时时长</p>
-</blockquote>
-<p><code>@Transactional</code>注解中所指定的属性与<code>&lt;tx:advice.../&gt;</code>元素中所指定的事务属性基本上是对应的。</p>
+        <p>Java的线程既是工作单元，也是执行机制。从JDK5开始，把工作单元与执行机制分离开来。工作单元包括<code>Runnable</code>和<code>Callable</code>，而执行机制由<code>Executor</code>框架提供。</p>
+<h5 id="Executor-框架简介"><a href="#Executor-框架简介" class="headerlink" title="Executor 框架简介"></a>Executor 框架简介</h5><p>在<code>HotSpot VM</code>的线程模型中，Java线程被一对一映射为本地操作系统线程。Java线程启动时会创建一个本地操作系统线程；当该Java线程终止时，这个操作系统线程也被收回。操作系统会调度所有线程并将他们分配给可用的CPU。如图</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/executors.PNG" alt="两级调度模型"></p>
+<h5 id="Executor-框架结构"><a href="#Executor-框架结构" class="headerlink" title="Executor 框架结构"></a>Executor 框架结构</h5><p>主要由3大部分组成：</p>
+<ul>
+<li>任务：包括被执行任务需要实现的接口：<code>Runnable</code>接口和<code>Callable</code>接口</li>
+<li>任务的执行：包括任务执行机制的核心接口<code>Executor</code>，以及继承自它的<code>ExecutorService</code>接口。有两个关键类实现了<code>ExecutorService</code>接口(<code>ThreadPoolExecutor</code>和<code>ScheduledThreadPoolExecutor</code>)。</li>
+<li>异步计算的结果：包括接口<code>Future</code>和实现它的<code>FutureTask</code>类</li>
+</ul>
+<h5 id="Executor框架的成员"><a href="#Executor框架的成员" class="headerlink" title="Executor框架的成员"></a>Executor框架的成员</h5><ul>
+<li><p>ThreadPoolExecutor：通常使用工具类<code>Executors</code>来创建。<code>Executors</code>可以创建3种类型的<code>ThreadPoolExecutor</code>:</p>
+<ul>
+<li><p>SingleThreadExecutor:用于需要保证顺序地执行每个任务，并且在任意时间点不会有多个线程是活动的应用场景。下面是创建单个线程的API</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newSingleThreadExecutor();</div><div class="line">public static ExecutorService newSingleThreadExecutor(ThreadFactory threadFactory)</div></pre></td></tr></table></figure>
+</li>
+<li><p>FixedThreadPool：用于为了满足资源管理的需求，而需要限制当前线程数量的应用场景，它适用于负载比较重的服务器。下面是创建使用固定线程数的<code>FixedThreadPool</code>的API</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newFixedThreadPool(int nThreads);</div><div class="line">public static ExecutorService newFixedThreadPool(int nThreads, ThreadFactory threadFactory);</div></pre></td></tr></table></figure>
+</li>
+<li><p>CachedThreadPool:它是无界大小的线程池，用于执行很多短期异步小任务的小程序,或者是负载比较轻的服务器。下面是创建一个根据需要创建新线程的API</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newCachedThreadPool();</div><div class="line">public static ExecutorService newCachedThreadPool(ThreadFactory threadFactory);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>ScheduledThreadPoolExecutor：通常使用工具类<code>Executors</code>来创建。<code>Executors</code>可以创建2种类型的<code>ScheduledThreadPoolExecutor</code>:</p>
+<ul>
+<li><p>ScheduledThreadPoolExecutor：包含若干个线程的ScheduledThreadPoolExecutor，适用于需要多个后台线程执行周期任务，同时为了满足资源管理的需求而需要限制后台线程的数量的场景。下面是创建的API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize);</div><div class="line">public static ScheduledExecutorService newScheduledThreadPool(</div><div class="line">        int corePoolSize, ThreadFactory threadFactory);</div></pre></td></tr></table></figure>
+</li>
+<li><p>SingleThreadScheduledExecutor：只包含一个线程的ScheduledThreadPoolExecutor，适用于需要单个线程执行周期任务，同时需要保证顺序地执行各个任务的场景。下面是创建的API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static ScheduledExecutorService newSingleThreadScheduledExecutor();</div><div class="line">public static ScheduledExecutorService newSingleThreadScheduledExecutor(ThreadFactory threadFactory);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Future接口<br><code>Future</code>接口和实现<code>Future</code>接口的<code>FutureTask</code>类用来表示异步计算的结果。当我们把<code>Runnable</code>接口或<code>Callable</code>接口的实现类提交（submit）给<code>ThreadPoolExecutor</code>或<code>ScheduledThreadPoolExecutor</code>时，<code>ThreadPoolExecutor</code>或<code>ScheduledThreadPoolExecutor</code>会向我们返回一个<code>FutureTask</code>对象。下面是对应API：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public &lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task)</div><div class="line">public &lt;T&gt; Future&lt;T&gt; submit(Runnable task, T result)</div><div class="line">public Future&lt;?&gt; submit(Runnable task)</div></pre></td></tr></table></figure>
+</li>
+<li><p>Runnable接口和Callable接口<br>这两个接口的实现类都可以被<code>ThreadPoolExecutor</code>或<code>ScheduledThreadPoolExecutor</code>执行，最后一个方法没有返回值，其他均可以通过得到的<code>FutureTask</code>对象的get方法获取执行后结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">public class ExecutorTest &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws ExecutionException, InterruptedException &#123;</div><div class="line">        ExecutorService executor = Executors.newFixedThreadPool(5);</div><div class="line">        //submit(Runnable task)</div><div class="line">        Future&lt;String&gt; f1 = executor.submit(new Runnable()&#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                System.out.println(1);</div><div class="line">            &#125;</div><div class="line">        &#125;,&quot;result&quot;);</div><div class="line">        System.out.println(f1.get());</div><div class="line">        //submit(Runnable task,T result)</div><div class="line">        Future f2 = executor.submit(new Runnable()&#123;</div><div class="line">            @Override</div><div class="line">            public void run() &#123;</div><div class="line">                System.out.println(2);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        System.out.println(f2.get());</div><div class="line">        //submit(Callable&lt;T&gt; task)</div><div class="line">        Future&lt;String&gt; f3 = executor.submit(new Callable&lt;String&gt;() &#123;</div><div class="line">            @Override</div><div class="line">            public String call() throws Exception &#123;</div><div class="line">                System.out.println(3);</div><div class="line">                return &quot;result&quot;;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        System.out.println(f3.get());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>执行结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line">result</div><div class="line">2</div><div class="line">null</div><div class="line">3</div><div class="line">result</div></pre></td></tr></table></figure></p>
+<p>除了自己实现<code>Callable</code>接口外，<code>Executors</code>可以把一个<code>Runnable</code>包装成一个<code>Callable</code>，下面是对应的API<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">public static Callable&lt;Object&gt; callable(Runnable task)</div><div class="line">public static Callable&lt;T&gt; callable(Runnable task, T result)</div></pre></td></tr></table></figure></p>
+<p>此时将这种转换过的对象交给<code>ThreadPoolExecutor</code>或<code>ScheduledThreadPoolExecutor</code>执行时，第一个种转换方法不会有返回值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Callable c1 = Executors.callable(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        System.out.println(4);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">Callable c2 = Executors.callable(new Runnable() &#123;</div><div class="line">    @Override</div><div class="line">    public void run() &#123;</div><div class="line">        System.out.println(5);</div><div class="line">    &#125;</div><div class="line">&#125;,&quot;result2&quot;);</div><div class="line"></div><div class="line">Future f4 = executor.submit(c1);</div><div class="line">System.out.println(f4.get());</div><div class="line">Future f5 = executor.submit(c2);</div><div class="line">System.out.println(f5.get());</div></pre></td></tr></table></figure></p>
+<p>执行结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">4</div><div class="line">null</div><div class="line">5</div><div class="line">result2</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -377,13 +384,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/04/20/Transactional-Spring的声明式事务/">Spring的声明式事务-Transactional</a></p>
+        <p><span>本文标题:</span><a href="/2018/03/14/executor 框架/">Executor 框架</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">袁  阳</a></p>
-        <p><span>发布时间:</span>2017-04-20, 15:31:01</p>
-        <p><span>最后更新:</span>2017-05-06, 11:59:36</p>
+        <p><span>发布时间:</span>2018-03-14, 10:35:01</p>
+        <p><span>最后更新:</span>2018-03-14, 10:58:09</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/04/20/Transactional-Spring的声明式事务/" title="Spring的声明式事务-Transactional">http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2017/04/20/Transactional-Spring的声明式事务/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/14/executor 框架/" title="Executor 框架">http://www.yuanyang-miemie.win/2018/03/14/executor 框架/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2018/03/14/executor 框架/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -395,16 +402,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/04/26/高性能Mysql学习笔记之事务/">
-                    高性能Mysql学习笔记之事务
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/">
-                    Idea-使用Mybatis-generator插件快速生成Mybatis相关代码
+                <a href="/2018/03/12/Java线程池/">
+                    Java 线程池
                 </a>
             </div>
         
@@ -416,7 +417,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring的声明式事务"><span class="toc-number">1.</span> <span class="toc-text">Spring的声明式事务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置"><span class="toc-number">1.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tx-advice节点"><span class="toc-number">1.2.</span> <span class="toc-text">tx:advice节点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transactional注解"><span class="toc-number">2.</span> <span class="toc-text">@Transactional注解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#配置-1"><span class="toc-number">2.1.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Transactional注解的属性"><span class="toc-number">2.2.</span> <span class="toc-text">@Transactional注解的属性</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#Executor-框架简介"><span class="toc-number">1.</span> <span class="toc-text">Executor 框架简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Executor-框架结构"><span class="toc-number">2.</span> <span class="toc-text">Executor 框架结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Executor框架的成员"><span class="toc-number">3.</span> <span class="toc-text">Executor框架的成员</span></a></li></ol>
         
     </div>
     <style>
@@ -452,7 +453,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Spring的声明式事务-Transactional　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Executor 框架　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -472,15 +473,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/04/26/高性能Mysql学习笔记之事务/" title="上一篇: 高性能Mysql学习笔记之事务">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/04/19/idea-使用Mybatis-generator插件快速生成Mybatis代码/" title="下一篇: Idea-使用Mybatis-generator插件快速生成Mybatis相关代码">
+            <a href="/2018/03/12/Java线程池/" title="下一篇: Java 线程池">
                 <i class="fa fa-angle-right"></i>
             </a>
         
