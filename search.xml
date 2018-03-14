@@ -5,7 +5,7 @@
     <entry>
       <title><![CDATA[Java 线程池]]></title>
       <url>/2018/03/12/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
-      <content type="html"><![CDATA[<h4 id="使用线程池的有点"><a href="#使用线程池的有点" class="headerlink" title="使用线程池的有点"></a>使用线程池的有点</h4><ol>
+      <content type="html"><![CDATA[<h4 id="使用线程池的优点"><a href="#使用线程池的优点" class="headerlink" title="使用线程池的优点"></a>使用线程池的优点</h4><ol>
 <li><strong>降低资源消耗</strong>。通过反复利用已创建的线程降低创建和销毁造成的消耗。</li>
 <li><strong>提高响应速度</strong>。当任务到达时，任务可以不需要等到线程创建好就能立即执行。</li>
 <li><strong>提高线程的可管理性</strong>。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一分配、调优和监控。</li>
@@ -414,11 +414,11 @@
         
         <tags>
             
-            <tag> Spring MVC </tag>
-            
             <tag> Spring </tag>
             
             <tag> 学习笔记 </tag>
+            
+            <tag> Spring MVC </tag>
             
         </tags>
         
@@ -564,11 +564,11 @@
         
         <tags>
             
-            <tag> Spring MVC </tag>
-            
             <tag> Spring </tag>
             
             <tag> 学习笔记 </tag>
+            
+            <tag> Spring MVC </tag>
             
         </tags>
         
