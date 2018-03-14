@@ -3,6 +3,88 @@
   
     
     <entry>
+      <title><![CDATA[Executor 框架详解]]></title>
+      <url>/2018/03/14/Executor%20%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3/</url>
+      <content type="html"><![CDATA[<p>Executor框架最核心的类是<code>ThreadPoolExecutor</code>,它是<a href="http://www.moqingchen.com/2018/03/12/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_blank" rel="external">Java线程池</a>的实现类，通过<code>Executors</code>工具类，可以创建3种类型的<code>ThreadPoolExecutor</code>:<br>首先附上<code>ThreadPoolExecutor</code>的构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ThreadPoolExecutor(int corePoolSize,</div><div class="line">                   int maximumPoolSize,</div><div class="line">                   long keepAliveTime,</div><div class="line">                   TimeUnit unit,</div><div class="line">                   BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                   ThreadFactory threadFactory,</div><div class="line">                   RejectedExecutionHandler handler)</div></pre></td></tr></table></figure></p>
+<h4 id="FixedThreadPool"><a href="#FixedThreadPool" class="headerlink" title="FixedThreadPool"></a>FixedThreadPool</h4><p><strong>可重用</strong>==固定线程数==的线程池。实现源码：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newFixedThreadPool(int nThreads) &#123;</div><div class="line">       return new ThreadPoolExecutor(nThreads, nThreads,</div><div class="line">                                     0L, TimeUnit.MILLISECONDS,</div><div class="line">                                     new LinkedBlockingQueue&lt;Runnable&gt;());</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p> 在这里，<code>corePoolSize</code>和<code>maximumPoolSize</code>都设置成了创建时指定的线程数<code>nThread</code>，当线程池中的线程数大于<code>corePoolSize</code>时，<code>keepAliveTime</code>为多余的空闲线程等待新任务的时间，超过这个时间后线程将会被终止。在这里设置为0L，意味着多余的空闲线程将会被立即终止。<br> <code>FixedPoolThread</code>的<code>execute()</code>方法运行流程如下：</p>
+<p> <img src="http://omuut7fta.bkt.clouddn.com/java/Thread/FixedThreadPool.PNG" alt="FiexdPoolThread运行流程"></p>
+<ul>
+<li>如果当前运行的线程少于<code>corePoolSize</code>，则创建新的线程来执行任务。</li>
+<li>在线程池完成预热之后（当前运行的线程数等于<code>corePoolSize</code>），将任务加入<code>LinkedBlockingQueue</code></li>
+<li>线程执行完1中的任务后，会在循环中反复从<code>LinkedBlockingQueue</code>获取任务来执行</li>
+</ul>
+<p>由于它采用了<code>LinkedBlockingQueue</code>来作为线程池的工作队列，这是一个无界队列（队列容量为<code>Integer.MAX_VALUE</code>）。所以将会为线程池带来如下影响：</p>
+<ol>
+<li><p>当线程池的线程数达到<code>corePoolSize</code>之后，新的任务将会在无界队列中等待，因此线程池中的线程不会超过<code>corePoolSize</code></p>
+</li>
+<li><p>由于1，使用无界队列时<code>maximumPoolSize</code>将是一个无效参数；</p>
+</li>
+<li>由于1和2，使用无界队列时<code>keepAliveTime</code>将是一个无效参数</li>
+<li>由于使用无界队列，运行中的<code>FixedThreadPool</code>(未执行shutdown()或shutdownNow())不会拒绝任务。</li>
+</ol>
+<h4 id="SingleThreadExecutor"><a href="#SingleThreadExecutor" class="headerlink" title="SingleThreadExecutor"></a>SingleThreadExecutor</h4><p>使用<strong>单个worker线程</strong>的Executor，下面是源码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newSingleThreadExecutor() &#123;</div><div class="line">        return new FinalizableDelegatedExecutorService</div><div class="line">            (new ThreadPoolExecutor(1, 1,</div><div class="line">                                    0L, TimeUnit.MILLISECONDS,</div><div class="line">                                    new LinkedBlockingQueue&lt;Runnable&gt;()));</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><code>SingleThreadExecutor</code>的<code>corePoolSize</code>和<code>maximumPoolSize</code>都被设置成1,其他参数则与<code>FixedThreadPool</code>相同,它使用无界队列的影响与<code>FixedThreadPool</code>是同样的。下面是它的运行流程图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/SingleThreadExecutor.PNG" alt="SingleThreadExecutor运行流程"></p>
+<ul>
+<li>如果当前没有线程在运行，则创建一个新的线程</li>
+<li>当线程池中有且仅有一个运行的线程，将任务加入<code>LinkedBlockingQueue</code></li>
+<li>线程执行完1中的任务后，会在循环中反复从<code>LinkedBlockingQueue</code>获取任务执行。</li>
+</ul>
+<h4 id="CachedThreadPool"><a href="#CachedThreadPool" class="headerlink" title="CachedThreadPool"></a>CachedThreadPool</h4><p>一个会<strong>根据需要创建新线程</strong>的线程池，下面是源码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newCachedThreadPool() &#123;</div><div class="line">        return new ThreadPoolExecutor(0, Integer.MAX_VALUE,</div><div class="line">                                      60L, TimeUnit.SECONDS,</div><div class="line">                                      new SynchronousQueue&lt;Runnable&gt;());</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>它的<code>corePoolSize</code>被设置为0，<code>maximumPoolSize</code>设置为<code>Integer.MAX_VALUE</code>,即<code>maximumPool</code>是无界的；把<code>keepAliveTime</code>设置成60L，意味着该线程池中空闲线程等待新任务的最长时间为60秒，超时则被会终止。<code>CachedThreadPool</code>使用没有容量的<code>SynchronousQueue</code>作为线程池的工作队列，但<code>CachedThreadPool</code>的<code>maximumPool</code>是无界的,意味着，<strong>如果主线程提交任务的速度高于<code>maximumPool</code>中线程处理的速度，它将会不断的创建新的线程，直到耗尽所有CPU和内存资源</strong>。它的运行流程如图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/CachedThreadPool.PNG" alt="CachedThreadPool运行流程"></p>
+<ul>
+<li>首先执行<code>SynchronousQueue.offer(task)</code>，如果当前<code>maximumPool</code>中有空闲线程正在执行<code>SynchronousQueue.poll(keepAliveTime,TimeUnit.NANOSECONDS)</code>,那么主线程执行的<code>offer</code>操作与空闲线程执行的<code>poll</code>操作配对成功，主线程把任务交给空闲线程执行，<code>execute</code>执行成功，否则执行下面的操作。</li>
+<li>当<code>maximumPool</code>为空，或者其中没有空闲线程时，将没有线程执行<code>poll</code>操作，那么<code>CachedThreadPool</code>会创建一个新的线程，<code>execute</code>方法执行成功。</li>
+<li>在上面的步骤中，线程将任务执行完后，变为空闲状态，将会执行<code>poll</code>操作，空闲线程继续等待新的任务到来并配对执行，如果超过60s，则线程将会被终止。由于超过60秒的空闲线程将会被终止，所以<strong>长时间保持空闲的<code>CachedThreadPool</code>不会使用任何资源</strong>。</li>
+</ul>
+<p>CachedThreadPool的任务传递示意图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/%E4%BB%BB%E5%8A%A1%E4%BC%A0%E9%80%92.PNG" alt="任务传递"></p>
+<h4 id="ScheduledThreadPoolExecutor"><a href="#ScheduledThreadPoolExecutor" class="headerlink" title="ScheduledThreadPoolExecutor"></a>ScheduledThreadPoolExecutor</h4><p>主要用来在<strong>给定的延迟之后运行任务</strong>，或者<strong>定期执行任务</strong>，下面是源码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public ScheduledThreadPoolExecutor(int corePoolSize) &#123;</div><div class="line">        super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,</div><div class="line">              new DelayedWorkQueue());</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>该类直接继承自<code>ThreadPoolExecutor</code>，为的是能直接使用已经实现的方法，而且，它新加了几个方法：</p>
+<ul>
+<li>public ScheduledFuture&lt;?&gt; schedule(Runnable command, long delay, TimeUnit unit)<br>//向定时任务线程池提交一个延时Runnable任务（仅执行一次）</li>
+<li><p>public <v> ScheduledFuture<v> schedule(Callable<v> callable, long delay, TimeUnit unit);<br>//向定时任务线程池提交一个延时的Callable任务（仅执行一次）</v></v></v></p>
+</li>
+<li><p>public ScheduledFuture&lt;?&gt; scheduleAtFixedRate(Runnable command, long initialDelay,long period, TimeUnit unit)<br>//向定时任务线程池提交一个固定时间间隔执行的任务</p>
+</li>
+<li><p>public ScheduledFuture&lt;?&gt; scheduleWithFixedDelay(Runnable command, long initialDelay,long delay, TimeUnit unit);<br>//向定时任务线程池提交一个固定延时间隔执行的任务</p>
+</li>
+</ul>
+<p>也可以向其直接提交普通任务，相当于延时和周期都为0的任务。这里构造时的数值含义与前面的类似，就不赘述了。下面是基本运行流程图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/ScheduledThreadPoolExecutor.PNG" alt="ScheduledThreadPoolExecutor运行流程"></p>
+<ul>
+<li>主线程提交普通任务或有延时或周期的任务。并将任务加入<strong>具有优先性质的阻塞队列</strong>。</li>
+<li>线程池中的线程每次通过<code>take()</code>方法获取任务，然后从任务的<code>getDelay()</code>方法获取应当延时的时间，当延时达到，执行任务。执行完毕后，判断这是不是一个周期任务，如果是，则继续延时执行任务，如果不是，则继续调用take方法获取任务，如果没有获取到任务，空闲线程将会被终止。</li>
+</ul>
+<h4 id="FutureTask"><a href="#FutureTask" class="headerlink" title="FutureTask"></a>FutureTask</h4><p>代表异步计算的结果，根据FutureTask.run()方法执行状况，可以分为下面三种状态：</p>
+<ul>
+<li>未启动：FutureTask.run()方法还没有被执行前</li>
+<li>已启动：FutureTask.run()方法正在执行</li>
+<li>已完成：FutureTask.run()方法正常结束、被取消、执行抛出异常、异常结束</li>
+</ul>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.PNG" alt="状态转换"></p>
+<p>下面是FutureTask对应get(),cancel()方法执行示意图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/get&amp;cancel.PNG" alt="get&amp;cancel"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Java </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Executor 框架]]></title>
       <url>/2018/03/14/executor%20%E6%A1%86%E6%9E%B6/</url>
       <content type="html"><![CDATA[<p>Java的线程既是工作单元，也是执行机制。从JDK5开始，把工作单元与执行机制分离开来。工作单元包括<code>Runnable</code>和<code>Callable</code>，而执行机制由<code>Executor</code>框架提供。</p>
@@ -75,7 +157,7 @@
 <li><strong>提高线程的可管理性</strong>。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一分配、调优和监控。</li>
 </ol>
 <h4 id="线程池主要工作原理"><a href="#线程池主要工作原理" class="headerlink" title="线程池主要工作原理"></a>线程池主要工作原理</h4><p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread.PNG" alt="工作原理"></p>
-<h4 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h4><h6 id="创建线程池"><a href="#创建线程池" class="headerlink" title="创建线程池"></a>创建线程池</h6><p>可以通过<code>ThreadPoolExecutor</code>来创建一个线程池<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">new ThreadPoolExecutor(corePoolSize,maximumPoolSize,keepAliveTime,unit,workQueue,threadFactory,handler)</div></pre></td></tr></table></figure></p>
+<h4 id="线程池的使用"><a href="#线程池的使用" class="headerlink" title="线程池的使用"></a>线程池的使用</h4><h6 id="创建线程池"><a href="#创建线程池" class="headerlink" title="创建线程池"></a>创建线程池</h6><p>可以通过<code>ThreadPoolExecutor</code>来创建一个线程池<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ThreadPoolExecutor(int corePoolSize,</div><div class="line">                   int maximumPoolSize,</div><div class="line">                   long keepAliveTime,</div><div class="line">                   TimeUnit unit,</div><div class="line">                   BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                   ThreadFactory threadFactory,</div><div class="line">                   RejectedExecutionHandler handler)</div></pre></td></tr></table></figure></p>
 <ol>
 <li><strong>corePoolSize</strong>(线程池的基本大小):当提交一个任务到线程池，线程池会创建一个线程来执行任务，即使其他空闲的基本线程能够执行新任务也会创建线程，等到需要执行的任务数大于线程池基本大小时就不再创建。如果调用了线程池的<code>prestartAllCoreThreads()</code>方法，线程池会提前创建并启动所有基本线程。</li>
 <li><code>runnableTaskQueue</code>(任务队列):用于保存等待执行的任务的阻塞队列。可以选择以下几个阻塞队列。<ul>

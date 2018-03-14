@@ -15,22 +15,24 @@
 
 
 
-<meta name="description" content="百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：
-鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
-大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？">
+<meta name="description" content="Executor框架最核心的类是ThreadPoolExecutor,它是Java线程池的实现类，通过Executors工具类，可以创建3种类型的ThreadPoolExecutor:首先附上ThreadPoolExecutor的构造函数1234567ThreadPoolExecutor(int corePoolSize,                   int maximumPoolSize">
 <meta property="og:type" content="article">
-<meta property="og:title" content="百钱百鸡————Java小算法">
-<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/03/14/百钱百鸡小算法/index.html">
+<meta property="og:title" content="Executor 框架详解">
+<meta property="og:url" content="http://www.yuanyang-miemie.win/2018/03/14/Executor 框架详解/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：
-鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
-大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？">
-<meta property="og:updated_time" content="2017-05-06T03:59:46.911Z">
+<meta property="og:description" content="Executor框架最核心的类是ThreadPoolExecutor,它是Java线程池的实现类，通过Executors工具类，可以创建3种类型的ThreadPoolExecutor:首先附上ThreadPoolExecutor的构造函数1234567ThreadPoolExecutor(int corePoolSize,                   int maximumPoolSize">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/FixedThreadPool.PNG">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/SingleThreadExecutor.PNG">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/CachedThreadPool.PNG">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/%E4%BB%BB%E5%8A%A1%E4%BC%A0%E9%80%92.PNG">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/ScheduledThreadPoolExecutor.PNG">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.PNG">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/get&cancel.PNG">
+<meta property="og:updated_time" content="2018-03-14T08:43:56.708Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="百钱百鸡————Java小算法">
-<meta name="twitter:description" content="百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：
-鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
-大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？">
+<meta name="twitter:title" content="Executor 框架详解">
+<meta name="twitter:description" content="Executor框架最核心的类是ThreadPoolExecutor,它是Java线程池的实现类，通过Executors工具类，可以创建3种类型的ThreadPoolExecutor:首先附上ThreadPoolExecutor的构造函数1234567ThreadPoolExecutor(int corePoolSize,                   int maximumPoolSize">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/java/Thread/FixedThreadPool.PNG">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -62,7 +64,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>百钱百鸡————Java小算法 | 袁咩咩的博客</title>
+<title>Executor 框架详解 | 袁咩咩的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -289,11 +291,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-百钱百鸡小算法" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Executor 框架详解" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/14/百钱百鸡小算法/" class="article-date">
-      <time datetime="2017-03-14T06:43:00.000Z" itemprop="datePublished">2017-03-14</time>
+      <a href="/2018/03/14/Executor 框架详解/" class="article-date">
+      <time datetime="2018-03-14T08:35:01.000Z" itemprop="datePublished">2018-03-14</time>
 </a>
 
 
@@ -308,7 +310,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      百钱百鸡————Java小算法
+      Executor 框架详解
     </h1>
   
 
@@ -317,13 +319,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/算法/">算法</a>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小小算法/">小小算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -333,22 +335,68 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：</p>
-<pre><code>鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
-</code></pre><p>大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？<br><a id="more"></a></p>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>百钱买白鸡问题中，有三个变量：公鸡数量、母鸡数量、小鸡数量，分别设为x、y、z，这三者应该满足如下关系：</p>
-<pre><code>x+y+z=100；
-5x+3y+z/3=100；
-</code></pre><p>三个变量，两个方程，因此这是一个不定方程组，这导致求解的结果不唯一。</p>
-<h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><p>编写一段代码，用于计算<code>m</code>钱<code>n</code>鸡的问题,当<code>m=100</code>且<code>n=100</code>时,正好是百钱百鸡问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package com.example;</div><div class="line"></div><div class="line">public class Code &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        System.out.println(&quot;百钱百鸡问题的解为:&quot;);</div><div class="line">        buyChicken(100,100);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void buyChicken(int m,int n)&#123;</div><div class="line">        for (int x = 0;x &lt;= n;x++)  //公鸡数量</div><div class="line">           for (int y = 0;y &lt;= n;y++) &#123; //母鸡数量</div><div class="line">               if (x + y &lt;= n) &#123;    //公鸡和母鸡只和不能超过 n</div><div class="line">                   int z = n - x -y;    //小鸡数量, 用到第一个方程 x + y + z = n</div><div class="line">                   if (z%3 == 0 &amp;&amp; x*5 + y*3 + z/3 == m) &#123;</div><div class="line">                       //小鸡数量必须为3的倍数, 且当第二个方程成立时, 得到正确结果</div><div class="line">                       System.out.println(&quot;公鸡:&quot; + x +  &quot; 母鸡:&quot; + y + &quot; 小鸡:&quot; + z);</div><div class="line">                   &#125;else</div><div class="line">                       continue;    //当结果不满足条件时, 继续下一次循环</div><div class="line">               &#125;else</div><div class="line">                   break; //当公鸡和母鸡数超过 n 时, 退出当前循环</div><div class="line">           &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样，我们运行程序可以得到解：</p>
-<pre><code>百钱百鸡问题的解为:
-公鸡:0 母鸡:25 小鸡:75
-公鸡:4 母鸡:18 小鸡:78
-公鸡:8 母鸡:11 小鸡:81
-公鸡:12 母鸡:4 小鸡:84
-</code></pre><p>这里我采用了穷举的方法，将所有的值进行穷举，寻找方程组的解。</p>
+        <p>Executor框架最核心的类是<code>ThreadPoolExecutor</code>,它是<a href="http://www.moqingchen.com/2018/03/12/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_blank" rel="external">Java线程池</a>的实现类，通过<code>Executors</code>工具类，可以创建3种类型的<code>ThreadPoolExecutor</code>:<br>首先附上<code>ThreadPoolExecutor</code>的构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">ThreadPoolExecutor(int corePoolSize,</div><div class="line">                   int maximumPoolSize,</div><div class="line">                   long keepAliveTime,</div><div class="line">                   TimeUnit unit,</div><div class="line">                   BlockingQueue&lt;Runnable&gt; workQueue,</div><div class="line">                   ThreadFactory threadFactory,</div><div class="line">                   RejectedExecutionHandler handler)</div></pre></td></tr></table></figure></p>
+<h4 id="FixedThreadPool"><a href="#FixedThreadPool" class="headerlink" title="FixedThreadPool"></a>FixedThreadPool</h4><p><strong>可重用</strong>==固定线程数==的线程池。实现源码：<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newFixedThreadPool(int nThreads) &#123;</div><div class="line">       return new ThreadPoolExecutor(nThreads, nThreads,</div><div class="line">                                     0L, TimeUnit.MILLISECONDS,</div><div class="line">                                     new LinkedBlockingQueue&lt;Runnable&gt;());</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p> 在这里，<code>corePoolSize</code>和<code>maximumPoolSize</code>都设置成了创建时指定的线程数<code>nThread</code>，当线程池中的线程数大于<code>corePoolSize</code>时，<code>keepAliveTime</code>为多余的空闲线程等待新任务的时间，超过这个时间后线程将会被终止。在这里设置为0L，意味着多余的空闲线程将会被立即终止。<br> <code>FixedPoolThread</code>的<code>execute()</code>方法运行流程如下：</p>
+<p> <img src="http://omuut7fta.bkt.clouddn.com/java/Thread/FixedThreadPool.PNG" alt="FiexdPoolThread运行流程"></p>
+<ul>
+<li>如果当前运行的线程少于<code>corePoolSize</code>，则创建新的线程来执行任务。</li>
+<li>在线程池完成预热之后（当前运行的线程数等于<code>corePoolSize</code>），将任务加入<code>LinkedBlockingQueue</code></li>
+<li>线程执行完1中的任务后，会在循环中反复从<code>LinkedBlockingQueue</code>获取任务来执行</li>
+</ul>
+<p>由于它采用了<code>LinkedBlockingQueue</code>来作为线程池的工作队列，这是一个无界队列（队列容量为<code>Integer.MAX_VALUE</code>）。所以将会为线程池带来如下影响：</p>
+<ol>
+<li><p>当线程池的线程数达到<code>corePoolSize</code>之后，新的任务将会在无界队列中等待，因此线程池中的线程不会超过<code>corePoolSize</code></p>
+</li>
+<li><p>由于1，使用无界队列时<code>maximumPoolSize</code>将是一个无效参数；</p>
+</li>
+<li>由于1和2，使用无界队列时<code>keepAliveTime</code>将是一个无效参数</li>
+<li>由于使用无界队列，运行中的<code>FixedThreadPool</code>(未执行shutdown()或shutdownNow())不会拒绝任务。</li>
+</ol>
+<h4 id="SingleThreadExecutor"><a href="#SingleThreadExecutor" class="headerlink" title="SingleThreadExecutor"></a>SingleThreadExecutor</h4><p>使用<strong>单个worker线程</strong>的Executor，下面是源码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newSingleThreadExecutor() &#123;</div><div class="line">        return new FinalizableDelegatedExecutorService</div><div class="line">            (new ThreadPoolExecutor(1, 1,</div><div class="line">                                    0L, TimeUnit.MILLISECONDS,</div><div class="line">                                    new LinkedBlockingQueue&lt;Runnable&gt;()));</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p><code>SingleThreadExecutor</code>的<code>corePoolSize</code>和<code>maximumPoolSize</code>都被设置成1,其他参数则与<code>FixedThreadPool</code>相同,它使用无界队列的影响与<code>FixedThreadPool</code>是同样的。下面是它的运行流程图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/SingleThreadExecutor.PNG" alt="SingleThreadExecutor运行流程"></p>
+<ul>
+<li>如果当前没有线程在运行，则创建一个新的线程</li>
+<li>当线程池中有且仅有一个运行的线程，将任务加入<code>LinkedBlockingQueue</code></li>
+<li>线程执行完1中的任务后，会在循环中反复从<code>LinkedBlockingQueue</code>获取任务执行。</li>
+</ul>
+<h4 id="CachedThreadPool"><a href="#CachedThreadPool" class="headerlink" title="CachedThreadPool"></a>CachedThreadPool</h4><p>一个会<strong>根据需要创建新线程</strong>的线程池，下面是源码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public static ExecutorService newCachedThreadPool() &#123;</div><div class="line">        return new ThreadPoolExecutor(0, Integer.MAX_VALUE,</div><div class="line">                                      60L, TimeUnit.SECONDS,</div><div class="line">                                      new SynchronousQueue&lt;Runnable&gt;());</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>它的<code>corePoolSize</code>被设置为0，<code>maximumPoolSize</code>设置为<code>Integer.MAX_VALUE</code>,即<code>maximumPool</code>是无界的；把<code>keepAliveTime</code>设置成60L，意味着该线程池中空闲线程等待新任务的最长时间为60秒，超时则被会终止。<code>CachedThreadPool</code>使用没有容量的<code>SynchronousQueue</code>作为线程池的工作队列，但<code>CachedThreadPool</code>的<code>maximumPool</code>是无界的,意味着，<strong>如果主线程提交任务的速度高于<code>maximumPool</code>中线程处理的速度，它将会不断的创建新的线程，直到耗尽所有CPU和内存资源</strong>。它的运行流程如图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/CachedThreadPool.PNG" alt="CachedThreadPool运行流程"></p>
+<ul>
+<li>首先执行<code>SynchronousQueue.offer(task)</code>，如果当前<code>maximumPool</code>中有空闲线程正在执行<code>SynchronousQueue.poll(keepAliveTime,TimeUnit.NANOSECONDS)</code>,那么主线程执行的<code>offer</code>操作与空闲线程执行的<code>poll</code>操作配对成功，主线程把任务交给空闲线程执行，<code>execute</code>执行成功，否则执行下面的操作。</li>
+<li>当<code>maximumPool</code>为空，或者其中没有空闲线程时，将没有线程执行<code>poll</code>操作，那么<code>CachedThreadPool</code>会创建一个新的线程，<code>execute</code>方法执行成功。</li>
+<li>在上面的步骤中，线程将任务执行完后，变为空闲状态，将会执行<code>poll</code>操作，空闲线程继续等待新的任务到来并配对执行，如果超过60s，则线程将会被终止。由于超过60秒的空闲线程将会被终止，所以<strong>长时间保持空闲的<code>CachedThreadPool</code>不会使用任何资源</strong>。</li>
+</ul>
+<p>CachedThreadPool的任务传递示意图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/%E4%BB%BB%E5%8A%A1%E4%BC%A0%E9%80%92.PNG" alt="任务传递"></p>
+<h4 id="ScheduledThreadPoolExecutor"><a href="#ScheduledThreadPoolExecutor" class="headerlink" title="ScheduledThreadPoolExecutor"></a>ScheduledThreadPoolExecutor</h4><p>主要用来在<strong>给定的延迟之后运行任务</strong>，或者<strong>定期执行任务</strong>，下面是源码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">public ScheduledThreadPoolExecutor(int corePoolSize) &#123;</div><div class="line">        super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,</div><div class="line">              new DelayedWorkQueue());</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>该类直接继承自<code>ThreadPoolExecutor</code>，为的是能直接使用已经实现的方法，而且，它新加了几个方法：</p>
+<ul>
+<li>public ScheduledFuture&lt;?&gt; schedule(Runnable command, long delay, TimeUnit unit)<br>//向定时任务线程池提交一个延时Runnable任务（仅执行一次）</li>
+<li><p>public <v> ScheduledFuture<v> schedule(Callable<v> callable, long delay, TimeUnit unit);<br>//向定时任务线程池提交一个延时的Callable任务（仅执行一次）</v></v></v></p>
+</li>
+<li><p>public ScheduledFuture&lt;?&gt; scheduleAtFixedRate(Runnable command, long initialDelay,long period, TimeUnit unit)<br>//向定时任务线程池提交一个固定时间间隔执行的任务</p>
+</li>
+<li><p>public ScheduledFuture&lt;?&gt; scheduleWithFixedDelay(Runnable command, long initialDelay,long delay, TimeUnit unit);<br>//向定时任务线程池提交一个固定延时间隔执行的任务</p>
+</li>
+</ul>
+<p>也可以向其直接提交普通任务，相当于延时和周期都为0的任务。这里构造时的数值含义与前面的类似，就不赘述了。下面是基本运行流程图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/ScheduledThreadPoolExecutor.PNG" alt="ScheduledThreadPoolExecutor运行流程"></p>
+<ul>
+<li>主线程提交普通任务或有延时或周期的任务。并将任务加入<strong>具有优先性质的阻塞队列</strong>。</li>
+<li>线程池中的线程每次通过<code>take()</code>方法获取任务，然后从任务的<code>getDelay()</code>方法获取应当延时的时间，当延时达到，执行任务。执行完毕后，判断这是不是一个周期任务，如果是，则继续延时执行任务，如果不是，则继续调用take方法获取任务，如果没有获取到任务，空闲线程将会被终止。</li>
+</ul>
+<h4 id="FutureTask"><a href="#FutureTask" class="headerlink" title="FutureTask"></a>FutureTask</h4><p>代表异步计算的结果，根据FutureTask.run()方法执行状况，可以分为下面三种状态：</p>
+<ul>
+<li>未启动：FutureTask.run()方法还没有被执行前</li>
+<li>已启动：FutureTask.run()方法正在执行</li>
+<li>已完成：FutureTask.run()方法正常结束、被取消、执行抛出异常、异常结束</li>
+</ul>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2.PNG" alt="状态转换"></p>
+<p>下面是FutureTask对应get(),cancel()方法执行示意图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/Thread/get&amp;cancel.PNG" alt="get&amp;cancel"></p>
 
       
     </div>
@@ -357,13 +405,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/03/14/百钱百鸡小算法/">百钱百鸡————Java小算法</a></p>
+        <p><span>本文标题:</span><a href="/2018/03/14/Executor 框架详解/">Executor 框架详解</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">袁  阳</a></p>
-        <p><span>发布时间:</span>2017-03-14, 14:43:00</p>
-        <p><span>最后更新:</span>2017-05-06, 11:59:46</p>
+        <p><span>发布时间:</span>2018-03-14, 16:35:01</p>
+        <p><span>最后更新:</span>2018-03-14, 16:43:56</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/03/14/百钱百鸡小算法/" title="百钱百鸡————Java小算法">http://www.yuanyang-miemie.win/2017/03/14/百钱百鸡小算法/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2017/03/14/百钱百鸡小算法/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/14/Executor 框架详解/" title="Executor 框架详解">http://www.yuanyang-miemie.win/2018/03/14/Executor 框架详解/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://www.yuanyang-miemie.win/2018/03/14/Executor 框架详解/　　作者: 袁  阳" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -375,16 +423,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/03/15/汉诺塔(Hanoi)——小小算法/">
-                    Hanoi(汉诺塔)————Java小算法
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/">
-                    我的第一个小项目——GEEK网工作室主页
+                <a href="/2018/03/14/executor 框架/">
+                    Executor 框架
                 </a>
             </div>
         
@@ -396,7 +438,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#分析"><span class="toc-number">1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#示例代码"><span class="toc-number">2.</span> <span class="toc-text">示例代码</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#FixedThreadPool"><span class="toc-number">1.</span> <span class="toc-text">FixedThreadPool</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SingleThreadExecutor"><span class="toc-number">2.</span> <span class="toc-text">SingleThreadExecutor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CachedThreadPool"><span class="toc-number">3.</span> <span class="toc-text">CachedThreadPool</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ScheduledThreadPoolExecutor"><span class="toc-number">4.</span> <span class="toc-text">ScheduledThreadPoolExecutor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FutureTask"><span class="toc-number">5.</span> <span class="toc-text">FutureTask</span></a></li></ol>
         
     </div>
     <style>
@@ -432,7 +474,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"百钱百鸡————Java小算法　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Executor 框架详解　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -452,15 +494,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/03/15/汉诺塔(Hanoi)——小小算法/" title="上一篇: Hanoi(汉诺塔)————Java小算法">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/" title="下一篇: 我的第一个小项目——GEEK网工作室主页">
+            <a href="/2018/03/14/executor 框架/" title="下一篇: Executor 框架">
                 <i class="fa fa-angle-right"></i>
             </a>
         
