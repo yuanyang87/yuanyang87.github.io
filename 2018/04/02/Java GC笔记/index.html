@@ -15,24 +15,26 @@
 
 
 
-<meta name="description" content="现在的Web框架基本都采用了MVC(model-view-Controller)设计模式,其中,Servlet和Filter都可以充当控制器.Spring MVC采用一个Servlet作为控制器,而Struts2则采用的Filter作为控制器.
-对于他们的区别我在这里不多赘述,可以参见这篇文章SpringMVC与Struts2区别与比较总结
-Spring MVC的搭建可以通过Java代码的方式(在">
+<meta name="description" content="Java程序不用像C++程序在程序中自行处理内存的回收释放。这是因为Java在JVM虚拟机上增加了垃圾回收(GC)机制，用以在合适的时间触发垃圾回收，将不需要的内存空间回收释放，避免无限制的内存增长导致的OOM。
+回收前的准备垃圾回收器在对堆进行回收前，第一件事情就是要确定这些对象哪些还“存活”，哪些已经“死去”。
+引用计数算法给对象中添加一个引用计数器，每当有一个地方引用它，计数器加1，当引用失">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring MVC 搭建 - Hello world">
-<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/04/27/Spring MVC 搭建/index.html">
+<meta property="og:title" content="Java GC 笔记(初探)">
+<meta property="og:url" content="http://www.yuanyang-miemie.win/2018/04/02/Java GC笔记/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="现在的Web框架基本都采用了MVC(model-view-Controller)设计模式,其中,Servlet和Filter都可以充当控制器.Spring MVC采用一个Servlet作为控制器,而Struts2则采用的Filter作为控制器.
-对于他们的区别我在这里不多赘述,可以参见这篇文章SpringMVC与Struts2区别与比较总结
-Spring MVC的搭建可以通过Java代码的方式(在">
-<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/spring/springmvc-demo.PNG">
-<meta property="og:updated_time" content="2017-05-06T03:59:25.428Z">
+<meta property="og:description" content="Java程序不用像C++程序在程序中自行处理内存的回收释放。这是因为Java在JVM虚拟机上增加了垃圾回收(GC)机制，用以在合适的时间触发垃圾回收，将不需要的内存空间回收释放，避免无限制的内存增长导致的OOM。
+回收前的准备垃圾回收器在对堆进行回收前，第一件事情就是要确定这些对象哪些还“存活”，哪些已经“死去”。
+引用计数算法给对象中添加一个引用计数器，每当有一个地方引用它，计数器加1，当引用失">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/jvm/mark-sweep.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/jvm/copying.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/java/jvm/mark-compact.png">
+<meta property="og:updated_time" content="2018-04-02T07:04:34.824Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring MVC 搭建 - Hello world">
-<meta name="twitter:description" content="现在的Web框架基本都采用了MVC(model-view-Controller)设计模式,其中,Servlet和Filter都可以充当控制器.Spring MVC采用一个Servlet作为控制器,而Struts2则采用的Filter作为控制器.
-对于他们的区别我在这里不多赘述,可以参见这篇文章SpringMVC与Struts2区别与比较总结
-Spring MVC的搭建可以通过Java代码的方式(在">
-<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/spring/springmvc-demo.PNG">
+<meta name="twitter:title" content="Java GC 笔记(初探)">
+<meta name="twitter:description" content="Java程序不用像C++程序在程序中自行处理内存的回收释放。这是因为Java在JVM虚拟机上增加了垃圾回收(GC)机制，用以在合适的时间触发垃圾回收，将不需要的内存空间回收释放，避免无限制的内存增长导致的OOM。
+回收前的准备垃圾回收器在对堆进行回收前，第一件事情就是要确定这些对象哪些还“存活”，哪些已经“死去”。
+引用计数算法给对象中添加一个引用计数器，每当有一个地方引用它，计数器加1，当引用失">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/java/jvm/mark-sweep.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -64,7 +66,7 @@ Spring MVC的搭建可以通过Java代码的方式(在">
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Spring MVC 搭建 - Hello world | 袁咩咩的博客</title>
+<title>Java GC 笔记(初探) | 袁咩咩的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -291,11 +293,11 @@ Spring MVC的搭建可以通过Java代码的方式(在">
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-Spring MVC 搭建" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Java GC笔记" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/27/Spring MVC 搭建/" class="article-date">
-      <time datetime="2017-04-27T07:31:01.000Z" itemprop="datePublished">2017-04-27</time>
+      <a href="/2018/04/02/Java GC笔记/" class="article-date">
+      <time datetime="2018-04-02T06:43:00.000Z" itemprop="datePublished">2018-04-02</time>
 </a>
 
 
@@ -310,7 +312,7 @@ Spring MVC的搭建可以通过Java代码的方式(在">
         
   
     <h1 class="article-title" itemprop="name">
-      Spring MVC 搭建 - Hello world
+      Java GC 笔记(初探)
     </h1>
   
 
@@ -319,13 +321,13 @@ Spring MVC的搭建可以通过Java代码的方式(在">
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+    <a class="article-category-link" href="/categories/学习笔记/">学习笔记</a><a class="article-category-link" href="/categories/学习笔记/Java/">Java</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-MVC/">Spring MVC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/学习笔记/">学习笔记</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -335,36 +337,24 @@ Spring MVC的搭建可以通过Java代码的方式(在">
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>现在的<code>Web</code>框架基本都采用了<code>MVC(model-view-Controller)</code>设计模式,其中,<code>Servlet</code>和<code>Filter</code>都可以充当控制器.<code>Spring MVC</code>采用一个<code>Servlet</code>作为控制器,而<code>Struts2</code>则采用的<code>Filter</code>作为控制器.</p>
-<p>对于他们的区别我在这里不多赘述,可以参见这篇文章<a href="http://blog.csdn.net/chenleixing/article/details/44570681" target="_blank" rel="external">SpringMVC与Struts2区别与比较总结</a></p>
-<p>Spring MVC的搭建可以通过Java代码的方式(在《Spring 实战》一书中有详细讲解),也可以通过配置文件的方式,这里讲到的是<strong>运用配置文件</strong>的方式进行搭建.</p>
-<a id="more"></a>
-<p>这是一个毫无技术含量的最简单例子</p>
-<h3 id="使用工具"><a href="#使用工具" class="headerlink" title="使用工具"></a>使用工具</h3><ul>
-<li>idea</li>
-<li>maven</li>
+        <p>Java程序不用像C++程序在程序中自行处理内存的回收释放。这是因为Java在JVM虚拟机上增加了垃圾回收(GC)机制，用以在合适的时间触发垃圾回收，将不需要的内存空间回收释放，避免无限制的内存增长导致的OOM。</p>
+<h3 id="回收前的准备"><a href="#回收前的准备" class="headerlink" title="回收前的准备"></a>回收前的准备</h3><p>垃圾回收器在对堆进行回收前，第一件事情就是要确定这些对象哪些还“存活”，哪些已经“死去”。</p>
+<h4 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h4><p>给对象中添加一个引用计数器，每当有一个地方引用它，计数器加1，当引用失效时，计数器值减1；任何时刻计数器为0的对象就是不可能在被使用的。它实现简单，判定效率高，但主流的Java虚拟机都<strong>不用</strong>它来管理内存，其中最主要的原因是它很<strong>难解决对象之间相互循环引用</strong>的问题。</p>
+<h4 id="可达性反洗算法"><a href="#可达性反洗算法" class="headerlink" title="可达性反洗算法"></a>可达性反洗算法</h4><p>通过一系列称为<code>GC Roots</code>的对象作为起始点，从这些节点开始向下搜索，搜索走过的路径称为引用链，当一个对象到<code>GC Roots</code>没有任何引用链相连，即从<code>GC Roots</code>到这个对象不可达，则证明此对象是不可用的。即使有的对象相互关联，只要<code>GC Roots</code>不可达，均被判定为可回收对象。这也是<strong>主流的实现</strong>方法。</p>
+<p>Java中可作为<code>GC Roots</code>的对象：</p>
+<ul>
+<li>虚拟机栈（栈帧中的本地变量表）中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法栈中JNI（即一般说的Native方法）引用的对象</li>
 </ul>
-<hr>
-<p>当然啦~如果你不想使用<code>Maven</code>可以直接跳过前两步</p>
-<h3 id="Demo结构"><a href="#Demo结构" class="headerlink" title="Demo结构"></a>Demo结构</h3><p><img src="http://omuut7fta.bkt.clouddn.com/spring/springmvc-demo.PNG" alt="Structure"></p>
-<hr>
-<h4 id="搭建一个Web项目"><a href="#搭建一个Web项目" class="headerlink" title="搭建一个Web项目"></a>搭建一个Web项目</h4><p>可以参见<a href="http://www.cnblogs.com/yuanmiemie/p/6638685.html" target="_blank" rel="external">Idea 使用 Maven 搭建 Web 项目</a></p>
-<h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-core&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-context&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-beans&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-expression&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-web&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;junit&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;junit&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;4.12&lt;/version&gt;</div><div class="line">  &lt;scope&gt;test&lt;/scope&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-<h4 id="配置classpath"><a href="#配置classpath" class="headerlink" title="配置classpath"></a>配置classpath</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;build&gt;</div><div class="line">    &lt;finalName&gt;demo&lt;/finalName&gt;</div><div class="line">    &lt;!--配置Classpath--&gt;</div><div class="line">    &lt;resources&gt;</div><div class="line">      &lt;resource&gt;</div><div class="line">        &lt;directory&gt;src/main/java&lt;/directory&gt;</div><div class="line">      &lt;/resource&gt;</div><div class="line">      &lt;resource&gt;</div><div class="line">        &lt;directory&gt;src/main/resources&lt;/directory&gt;</div><div class="line">        &lt;includes&gt;</div><div class="line">          &lt;include&gt;**/*xml&lt;/include&gt;</div><div class="line">          &lt;include&gt;**/*.properties&lt;/include&gt;</div><div class="line">        &lt;/includes&gt;</div><div class="line">      &lt;/resource&gt;</div><div class="line">    &lt;/resources&gt;</div><div class="line">  &lt;/build&gt;</div></pre></td></tr></table></figure>
-<h4 id="配置web-xml"><a href="#配置web-xml" class="headerlink" title="配置web.xml"></a>配置web.xml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE web-app PUBLIC</div><div class="line"> &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</div><div class="line"> &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;&gt;</div><div class="line">&lt;web-app&gt;</div><div class="line"></div><div class="line">  &lt;!--spring的配置文件--&gt;</div><div class="line">  &lt;context-param&gt;</div><div class="line">    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</div><div class="line">    &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;</div><div class="line">  &lt;/context-param&gt;</div><div class="line"></div><div class="line">  &lt;!--Spring MVC必须的servlet,他会帮你把Spring的配置文件到application域中--&gt;</div><div class="line">  &lt;servlet&gt;</div><div class="line">    &lt;servlet-name&gt;dispatcher-servlet&lt;/servlet-name&gt;</div><div class="line">    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;</div><div class="line">    &lt;!--Spring MVC的配置文件--&gt;</div><div class="line">    &lt;init-param&gt;</div><div class="line">      &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;</div><div class="line">      &lt;param-value&gt;classpath:dispatcher-servlet.xml&lt;/param-value&gt;</div><div class="line">    &lt;/init-param&gt;</div><div class="line">    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</div><div class="line">  &lt;/servlet&gt;</div><div class="line">  &lt;servlet-mapping&gt;</div><div class="line">    &lt;servlet-name&gt;dispatcher-servlet&lt;/servlet-name&gt;</div><div class="line">    &lt;url-pattern&gt;/&lt;/url-pattern&gt;</div><div class="line">  &lt;/servlet-mapping&gt;</div><div class="line">&lt;/web-app&gt;</div></pre></td></tr></table></figure>
-<h4 id="配置applicationContext-xml"><a href="#配置applicationContext-xml" class="headerlink" title="配置applicationContext.xml"></a>配置applicationContext.xml</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;context:component-scan base-package=&quot;com.geek&quot;/&gt;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>配置dispatcher-servlet.xml</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;!--启动Spring MVC的注解--&gt;</div><div class="line">&lt;mvc:annotation-driven/&gt;</div><div class="line">&lt;!--自动扫描包--&gt;</div><div class="line">&lt;context:component-scan base-package=&quot;com.geek&quot;/&gt;</div><div class="line"></div><div class="line">&lt;!--视图解析器--&gt;</div><div class="line">&lt;bean id=&quot;viewResolver&quot;</div><div class="line">      class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;&gt;</div><div class="line">    &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot;/&gt;</div><div class="line">&lt;/bean&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;mvc:annotation-driven/&gt;</code>这句话非常关键!如果不写会导致@Controller注解不能使用</p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h4 id="TestController-java"><a href="#TestController-java" class="headerlink" title="TestController.java"></a>TestController.java</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">@Controller</div><div class="line">public class TestController &#123;</div><div class="line"></div><div class="line">    @Autowired</div><div class="line">    private TestService service;</div><div class="line"></div><div class="line">    @RequestMapping(&quot;/test&quot;)</div><div class="line">    public String Test(String s, HttpServletRequest request)&#123;</div><div class="line">        service.show();</div><div class="line">        request.setAttribute(&quot;s&quot;,s);</div><div class="line">        return &quot;index&quot;;//由于前面配置了视图解析器,此处会跳转到index.jsp页面</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这里使用了<code>@Controller</code>注解,逻辑上标志着这个类是一个控制器,让编程过程中更容易理解<br>其中的<code>@RequestMapping(&quot;/test&quot;)</code>指将这个url(localhost:8080/test)映射到此方法上,在Spring MVC中以一个方法为上下文进行拦截.</p>
-<h4 id="TestService-java"><a href="#TestService-java" class="headerlink" title="TestService.java"></a>TestService.java</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Service</div><div class="line">public class TestService &#123;</div><div class="line"></div><div class="line">    public void show()&#123;</div><div class="line">        System.out.println(&quot;success&quot;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="index-jsp"><a href="#index-jsp" class="headerlink" title="index.jsp"></a>index.jsp</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;%@page pageEncoding=&quot;UTF-8&quot; contentType=&quot;text/html&quot;%&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;%</div><div class="line">    String s = (String) request.getAttribute(&quot;s&quot;);</div><div class="line">    out.print(s!=null?s:&quot;hello&quot;);</div><div class="line">%&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>启动服务器输入  <code>http://localhost:8080/test?s=123456</code></p>
-<p>可以看到控制台打印<code>success</code>,index.jsp页面的显示由<code>hello</code>变为<code>123456</code></p>
-<p>这样,<code>Spring MVC</code> 的一个小Demo就算完成了,当然,这里面使用了<code>Spring</code>的自动装配,整体上非常的简单例子,动手试试吧~</p>
+<h4 id="对象的自救"><a href="#对象的自救" class="headerlink" title="对象的自救"></a>对象的自救</h4><p>在可达性算法中判断为不可达的对象时，它们不会立即被回收，真正宣告一个对象死亡，还需要判断该对象是否有必要执行<code>finalize()</code>方法，当对象没有覆盖该方法，或者已经执行过该方法，虚拟机会将这两种情况视为<strong>没有必要执行</strong>。如果对象有必要执行该方法，该对象会被放在名为<code>F-Queue</code>的队列中，虚拟机会建立一个低优先级的<code>FInalizer</code>线程去执行该方法，<strong>并不保证等它运行结束</strong>，如果一个对象在<code>finalize()</code>方法中执行缓慢，或者发生了死循环，很可能会导致<code>F-Queue</code>队列一直等待。如果在执行中重新与引用链上的任何一个对象建立关联，如把自己复制给某个类变量或者对象的成员变量，那么就可以逃脱这一次回收。</p>
+<h3 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h3><h4 id="标记-清楚算法"><a href="#标记-清楚算法" class="headerlink" title="标记-清楚算法"></a>标记-清楚算法</h4><p>首先标记出所有需要回收的对象， 在标记完成后统一回收。如图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/jvm/mark-sweep.png" alt="mark-sweep"></p>
+<p>不足：标记和清除两个过程效率都不高；标记清除后产生大量不连续的内存碎片，导致以后运行的时候要分配较大对象时，无法找到足够的连续内存而不得不再一次垃圾回收。</p>
+<h4 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h4><p>将内存按容量大小划分为大小相等的两块，每次使用其中一块，当这一块用完了，就将还存活着的对象复制到另一块上，然后再把已使用过的内存空间一次清理掉。<br><img src="http://omuut7fta.bkt.clouddn.com/java/jvm/copying.png" alt="copying"></p>
+<h4 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记-整理算法"></a>标记-整理算法</h4><p>同标记清理算法一样，首先标记对象，但后续步骤不是直接清理，而是将所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。<br><img src="http://omuut7fta.bkt.clouddn.com/java/jvm/mark-compact.png" alt="mark-compact"></p>
+<h4 id="分代收集"><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h4><p>Java堆主要分为新生代和老年代。对于新生代，每次收集都有大量对象死去，所以采用“复制算法”，将少量存货对象副职即可完成收集；对于老年代，其中的对象存活率高、没有额外空间对它们进行分配担保，必须使用“标记清除算法”或“标记整理算法”来收集。</p>
 
       
     </div>
@@ -373,13 +363,13 @@ Spring MVC的搭建可以通过Java代码的方式(在">
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/04/27/Spring MVC 搭建/">Spring MVC 搭建 - Hello world</a></p>
+        <p><span>Title:</span><a href="/2018/04/02/Java GC笔记/">Java GC 笔记(初探)</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">袁  阳</a></p>
-        <p><span>Created:</span>2017-04-27, 15:31:01</p>
-        <p><span>Updated:</span>2017-05-06, 11:59:25</p>
+        <p><span>Created:</span>2018-04-02, 14:43:00</p>
+        <p><span>Updated:</span>2018-04-02, 15:04:34</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/04/27/Spring MVC 搭建/" title="Spring MVC 搭建 - Hello world">http://www.yuanyang-miemie.win/2017/04/27/Spring MVC 搭建/</a>
-            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2017/04/27/Spring MVC 搭建/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2018/04/02/Java GC笔记/" title="Java GC 笔记(初探)">http://www.yuanyang-miemie.win/2018/04/02/Java GC笔记/</a>
+            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2018/04/02/Java GC笔记/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -391,16 +381,10 @@ Spring MVC的搭建可以通过Java代码的方式(在">
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/">
-                    《Spring 实战》-- Spring Web Flow 学习笔记
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/04/26/高性能Mysql学习笔记之事务/">
-                    高性能Mysql学习笔记之事务
+                <a href="/2018/03/14/简单工厂模式/">
+                    简单工厂模式
                 </a>
             </div>
         
@@ -412,7 +396,7 @@ Spring MVC的搭建可以通过Java代码的方式(在">
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用工具"><span class="toc-number">1.</span> <span class="toc-text">使用工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Demo结构"><span class="toc-number">2.</span> <span class="toc-text">Demo结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#搭建一个Web项目"><span class="toc-number">2.1.</span> <span class="toc-text">搭建一个Web项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加依赖"><span class="toc-number">2.2.</span> <span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置classpath"><span class="toc-number">2.3.</span> <span class="toc-text">配置classpath</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置web-xml"><span class="toc-number">2.4.</span> <span class="toc-text">配置web.xml</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置applicationContext-xml"><span class="toc-number">2.5.</span> <span class="toc-text">配置applicationContext.xml</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-number">3.</span> <span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TestController-java"><span class="toc-number">3.1.</span> <span class="toc-text">TestController.java</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TestService-java"><span class="toc-number">3.2.</span> <span class="toc-text">TestService.java</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#index-jsp"><span class="toc-number">3.3.</span> <span class="toc-text">index.jsp</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#回收前的准备"><span class="toc-number">1.</span> <span class="toc-text">回收前的准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#引用计数算法"><span class="toc-number">1.1.</span> <span class="toc-text">引用计数算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可达性反洗算法"><span class="toc-number">1.2.</span> <span class="toc-text">可达性反洗算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对象的自救"><span class="toc-number">1.3.</span> <span class="toc-text">对象的自救</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回收算法"><span class="toc-number">2.</span> <span class="toc-text">回收算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#标记-清楚算法"><span class="toc-number">2.1.</span> <span class="toc-text">标记-清楚算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#复制算法"><span class="toc-number">2.2.</span> <span class="toc-text">复制算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#标记-整理算法"><span class="toc-number">2.3.</span> <span class="toc-text">标记-整理算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分代收集"><span class="toc-number">2.4.</span> <span class="toc-text">分代收集</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -448,7 +432,7 @@ Spring MVC的搭建可以通过Java代码的方式(在">
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Spring MVC 搭建 - Hello world　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Java GC 笔记(初探)　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -468,15 +452,13 @@ Spring MVC的搭建可以通过Java代码的方式(在">
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/04/27/Spring Web Flow 学习笔记--披萨流程/" title="Pre: 《Spring 实战》-- Spring Web Flow 学习笔记">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/04/26/高性能Mysql学习笔记之事务/" title="Next: 高性能Mysql学习笔记之事务">
+            <a href="/2018/03/14/简单工厂模式/" title="Next: 简单工厂模式">
                 <i class="fa fa-angle-right"></i>
             </a>
         

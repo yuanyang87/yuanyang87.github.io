@@ -161,13 +161,13 @@
                 <div class="tips-box hide">
                     <div class="tips-arrow"></div>
                     <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
+                        <li>Menu</li>
+                        <li>Tags</li>
                         
-                        <li>友情链接</li>
+                        <li>Friends</li>
                         
                         
-                        <li>关于我</li>
+                        <li>About Me</li>
                         
                     </ul>
                 </div>
@@ -210,7 +210,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hibernate/">Hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lunix/">Lunix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-MVC/">Spring MVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring源码/">Spring源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Struts2/">Struts2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小小算法/">小小算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目取经/">项目取经</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hibernate/">Hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lunix/">Lunix</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis/">Mybatis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-MVC/">Spring MVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring源码/">Spring源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Struts2/">Struts2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小小算法/">小小算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小技巧/">小技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/项目取经/">项目取经</a></li></ul>
                     </div>
                 </section>
                 
@@ -285,9 +285,90 @@
             </nav>
         </header>                
     </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Java GC笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/04/02/Java GC笔记/" class="article-date">
+      <time datetime="2018-04-02T06:43:00.000Z" itemprop="datePublished">2018-04-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/02/Java GC笔记/">Java GC 笔记(初探)</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>Java程序不用像C++程序在程序中自行处理内存的回收释放。这是因为Java在JVM虚拟机上增加了垃圾回收(GC)机制，用以在合适的时间触发垃圾回收，将不需要的内存空间回收释放，避免无限制的内存增长导致的OOM。</p>
+<h3 id="回收前的准备"><a href="#回收前的准备" class="headerlink" title="回收前的准备"></a>回收前的准备</h3><p>垃圾回收器在对堆进行回收前，第一件事情就是要确定这些对象哪些还“存活”，哪些已经“死去”。</p>
+<h4 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h4><p>给对象中添加一个引用计数器，每当有一个地方引用它，计数器加1，当引用失效时，计数器值减1；任何时刻计数器为0的对象就是不可能在被使用的。它实现简单，判定效率高，但主流的Java虚拟机都<strong>不用</strong>它来管理内存，其中最主要的原因是它很<strong>难解决对象之间相互循环引用</strong>的问题。</p>
+<h4 id="可达性反洗算法"><a href="#可达性反洗算法" class="headerlink" title="可达性反洗算法"></a>可达性反洗算法</h4><p>通过一系列称为<code>GC Roots</code>的对象作为起始点，从这些节点开始向下搜索，搜索走过的路径称为引用链，当一个对象到<code>GC Roots</code>没有任何引用链相连，即从<code>GC Roots</code>到这个对象不可达，则证明此对象是不可用的。即使有的对象相互关联，只要<code>GC Roots</code>不可达，均被判定为可回收对象。这也是<strong>主流的实现</strong>方法。</p>
+<p>Java中可作为<code>GC Roots</code>的对象：</p>
+<ul>
+<li>虚拟机栈（栈帧中的本地变量表）中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法栈中JNI（即一般说的Native方法）引用的对象</li>
+</ul>
+<h4 id="对象的自救"><a href="#对象的自救" class="headerlink" title="对象的自救"></a>对象的自救</h4><p>在可达性算法中判断为不可达的对象时，它们不会立即被回收，真正宣告一个对象死亡，还需要判断该对象是否有必要执行<code>finalize()</code>方法，当对象没有覆盖该方法，或者已经执行过该方法，虚拟机会将这两种情况视为<strong>没有必要执行</strong>。如果对象有必要执行该方法，该对象会被放在名为<code>F-Queue</code>的队列中，虚拟机会建立一个低优先级的<code>FInalizer</code>线程去执行该方法，<strong>并不保证等它运行结束</strong>，如果一个对象在<code>finalize()</code>方法中执行缓慢，或者发生了死循环，很可能会导致<code>F-Queue</code>队列一直等待。如果在执行中重新与引用链上的任何一个对象建立关联，如把自己复制给某个类变量或者对象的成员变量，那么就可以逃脱这一次回收。</p>
+<h3 id="回收算法"><a href="#回收算法" class="headerlink" title="回收算法"></a>回收算法</h3><h4 id="标记-清楚算法"><a href="#标记-清楚算法" class="headerlink" title="标记-清楚算法"></a>标记-清楚算法</h4><p>首先标记出所有需要回收的对象， 在标记完成后统一回收。如图：</p>
+<p><img src="http://omuut7fta.bkt.clouddn.com/java/jvm/mark-sweep.png" alt="mark-sweep"></p>
+<p>不足：标记和清除两个过程效率都不高；标记清除后产生大量不连续的内存碎片，导致以后运行的时候要分配较大对象时，无法找到足够的连续内存而不得不再一次垃圾回收。</p>
+<h4 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h4><p>将内存按容量大小划分为大小相等的两块，每次使用其中一块，当这一块用完了，就将还存活着的对象复制到另一块上，然后再把已使用过的内存空间一次清理掉。<br><img src="http://omuut7fta.bkt.clouddn.com/java/jvm/copying.png" alt="copying"></p>
+<h4 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记-整理算法"></a>标记-整理算法</h4><p>同标记清理算法一样，首先标记对象，但后续步骤不是直接清理，而是将所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。<br><img src="http://omuut7fta.bkt.clouddn.com/java/jvm/mark-compact.png" alt="mark-compact"></p>
+<h4 id="分代收集"><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h4><p>Java堆主要分为新生代和老年代。对于新生代，每次收集都有大量对象死去，所以采用“复制算法”，将少量存货对象副职即可完成收集；对于老年代，其中的对象存活率高、没有额外空间对它们进行分配担保，必须使用“标记清除算法”或“标记整理算法”来收集。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/学习笔记/">学习笔记</a><a class="article-category-link" href="/categories/学习笔记/Java/">Java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-简单工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -341,7 +422,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2018/03/14/简单工厂模式/#more">阅读全文 >></a>
+          <a href="/2018/03/14/简单工厂模式/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -409,7 +490,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2018/03/14/Executor 框架详解/#more">阅读全文 >></a>
+          <a href="/2018/03/14/Executor 框架详解/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -479,7 +560,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2018/03/14/executor 框架/#more">阅读全文 >></a>
+          <a href="/2018/03/14/executor 框架/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -552,7 +633,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2018/03/12/Java线程池/#more">阅读全文 >></a>
+          <a href="/2018/03/12/Java线程池/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -621,7 +702,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/09/07/Java8函数式编程学习笔记(初探)/#more">阅读全文 >></a>
+          <a href="/2017/09/07/Java8函数式编程学习笔记(初探)/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -695,7 +776,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/07/08/Linux系统部署Web项目/#more">阅读全文 >></a>
+          <a href="/2017/07/08/Linux系统部署Web项目/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -771,7 +852,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/06/12/云服务器 java+tomcat 部署与配置/#more">阅读全文 >></a>
+          <a href="/2017/06/12/云服务器 java+tomcat 部署与配置/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -843,7 +924,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/#more">阅读全文 >></a>
+          <a href="/2017/05/12/applicationContext.xml 解析详细-Spring源码学习之XML文件的初解析/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -913,78 +994,7 @@
 
       
         <p class="article-more-link">
-          <a href="/2017/05/05/BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-CentOS7-MySQL安装与远程访问" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/03/CentOS7-MySQL安装与远程访问/" class="article-date">
-      <time datetime="2017-05-03T13:31:01.000Z" itemprop="datePublished">2017-05-03</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/03/CentOS7-MySQL安装与远程访问/">CentOS7-MySQL安装与远程访问</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>本人乃学生小白一枚,近期在学习<code>Linux</code>,所以就简单记录一下~</p>
-<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装<code>MySQL</code></h3><h4 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h4><p>首先,需要检查一下是否已经安装了<code>MySQL</code> : <code># rpm -qa | grep mysql</code></p>
-<p><img src="http://omuut7fta.bkt.clouddn.com/CentOS/MySQL/step1.PNG" alt="step1"></p>
-<p>这时候没有任何输出,则代表没有安装<code>MySQL</code><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a><a class="article-category-link" href="/categories/Linux/CentOS/">CentOS</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CentOS/">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/05/03/CentOS7-MySQL安装与远程访问/#more">阅读全文 >></a>
+          <a href="/2017/05/05/BeanFactory与ApplicationContext的区别-Spring源码学习之容器的基本实现/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1005,7 +1015,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>
@@ -1017,14 +1027,14 @@
                 2016-2018 袁  阳
             </div>
             <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+                <a href="http://hexo.io/" target="_blank" title="A fast, simple &amp; powerful blog framework">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="Another simple and elegant theme for Hexo  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
             </div>
         </div>
         
             <div class="visit">
                 
                     <span id="busuanzi_container_site_pv" style='display:none'>
-                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
                         </span>
                     </span>
                 
@@ -1033,7 +1043,7 @@
                 
                 
                     <span id="busuanzi_container_page_pv" style='display:none'>
-                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
                         </span>
                     </span>
                 
@@ -1066,9 +1076,9 @@
 
 
 <div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
 </div>
 <script>
     // Open in New Window
