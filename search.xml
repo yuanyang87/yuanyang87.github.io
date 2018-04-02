@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[Java GC 笔记(初探)]]></title>
+      <title><![CDATA[Java GC 笔记]]></title>
       <url>/2018/04/02/Java%20GC%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<p>Java程序不用像C++程序在程序中自行处理内存的回收释放。这是因为Java在JVM虚拟机上增加了垃圾回收(GC)机制，用以在合适的时间触发垃圾回收，将不需要的内存空间回收释放，避免无限制的内存增长导致的OOM。</p>
 <h3 id="回收前的准备"><a href="#回收前的准备" class="headerlink" title="回收前的准备"></a>回收前的准备</h3><p>垃圾回收器在对堆进行回收前，第一件事情就是要确定这些对象哪些还“存活”，哪些已经“死去”。</p>
