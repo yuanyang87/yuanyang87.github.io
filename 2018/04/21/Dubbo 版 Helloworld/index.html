@@ -15,22 +15,32 @@
 
 
 
-<meta name="description" content="百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：
-鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
-大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？">
+<meta name="description" content="使用工具：MAVEN、IDEA、Spring、Dubbo、Zookeeper
+直接上代码
+项目结构：
+步骤如下：
+搭建MAVEN项目，添加相关依赖pom.xml12345678910111213141516171819&amp;lt;!--Zookeeper--&amp;gt;&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.apache.zookeeper&amp;lt;/groupId&amp;g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="百钱百鸡————Java小算法">
-<meta property="og:url" content="http://www.yuanyang-miemie.win/2017/03/14/百钱百鸡小算法/index.html">
+<meta property="og:title" content="Dubbo 版 Helloworld">
+<meta property="og:url" content="http://www.yuanyang-miemie.win/2018/04/21/Dubbo 版 Helloworld/index.html">
 <meta property="og:site_name" content="袁咩咩的博客">
-<meta property="og:description" content="百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：
-鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
-大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？">
-<meta property="og:updated_time" content="2017-05-06T03:59:46.911Z">
+<meta property="og:description" content="使用工具：MAVEN、IDEA、Spring、Dubbo、Zookeeper
+直接上代码
+项目结构：
+步骤如下：
+搭建MAVEN项目，添加相关依赖pom.xml12345678910111213141516171819&amp;lt;!--Zookeeper--&amp;gt;&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.apache.zookeeper&amp;lt;/groupId&amp;g">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/dubbo/demo/structure.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/message.png">
+<meta property="og:image" content="http://omuut7fta.bkt.clouddn.com/confirm.png">
+<meta property="og:updated_time" content="2018-04-21T14:15:05.637Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="百钱百鸡————Java小算法">
-<meta name="twitter:description" content="百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：
-鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
-大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？">
+<meta name="twitter:title" content="Dubbo 版 Helloworld">
+<meta name="twitter:description" content="使用工具：MAVEN、IDEA、Spring、Dubbo、Zookeeper
+直接上代码
+项目结构：
+步骤如下：
+搭建MAVEN项目，添加相关依赖pom.xml12345678910111213141516171819&amp;lt;!--Zookeeper--&amp;gt;&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.apache.zookeeper&amp;lt;/groupId&amp;g">
+<meta name="twitter:image" content="http://omuut7fta.bkt.clouddn.com/dubbo/demo/structure.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -62,7 +72,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>百钱百鸡————Java小算法 | 袁咩咩的博客</title>
+<title>Dubbo 版 Helloworld | 袁咩咩的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -289,11 +299,11 @@
     </div>
     <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
 </nav>
-      <div class="body-wrap"><article id="post-百钱百鸡小算法" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Dubbo 版 Helloworld" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/03/14/百钱百鸡小算法/" class="article-date">
-      <time datetime="2017-03-14T06:43:00.000Z" itemprop="datePublished">2017-03-14</time>
+      <a href="/2018/04/21/Dubbo 版 Helloworld/" class="article-date">
+      <time datetime="2018-04-21T14:14:00.000Z" itemprop="datePublished">2018-04-21</time>
 </a>
 
 
@@ -308,7 +318,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      百钱百鸡————Java小算法
+      Dubbo 版 Helloworld
     </h1>
   
 
@@ -317,13 +327,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/算法/">算法</a>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小小算法/">小小算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dubbo/">Dubbo</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -333,22 +343,19 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>百钱百鸡是一个非常经典的不定方程问题，最早源于我国古代的《算经》，这是古代著名数学家张丘建首次提出的。百钱百鸡问题原文如下：</p>
-<pre><code>鸡翁一，值钱五，鸡母一，值钱三，鸡雏三，值钱一，百钱买白鸡，问翁、母、雏各几何？
-</code></pre><p>大致的意思是，攻击5文钱一只，母鸡3文钱1只，小鸡3只1文钱，如果用100文钱买100只鸡，那么公鸡、母鸡和小鸡各应该买多少只呢？<br><a id="more"></a></p>
-<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>百钱买白鸡问题中，有三个变量：公鸡数量、母鸡数量、小鸡数量，分别设为x、y、z，这三者应该满足如下关系：</p>
-<pre><code>x+y+z=100；
-5x+3y+z/3=100；
-</code></pre><p>三个变量，两个方程，因此这是一个不定方程组，这导致求解的结果不唯一。</p>
-<h4 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h4><p>编写一段代码，用于计算<code>m</code>钱<code>n</code>鸡的问题,当<code>m=100</code>且<code>n=100</code>时,正好是百钱百鸡问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">package com.example;</div><div class="line"></div><div class="line">public class Code &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) &#123;</div><div class="line">        System.out.println(&quot;百钱百鸡问题的解为:&quot;);</div><div class="line">        buyChicken(100,100);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public static void buyChicken(int m,int n)&#123;</div><div class="line">        for (int x = 0;x &lt;= n;x++)  //公鸡数量</div><div class="line">           for (int y = 0;y &lt;= n;y++) &#123; //母鸡数量</div><div class="line">               if (x + y &lt;= n) &#123;    //公鸡和母鸡只和不能超过 n</div><div class="line">                   int z = n - x -y;    //小鸡数量, 用到第一个方程 x + y + z = n</div><div class="line">                   if (z%3 == 0 &amp;&amp; x*5 + y*3 + z/3 == m) &#123;</div><div class="line">                       //小鸡数量必须为3的倍数, 且当第二个方程成立时, 得到正确结果</div><div class="line">                       System.out.println(&quot;公鸡:&quot; + x +  &quot; 母鸡:&quot; + y + &quot; 小鸡:&quot; + z);</div><div class="line">                   &#125;else</div><div class="line">                       continue;    //当结果不满足条件时, 继续下一次循环</div><div class="line">               &#125;else</div><div class="line">                   break; //当公鸡和母鸡数超过 n 时, 退出当前循环</div><div class="line">           &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样，我们运行程序可以得到解：</p>
-<pre><code>百钱百鸡问题的解为:
-公鸡:0 母鸡:25 小鸡:75
-公鸡:4 母鸡:18 小鸡:78
-公鸡:8 母鸡:11 小鸡:81
-公鸡:12 母鸡:4 小鸡:84
-</code></pre><p>这里我采用了穷举的方法，将所有的值进行穷举，寻找方程组的解。</p>
+        <p>使用工具：MAVEN、IDEA、Spring、Dubbo、Zookeeper</p>
+<p>直接上代码</p>
+<p>项目结构：<br><img src="http://omuut7fta.bkt.clouddn.com/dubbo/demo/structure.png" alt="structur"></p>
+<p>步骤如下：</p>
+<h4 id="搭建MAVEN项目，添加相关依赖"><a href="#搭建MAVEN项目，添加相关依赖" class="headerlink" title="搭建MAVEN项目，添加相关依赖"></a>搭建MAVEN项目，添加相关依赖</h4><p>pom.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;!--Zookeeper--&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">  &lt;groupId&gt;org.apache.zookeeper&lt;/groupId&gt;</div><div class="line">  &lt;artifactId&gt;zookeeper&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;3.4.6&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.apache.curator&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;curator-framework&lt;/artifactId&gt;</div><div class="line">  &lt;version&gt;4.0.0&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div><div class="line"></div><div class="line">&lt;!--dubbo--&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;dubbo&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;2.6.1&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure></p>
+<p>dubbo-demo-consumer.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</div><div class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</div><div class="line">       xmlns:dubbo=&quot;http://code.alibabatech.com/schema/dubbo&quot;</div><div class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd&quot;&gt;</div><div class="line">    &lt;dubbo:application name=&quot;demo-consumer&quot;/&gt;</div><div class="line">    &lt;dubbo:registry address=&quot;zookeeper://127.0.0.1:2181&quot;/&gt;</div><div class="line">    &lt;dubbo:reference id=&quot;demoService&quot; interface=&quot;com.alibaba.dubbo.demo.DemoService&quot;/&gt;</div><div class="line">&lt;/beans&gt;</div></pre></td></tr></table></figure></p>
+<p>dubbo-demo-provider.xml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</div><div class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</div><div class="line">       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</div><div class="line">       xmlns:dubbo=&quot;http://code.alibabatech.com/schema/dubbo&quot;</div><div class="line">       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd&quot;&gt;</div><div class="line"></div><div class="line">    &lt;dubbo:application name=&quot;demo-provider&quot;/&gt;</div><div class="line">    &lt;dubbo:registry address=&quot;zookeeper://127.0.0.1:2181&quot;/&gt;</div><div class="line">    &lt;dubbo:protocol name=&quot;dubbo&quot; port=&quot;20880&quot;/&gt;</div><div class="line">    &lt;dubbo:service interface=&quot;com.alibaba.dubbo.demo.DemoService&quot; ref=&quot;demoService&quot;/&gt;</div><div class="line">    &lt;bean id=&quot;demoService&quot; class=&quot;com.alibaba.dubbo.demo.provider.DemoServiceImpl&quot;/&gt;</div><div class="line">&lt;/beans&gt;</div></pre></td></tr></table></figure></p>
+<p>Provider.java<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"></div><div class="line">import java.io.IOException;</div><div class="line"></div><div class="line">public class Provider &#123;</div><div class="line"></div><div class="line">    public static void main(String[] args) throws IOException &#123;</div><div class="line">        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(&quot;dubbo-demo-provider.xml&quot;);</div><div class="line">        context.start();</div><div class="line">        System.in.read();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Consumer.java<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">import com.alibaba.dubbo.demo.DemoService;</div><div class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</div><div class="line"></div><div class="line">public class Consumer &#123;</div><div class="line">    public static void main(String[] args) throws Exception &#123;</div><div class="line">        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(&quot;dubbo-demo-consumer.xml&quot;);</div><div class="line">        context.start();</div><div class="line">        // obtain proxy object for remote invocation</div><div class="line">        DemoService demoService = (DemoService) context.getBean(&quot;demoService&quot;);</div><div class="line">        // execute remote invocation</div><div class="line">        String hello = demoService.sayHello(&quot;world&quot;);</div><div class="line">        // show the result</div><div class="line">        System.out.println(hello);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>DemoService.java<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">package com.alibaba.dubbo.demo;</div><div class="line"></div><div class="line">public interface DemoService &#123;</div><div class="line"></div><div class="line">    String sayHello(String name);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>DemoServiceImpl.java<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">package com.alibaba.dubbo.demo.provider;</div><div class="line"></div><div class="line">import com.alibaba.dubbo.demo.DemoService;</div><div class="line"></div><div class="line">public class DemoServiceImpl implements DemoService&#123;</div><div class="line"></div><div class="line">    public String sayHello(String name) &#123;</div><div class="line">        return &quot;Hello &quot; + name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行方式：打开本地Zookeeper服务，先运行Provider，再运行Consumer</p>
+<p>运行结果：控制台输出<code>Hello world</code>,Zookeeper 服务器会输出几行信息：<br><img src="http://omuut7fta.bkt.clouddn.com/message.png" alt="image"><br>打开一个Zookeeper客户端检查是否有节点存在<br><img src="http://omuut7fta.bkt.clouddn.com/confirm.png" alt="image"></p>
 
       
     </div>
@@ -357,13 +364,13 @@
   
     
     <div class="copyright">
-        <p><span>Title:</span><a href="/2017/03/14/百钱百鸡小算法/">百钱百鸡————Java小算法</a></p>
+        <p><span>Title:</span><a href="/2018/04/21/Dubbo 版 Helloworld/">Dubbo 版 Helloworld</a></p>
         <p><span>Author:</span><a href="/" title="Back to Homepage">袁  阳</a></p>
-        <p><span>Created:</span>2017-03-14, 14:43:00</p>
-        <p><span>Updated:</span>2017-05-06, 11:59:46</p>
+        <p><span>Created:</span>2018-04-21, 22:14:00</p>
+        <p><span>Updated:</span>2018-04-21, 22:15:05</p>
         <p>
-            <span>Full URL:</span><a class="post-url" href="/2017/03/14/百钱百鸡小算法/" title="百钱百鸡————Java小算法">http://www.yuanyang-miemie.win/2017/03/14/百钱百鸡小算法/</a>
-            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2017/03/14/百钱百鸡小算法/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
+            <span>Full URL:</span><a class="post-url" href="/2018/04/21/Dubbo 版 Helloworld/" title="Dubbo 版 Helloworld">http://www.yuanyang-miemie.win/2018/04/21/Dubbo 版 Helloworld/</a>
+            <span class="copy-path" data-clipboard-text="From http://www.yuanyang-miemie.win/2018/04/21/Dubbo 版 Helloworld/　　By 袁  阳" title="Copy Article&#39;s Link &amp; Author"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -375,16 +382,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/03/15/汉诺塔(Hanoi)——小小算法/">
-                    Hanoi(汉诺塔)————Java小算法
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/">
-                    我的第一个小项目——GEEK网工作室主页
+                <a href="/2018/04/02/Java GC笔记/">
+                    Java GC 笔记
                 </a>
             </div>
         
@@ -396,7 +397,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#分析"><span class="toc-number">1.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#示例代码"><span class="toc-number">2.</span> <span class="toc-text">示例代码</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#搭建MAVEN项目，添加相关依赖"><span class="toc-number">1.</span> <span class="toc-text">搭建MAVEN项目，添加相关依赖</span></a></li></ol>
         
     </div>
     <style>
@@ -432,7 +433,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"百钱百鸡————Java小算法　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Dubbo 版 Helloworld　| 袁咩咩的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -452,15 +453,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/03/15/汉诺塔(Hanoi)——小小算法/" title="Pre: Hanoi(汉诺塔)————Java小算法">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
         
 
         <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/03/13/我的第一个小项目——GEEK网工作室主页/" title="Next: 我的第一个小项目——GEEK网工作室主页">
+            <a href="/2018/04/02/Java GC笔记/" title="Next: Java GC 笔记">
                 <i class="fa fa-angle-right"></i>
             </a>
         
