@@ -3,6 +3,60 @@
   
     
     <entry>
+      <title><![CDATA[MySQL主从数据库配置]]></title>
+      <url>/2018/05/02/MySQL%E4%B8%BB%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/</url>
+      <content type="html"><![CDATA[<h4 id="使用工具"><a href="#使用工具" class="headerlink" title="使用工具"></a>使用工具</h4><p>MySQL数据版本：5.6.36-log、<br>两台云服务器（Linux系统）</p>
+<p>首先，需要在Linux系统下安装<code>MySQL</code>,具体步骤可以<a href="http://www.cnblogs.com/yuanmiemie/p/6804218.html" target="_blank" rel="external">参考这里</a>，并且确保两台主机可以相互访问，可以直接ping一下。</p>
+<h4 id="配置Master"><a href="#配置Master" class="headerlink" title="配置Master"></a>配置Master</h4><ul>
+<li>在<code>Linux</code>环境下，<code>MySQL</code>的配置文件在<code>/ect/my.cnf</code>，直接打开并编辑该文件：<code>vim /etc/my.cnf</code></li>
+<li>在<code>[mysqld]</code>下输入配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">log-bin=mysql-bin</div><div class="line">server-id=2</div><div class="line">binlog-ignore-db=information_schema</div><div class="line">binlog-ignore-db=mysql</div><div class="line">binlog-do-db=rwtest</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里的<code>server-id</code>用于标识唯一的数据库，这里设置为2在设<strong>从库需要设置为其他值</strong>。</p>
+<p><code>binlog-ignore-db</code>：表示同步的时候ignore的数据库<br><code>binlog-do-db</code>：指定需要同步的数据库</p>
+<ul>
+<li>重启<code>MySQL</code>：<code>service mysqld restart</code></li>
+<li><p>登录<code>MySQL</code>并对访问用户进行授权：Slave机器需要<code>File</code>权限和<code>REPLICATION SLAVE</code>权限，当然也可以授予全部权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">grant file on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;your password&apos;;</div><div class="line"></div><div class="line">grant replication slave on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;your password&apos;;</div><div class="line"></div><div class="line">flush privileges;</div><div class="line">-------------------------------------------</div><div class="line">grant all privileges on *.* to &apos;root&apos;@&apos;%&apos; identified by &apos;your password&apos;;</div><div class="line"></div><div class="line">flush privileges;</div></pre></td></tr></table></figure>
+</li>
+<li><p>完成后，可以查看下<code>Master</code>的状态：<code>show master status</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show master status;</div><div class="line">+------------------+----------+--------------+----------------------------------+-------------------+</div><div class="line">| File             | Position | Binlog_Do_DB | Binlog_Ignore_DB                 | Executed_Gtid_Set |</div><div class="line">+------------------+----------+--------------+----------------------------------+-------------------+</div><div class="line">| mysql-bin.000001 |     2272 | rwtest       | information_schema,mysql |                   |</div><div class="line">+------------------+----------+--------------+----------------------------------+-------------------+</div><div class="line">1 row in set (0.03 sec)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里的<code>File</code>和<code>Position</code>在<code>Slave</code>中都要用到，<code>Binlog_Do_DB</code>指需要同步的数据库,<code>Binlog_Ignore_DB</code>指不需要同步的数据库，就是刚才配置的值。</p>
+<h4 id="配置Slave"><a href="#配置Slave" class="headerlink" title="配置Slave"></a>配置Slave</h4><ul>
+<li><p>同样在[mysqld]下对配置文件进行编写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">log-bin=mysql-bin</div><div class="line">server-id=3</div><div class="line">binlog-ignore-db=information_schema</div><div class="line">binlog-ignore-db=mysql</div><div class="line">replicate-do-db=rwtest</div><div class="line">replicate-ignore-db=mysql</div><div class="line">log-slave-updates</div><div class="line">slave-skip-errors=all</div><div class="line">slave-net-timeout=60</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置完毕后同样重启一下<code>MySQL</code>，并进入设置其对应的<code>Master</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mysql&gt; stop slave;  #关闭Slave</div><div class="line">mysql&gt; change master to master_host=&apos;Master主机IP&apos;,master_user=&apos;刚才授权的用户&apos;,master_password=&apos;your password&apos;,master_log_file=&apos;mysql-bin.000001&apos;, master_log_pos=2272;</div><div class="line"></div><div class="line">mysql&gt; start slave;  #开启Slave</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>master_log_file</code>和<code>master_log_pos</code>都是Master的状态值。<strong>必须对应</strong>。</p>
+<ul>
+<li>登录slave的数据库，查看slave的状态：<code>show slave status \G</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">Slave_IO_State: Waiting for master to send event</div><div class="line">                  Master_Host: 你的Master主机IP</div><div class="line">                  Master_User: root</div><div class="line">                  Master_Port: 3306</div><div class="line">                Connect_Retry: 60</div><div class="line">              Master_Log_File: mysql-bin.000001</div><div class="line">          Read_Master_Log_Pos: 2272</div><div class="line">               Relay_Log_File: izwz9fcvpu481xh55cegx0z-relay-bin.000002</div><div class="line">                Relay_Log_Pos: 1339</div><div class="line">        Relay_Master_Log_File: mysql-bin.000001</div><div class="line">             Slave_IO_Running: Yes</div><div class="line">            Slave_SQL_Running: Yes</div><div class="line">              Replicate_Do_DB: rwtest</div><div class="line">          Replicate_Ignore_DB: mysql</div><div class="line">           Replicate_Do_Table:</div><div class="line">       Replicate_Ignore_Table:</div><div class="line">      Replicate_Wild_Do_Table:</div><div class="line">  Replicate_Wild_Ignore_Table:</div><div class="line">                   Last_Errno: 0</div><div class="line">                   Last_Error:</div><div class="line">                 Skip_Counter: 0</div><div class="line">          Exec_Master_Log_Pos: 2272</div><div class="line">              Relay_Log_Space: 1530</div><div class="line">              Until_Condition: None</div><div class="line">               Until_Log_File:</div><div class="line">                Until_Log_Pos: 0</div><div class="line">           Master_SSL_Allowed: No</div><div class="line">           Master_SSL_CA_File:</div><div class="line">           Master_SSL_CA_Path:</div><div class="line">              Master_SSL_Cert:</div><div class="line">            Master_SSL_Cipher:</div><div class="line">               Master_SSL_Key:</div><div class="line">        Seconds_Behind_Master: 0</div><div class="line">Master_SSL_Verify_Server_Cert: No</div><div class="line">                Last_IO_Errno: 0</div><div class="line">                Last_IO_Error:</div><div class="line">               Last_SQL_Errno: 0</div><div class="line">               Last_SQL_Error:</div><div class="line">  Replicate_Ignore_Server_Ids:</div><div class="line">             Master_Server_Id: 2</div><div class="line">                  Master_UUID: de20814f-2fb8-11e7-8f61-5254002b91a1</div><div class="line">             Master_Info_File: /var/lib/mysql/master.info</div><div class="line">                    SQL_Delay: 0</div><div class="line">          SQL_Remaining_Delay: NULL</div><div class="line">      Slave_SQL_Running_State: Slave has read all relay log; waiting for the slave I/O thread to update it</div><div class="line">           Master_Retry_Count: 86400</div><div class="line">                  Master_Bind:</div><div class="line">      Last_IO_Error_Timestamp:</div><div class="line">     Last_SQL_Error_Timestamp:</div><div class="line">               Master_SSL_Crl:</div><div class="line">           Master_SSL_Crlpath:</div><div class="line">           Retrieved_Gtid_Set:</div><div class="line">            Executed_Gtid_Set:</div><div class="line">                Auto_Position: 0</div><div class="line">1 row in set (0.03 sec)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果状态中含有没有报Error，则表示配置成功了。</p>
+<p>接下来你通过可视化工具连接两个数据库，在主库中进行增删改操作，从库中也会有相应的操作，而在从库中进行此类操作对主库无效。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> MySQL </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 小技巧 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Dubbo 版 Helloworld]]></title>
       <url>/2018/04/21/Dubbo%20%E7%89%88%20Helloworld/</url>
       <content type="html"><![CDATA[<p>使用工具：MAVEN、IDEA、Spring、Dubbo、Zookeeper</p>
@@ -1001,9 +1055,9 @@
             
             <tag> 小技巧 </tag>
             
-            <tag> 随笔 </tag>
-            
             <tag> Mybatis </tag>
+            
+            <tag> 随笔 </tag>
             
         </tags>
         
@@ -1168,9 +1222,9 @@
         
         <tags>
             
-            <tag> 小小算法 </tag>
-            
             <tag> 随笔 </tag>
+            
+            <tag> 小小算法 </tag>
             
         </tags>
         
@@ -1206,9 +1260,9 @@
         
         <tags>
             
-            <tag> 小小算法 </tag>
-            
             <tag> 随笔 </tag>
+            
+            <tag> 小小算法 </tag>
             
         </tags>
         
